@@ -20,7 +20,7 @@ const TabNavigation = ({ date, activeTab }: TabNavigationProps) => {
 
   return (
     <motion.div 
-      className="w-full bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-1 mx-auto mb-6"
+      className="w-full bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-1 mx-auto mb-2"
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{

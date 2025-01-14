@@ -107,7 +107,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
     <div className="relative w-full px-1 max-w-1xl overflow-hidden"> 
       <motion.div 
         onClick={() => !isEditing && setIsExpanded(!isExpanded)}
-        className="cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-2xl p-2 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-white/40 mb-2"
+        className="cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-2xl p-2 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-white/40 mb-0"
         layout
       >
         <motion.div className="flex items-center justify-between" layout="position">
@@ -115,7 +115,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
             <input
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
-              className="w-full p-3 rounded-xl bg-white/80 backdrop-blur-xl border border-white/40 focus:outline-none text-base shadow-[0_4px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.08)] transition-all duration-300"
+              className="w-full p-3 rounded-xl bg-[#ffd7ec] backdrop-blur-xl border-2 border-[#ffd7ec]/60 focus:border-[#ffd7ec]/70 focus:outline-none text-base shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.12)] transition-all duration-300"
               onClick={(e) => e.stopPropagation()}
               placeholder="일정 제목을 입력하세요"
             />
@@ -153,29 +153,29 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
               layout
             >
               {isEditing ? (
-                <motion.div className="space-y-4" layout>
+                <motion.div className="space-y-12" layout>
                   <textarea
                     value={editedContent}
                     onChange={(e) => setEditedContent(e.target.value)}
-                    className="w-full p-3 rounded-xl bg-white/80 backdrop-blur-xl border border-white/40 focus:outline-none text-base shadow-[0_4px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.08)] transition-all duration-300"
+                    className="w-full p-3 rounded-xl bg-[#ffd7ec] backdrop-blur-xl border-2 border-[#ffd7ec]/60 focus:border-[#ffd7ec]/70 focus:outline-none text-base shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.12)] transition-all duration-300"
                     rows={4}
                     placeholder="일정 내용을 입력하세요"
                   />
                   <div className="flex justify-end gap-2">
                     <motion.button
+                      onClick={handleSave}
+                      className="px-3 py-1.5 rounded-xl bg-violet-100 hover:bg-violet-200 transition-all duration-200 text-violet-700 text-sm border border-violet-200"
+                    >
+                      저장
+                    </motion.button>
+                    <motion.button
                       onClick={() => {
                         setIsEditing(false)
                         setIsExpanded(false)
                       }}
-                      className="p-2 rounded-xl hover:bg-gray-50/80 transition-all duration-200 text-gray-500"
+                      className="px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-200 text-gray-700 text-sm border border-gray-200"
                     >
-                      <X className="h-5 w-5" />
-                    </motion.button>
-                    <motion.button
-                      onClick={handleSave}
-                      className="p-2 rounded-xl hover:bg-violet-50/80 transition-all duration-200 text-violet-500"
-                    >
-                      <Save className="h-5 w-5" />
+                      취소
                     </motion.button>
                   </div>
                 </motion.div>

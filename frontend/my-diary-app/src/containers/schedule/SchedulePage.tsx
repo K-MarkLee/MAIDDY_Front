@@ -33,7 +33,7 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
 
   const scheduleContainerStyle = {
     padding: '2rem',
-    paddingTop: '4rem'
+    paddingTop: '0rem'
   };
 
   useEffect(() => {

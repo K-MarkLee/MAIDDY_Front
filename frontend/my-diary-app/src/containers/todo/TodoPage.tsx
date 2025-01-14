@@ -88,7 +88,7 @@ const TodoPage = ({ params }: TodoPageProps) => {
       </div>
 
       <div className="px-8 overflow-y-auto h-[calc(100%-200px)] pt-4 pb-24 relative z-10">
-        <div className="space-y-4">
+        <div className="space-y-4 transform -translate-y-8">
           <AnimatePresence>
             {todos.map((todo) => (
               <TodoCard

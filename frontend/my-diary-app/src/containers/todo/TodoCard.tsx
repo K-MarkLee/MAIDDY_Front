@@ -48,7 +48,7 @@ export default function TodoCard({ todo, onDelete, onToggle }: TodoProps) {
             onChange={() => onToggle(todo.id)}
             className="todo-checkbox"
           />
-          <span className={`ml-8 flex-1 ${todo.is_completed ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+          <span className={`ml-8 ${todo.is_completed ? 'line-through text-gray-400' : 'text-gray-900'}`}>
             {todo.content}
           </span>
         </div>

@@ -65,7 +65,7 @@ const DiaryPage = ({ params }: DiaryProps) => {
         <TabNavigation date={params.date} activeTab="diary" />
       </div>
 
-      <div className="px-8 overflow-y-auto h-[calc(100%-200px)] pt-4 pb-24 relative z-10">
+      <div className="px-8 overflow-y-auto h-[calc(100%-200px)] pt-0 pb-24 relative z-10">
         <div className="space-y-4">
           <motion.textarea
             initial={{ opacity: 0, y: 20 }}
@@ -78,7 +78,7 @@ const DiaryPage = ({ params }: DiaryProps) => {
             }
             className="w-full bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] focus:ring-1 focus:ring-[#8b7ff9] focus:border-[#8b7ff9]"
             placeholder="오늘의 일기를 기록해보세요..."
-            rows={10}
+            rows={15}
           />
 
           <motion.div
@@ -89,11 +89,11 @@ const DiaryPage = ({ params }: DiaryProps) => {
           >
             <Button
               onClick={() => router.push(`/ai_comment/${params.date}`)}
-              className="w-full bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:bg-violet-50/80 transition-all duration-300 group"
+              className="w-full bg-[#8b7ff9] backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 group flex items-center justify-center"
             >
-              <Crown className="h-5 w-5 mr-2 text-violet-500 group-hover:scale-110 transition-transform duration-300" />
-              <span className="text-gray-700 group-hover:text-violet-600 transition-colors duration-300">
-            MAIDDY'S comment
+              <Crown className="h-5 w-5 mr-2 text-white group-hover:scale-110 transition-transform duration-300" />
+              <span className="text-white">
+                MAIDDY'S comment
               </span>
             </Button>
           </motion.div>

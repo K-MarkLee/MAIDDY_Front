@@ -100,7 +100,16 @@ export default function BottomNavigation() {
       <div className="max-w-screen-xl mx-auto w-full h-16 bg-white/80 backdrop-blur-xl flex justify-around items-center rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-3">
         {NAVIGATION_ITEMS.map((item, index) => {
           const basePath = item.path.split('/')[1] // 기본 경로 추출
-          const isActive = pathname.startsWith(`/${basePath}`)
+          
+          // 활성화 상태 로직 수정
+          let isActive = pathname.startsWith(`/${basePath}`)
+          
+          // schedule과 todo 경로일 경우 날짜도 체크
+          if (basePath === 'schedule' || basePath === 'todo') {
+            const pathDate = pathname.split('/')[2] // URL에서 날짜 부분 추출
+            const today = getCurrentDate()
+            isActive = pathname.startsWith(`/${basePath}`) && pathDate === today
+          }
           
           return (
             <motion.div 

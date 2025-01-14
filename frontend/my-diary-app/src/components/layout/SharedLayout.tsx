@@ -16,7 +16,7 @@ const SharedLayout = ({ children, contentClass = "w-[402px] h-[872px]" }: Shared
         </div>
   
         {/* Content Container */}
-        <div className="h-full pt-7 bg-white/20 relative">
+        <div className="h-full pt-10 bg-white/20 relative">
           {children}
           <BottomNavigation />
         </div>

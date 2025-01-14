@@ -26,7 +26,7 @@ export default function ScheduleCard({
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const formatTime = (time) => {
+  const formatTime = (time: string) => {
     try {
       const [hours, minutes] = time.split(':');
       return `${hours}:${minutes}`;
@@ -35,7 +35,7 @@ export default function ScheduleCard({
     }
   };
 
-  const handleDetailExpandChange = useCallback((expanded) => {
+  const handleDetailExpandChange = useCallback((expanded: boolean) => {
     setIsExpanded(expanded);
   }, []);
 
@@ -56,7 +56,7 @@ export default function ScheduleCard({
       <motion.div 
         className={`
           relative overflow-hidden
-          flex items-center justify-between p-16 
+          flex items-center justify-between p-16
           w-full
           bg-white/80 backdrop-blur-xl
           rounded-2xl
