@@ -14,6 +14,7 @@ import {
 } from './utils'
 import { API_URL } from './constants'
 import './styles.css'
+import Image from 'next/image'
 
 interface PinnedSchedule {
   id: number;
@@ -114,11 +115,41 @@ export default function Calendar() {
           damping: 20,
           stiffness: 100
         }}
-      >
-        <div className="calendar-header">
-          <h1 className="calendar-title">
-            MAIDDY CALENDAR
-          </h1>
+      > 
+        <div className="calendar-header space-y-0">
+          <div className="calendar-title flex justify-center items-center gap-2 mt-0 pt-0">
+            <motion.div
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                damping: 20,
+                stiffness: 100
+              }}
+              className="flex items-center"
+            >
+              <Image
+                src="/Images/maiddy.png"
+                alt="MAIDDY"
+                width={100}
+                height={100}
+                priority
+                className="object-contain"
+              />
+            </motion.div>
+            <motion.span
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                damping: 20,
+                stiffness: 100
+              }}
+              className="text-[#8b7ff9] font-bold text-2xl self-end mt-12"
+            >
+              's CALENDAR
+            </motion.span>
+          </div>
           <motion.div 
             className="bg-white/80 backdrop-blur-xl rounded-[32px] shadow-sm p-4 space-y-2"
             initial={{ y: -50, opacity: 0 }}
