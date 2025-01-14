@@ -10,6 +10,7 @@ import SharedLayout from '@/components/layout/SharedLayout'
 import { SignUpFormData } from './types'
 import { validatePasswords, handleSignUp } from './utils'
 import './styles.css'
+import { motion } from 'framer-motion'
 
 export default function SignUpForm() {
   const router = useRouter()
@@ -47,10 +48,39 @@ export default function SignUpForm() {
 
   return (
     <SharedLayout>
-      <div className="signup-container">
+      <motion.div 
+        className="signup-container"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          type: "spring",
+          damping: 20,
+          stiffness: 100
+        }}
+      >
         <div className="signup-content">
-          <div className="signup-header">
-            <div className="signup-logo">
+          <motion.div 
+            className="signup-header"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{
+              type: "spring",
+              damping: 20,
+              stiffness: 100,
+              delay: 0.2
+            }}
+          >
+            <motion.div 
+              className="signup-logo"
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                damping: 20,
+                stiffness: 100,
+                delay: 0.3
+              }}
+            >
               <Image
                 src="/images/logo.png"
                 alt="Signup Logo"
@@ -59,14 +89,25 @@ export default function SignUpForm() {
                 className="rounded-full object-cover"
                 priority
               />
-            </div>
+            </motion.div>
             <h1 className="signup-title">Create Account</h1>
-          </div>
+          </motion.div>
 
-          <form onSubmit={handleSubmit} className="signup-form">
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="signup-form"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              damping: 20,
+              stiffness: 100,
+              delay: 0.4
+            }}
+          >
             {error && <div className="signup-error">{error}</div>}
 
-            <div className="space-y-2">
+            <div className="space-y-6">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -88,7 +129,7 @@ export default function SignUpForm() {
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 required
-                className="signup-input"
+                className="signup-input focus:ring-0 focus:border-gray-200"
               />
             </div>
 
@@ -122,7 +163,7 @@ export default function SignUpForm() {
               Sign up
             </Button>
 
-            <div className="text-center mt-4">
+            <div className="text-center mt-2">
               <button 
                 type="button"
                 onClick={() => router.push('/login')}
@@ -131,9 +172,9 @@ export default function SignUpForm() {
                 Already have an account?
               </button>
             </div>
-          </form>
+          </motion.form>
         </div>
-      </div>
+      </motion.div>
     </SharedLayout>
   )
 }

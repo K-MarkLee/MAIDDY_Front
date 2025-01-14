@@ -1,9 +1,12 @@
 .signup-container {
     height: 100%;
+    margin-bottom: 2rem;
   }
   
   .signup-content {
     padding: 2rem;
+    padding-bottom: 4rem;
+    padding-left: 2rem;
   }
   
   .signup-header {
@@ -60,5 +63,28 @@
   
   .signup-link:hover {
     color: #7a6ff8;
+  }
+  
+  .space-y-6 {
+    margin-bottom: 0.25rem;
+  }
+  
+  .space-y-2 {
+    margin-bottom: 0.25rem;
+  }
+  
+  .space-y-6 label,
+  .space-y-2 label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .space-y-6,
+  .space-y-2 {
+    margin-bottom: 0.55rem;
+  }
+  
+  .text-center {
+    margin-top: 0.25rem;
   }
   

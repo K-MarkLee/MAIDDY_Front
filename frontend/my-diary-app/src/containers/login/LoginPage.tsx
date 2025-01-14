@@ -10,6 +10,7 @@ import SharedLayout from '@/components/layout/SharedLayout'
 import { LoginFormData } from './types'
 import { handleLogin, setAuthToken } from './utils'
 import './styles.css'
+import { motion } from 'framer-motion'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -35,10 +36,39 @@ export default function LoginForm() {
 
   return (
     <SharedLayout>
-      <div className="login-container">
+      <motion.div 
+        className="login-container"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          type: "spring",
+          damping: 20,
+          stiffness: 100
+        }}
+      >
         <div className="login-content">
-          <div className="login-header">
-            <div className="login-logo">
+          <motion.div 
+            className="login-header"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{
+              type: "spring",
+              damping: 20,
+              stiffness: 100,
+              delay: 0.2
+            }}
+          >
+            <motion.div 
+              className="login-logo"
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                damping: 20,
+                stiffness: 100,
+                delay: 0.3
+              }}
+            >
               <Image
                 src="/images/logo.png"
                 alt="Login Logo"
@@ -47,11 +77,22 @@ export default function LoginForm() {
                 className="rounded-full object-cover"
                 priority
               />
-            </div>
+            </motion.div>
             <h1 className="login-title">Welcome</h1>
-          </div>
+          </motion.div>
 
-          <form onSubmit={handleSubmit} className="login-form">
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="login-form"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              damping: 20,
+              stiffness: 100,
+              delay: 0.4
+            }}
+          >
             {error && <div className="login-error">{error}</div>}
 
             <div className="space-y-2">
@@ -84,7 +125,7 @@ export default function LoginForm() {
               Log in
             </Button>
 
-            <div className="text-center mt-4">
+            <div className="text-center mt-2">
               <button 
                 type="button"
                 onClick={() => router.push('/signup')}
@@ -92,7 +133,7 @@ export default function LoginForm() {
               >
                 Create an account
               </button>
-              <div className="mt-2">
+              <div className="mt-3">
                 <button 
                   type="button"
                   className="login-link"
@@ -101,9 +142,9 @@ export default function LoginForm() {
                 </button>
               </div>
             </div>
-          </form>
+          </motion.form>
         </div>
-      </div>
+      </motion.div>
     </SharedLayout>
   )
 }
