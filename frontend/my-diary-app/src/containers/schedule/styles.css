@@ -1,0 +1,81 @@
+.schedule-container {
+    padding: 0rem;
+    padding-top: 0rem;
+  }
+  
+  .schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .schedule-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f472b6;
+  }
+  
+  .schedule-back-button {
+    background-color: #8b7ff9;
+    color: white;
+    border-radius: 0.75rem;
+  }
+  
+  .schedule-back-button:hover {
+    background-color: #7a6ff8;
+  }
+  
+  .schedule-list {
+    overflow-y: auto;
+    height: calc(100% - 200px);
+    padding: 100rem;
+  }
+
+  .schedule-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0rem 0rem;  /* 이 부분이 카드의 크기를 조절합니다 */
+    margin-bottom: 1rem;
+}
+  
+  .schedule-time {
+    width: 4rem;
+    text-align: right;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #111827;
+  }
+  
+  .schedule-content {
+    flex: 1;
+    padding: 0rem;
+    border-radius: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.2s;
+  }
+  
+  .schedule-content:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .schedule-content.pinned {
+    border: 2px solid #fbbf24;
+  }
+  
+  .schedule-add-button {
+    position: fixed;
+    bottom: 6rem;
+    right: 1.5rem;
+    background-color: #8b7ff9;
+    color: white;
+    padding: 4rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  

@@ -1,0 +1,30 @@
+.page-header {
+    padding: 2rem;
+    padding-top: 4rem;
+  }
+  
+  .page-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .page-back-button {
+    background-color: #8b7ff9;
+    color: white;
+    border-radius: 0.75rem;
+    position: absolute;
+    left: 0;
+  }
+  
+  .page-back-button:hover {
+    background-color: #7a6ff8;
+  }
+  
+  .page-title-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
