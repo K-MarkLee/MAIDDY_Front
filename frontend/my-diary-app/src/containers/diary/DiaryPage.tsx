@@ -1,31 +1,28 @@
+// src/containers/diary/DiaryPage.tsx
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Crown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SharedLayout from '@/components/layout/SharedLayout'
 import TabNavigation from '@/components/TabNavigation'
-import { DiaryData, DiaryProps } from './types'
+import { DiaryData } from './types'
 import { fetchDiaryContent, saveDiary } from './utils'
 import './styles.css'
 import PageTitle from '@/components/common/PageTitle'
 
-const DiaryPage = ({ params }: DiaryProps) => {
+const DiaryPage = ({ date }: { date: string }) => {
   const router = useRouter()
   const [diaryData, setDiaryData] = useState({
     content: '',
-    select_date: params.date
+    select_date: date
   })
 
-  useEffect(() => {
-    loadDiaryContent()
-  }, [params.date])
-
-  const loadDiaryContent = async () => {
+  const loadDiaryContent = useCallback(async () => {
     try {
-      const data = await fetchDiaryContent(params.date)
+      const data = await fetchDiaryContent(date)
       setDiaryData(data)
     } catch (error) {
       console.error('다이어리 로딩 실패:', error)
@@ -33,7 +30,11 @@ const DiaryPage = ({ params }: DiaryProps) => {
         window.location.href = '/login'
       }
     }
-  }
+  }, [date])
+
+  useEffect(() => {
+    loadDiaryContent()
+  }, [loadDiaryContent])
 
   const handleSave = async () => {
     try {
@@ -52,7 +53,7 @@ const DiaryPage = ({ params }: DiaryProps) => {
     <SharedLayout>
       <div className="p-8 pt-16 pb-0">
         <PageTitle 
-          date={params.date}
+          date={date}
           rightElement={
             <Button
               onClick={handleSave}
@@ -62,7 +63,7 @@ const DiaryPage = ({ params }: DiaryProps) => {
             </Button>
           }
         />
-        <TabNavigation date={params.date} activeTab="diary" />
+        <TabNavigation date={date} activeTab="diary" />
       </div>
 
       <div className="px-8 overflow-y-auto h-[calc(100%-200px)] pt-0 pb-24 relative z-10">
@@ -89,19 +90,21 @@ const DiaryPage = ({ params }: DiaryProps) => {
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <Button
-              onClick={() => router.push(`/ai_comment/${params.date}`)}
+              onClick={() => router.push(`/ai_comment/${date}`)}
               className="w-full bg-[#8b7ff9] backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 group flex items-center justify-center"
             >
               <Crown className="h-5 w-5 mr-2 text-white group-hover:scale-110 transition-transform duration-300" />
               <span className="text-white">
-                MAIDDY'S comment
+                MAIDDY&apos;S comment
               </span>
             </Button>
           </motion.div>
         </div>
       </div>  
     </SharedLayout>
-  );
-};
+  )
+}
 
 export default DiaryPage;
+
+

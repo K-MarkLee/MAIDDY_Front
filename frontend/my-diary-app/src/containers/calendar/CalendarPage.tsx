@@ -117,14 +117,14 @@ export default function Calendar() {
     router.push(`/schedule/${selectedDateFormatted}`)
   }
 
-  const handleMaiddyComment = () => {
+  const handleMaiddy= () => {
     const today = new Date()
     const formattedDate = formatDate(
       today.getFullYear(),
       today.getMonth() + 1,
       today.getDate()
     )
-    router.push(`/`)
+    router.push(`/chatbot`)
   }
 
   return (
@@ -311,7 +311,7 @@ export default function Calendar() {
           className="w-full mt-2 px-8"
         >
           <Button
-            onClick={handleMaiddyComment}
+            onClick={handleMaiddy}
             className="w-full bg-[#8b7ff9] backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 group flex items-center justify-center"
           >
             <Crown className="h-5 w-5 mr-2 text-white group-hover:scale-110 transition-transform duration-300" />

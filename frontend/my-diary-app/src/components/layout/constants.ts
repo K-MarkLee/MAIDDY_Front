@@ -1,5 +1,6 @@
 import { Home, CalendarIcon, PenSquare, MessageCircle } from 'lucide-react'
 
+
 export const NAVIGATION_ITEMS: NavigationItem[] = [
   { icon: Home, path: '/login', label: 'Login' },
   { icon: CalendarIcon, path: '/calendar', label: 'Calendar' },
