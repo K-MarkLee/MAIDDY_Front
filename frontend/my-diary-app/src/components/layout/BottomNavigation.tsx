@@ -46,11 +46,11 @@ export default function BottomNavigation() {
       path: `/todo/${getCurrentDate()}`
     },
     {
-      label: 'AI Chat',
+      label: '오늘 일기',
       icon: MessageCircle,
-      path: '/chatbot'
+      path: `/diary/${getCurrentDate()}` 
     }
-  ], [currentDate]) // currentDate가 변경될 때마다 업데이트
+  ], [currentDate]) // currentDate가 변경될 때마다 업데이트 
 
   // 날짜 업데이트를 위한 useEffect
   useEffect(() => {
@@ -104,8 +104,8 @@ export default function BottomNavigation() {
           // 활성화 상태 로직 수정
           let isActive = pathname.startsWith(`/${basePath}`)
           
-          // schedule과 todo 경로일 경우 날짜도 체크
-          if (basePath === 'schedule' || basePath === 'todo') {
+          // schedule, todo, diary 경로일 경우 날짜도 체크
+          if (basePath === 'schedule' || basePath === 'todo' || basePath === 'diary') {
             const pathDate = pathname.split('/')[2] // URL에서 날짜 부분 추출
             const today = getCurrentDate()
             isActive = pathname.startsWith(`/${basePath}`) && pathDate === today

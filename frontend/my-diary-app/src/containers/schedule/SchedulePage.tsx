@@ -166,7 +166,8 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
                     placeholder="제목"
                     value={newSchedule.title}
                     onChange={(e) => setNewSchedule(prev => ({ ...prev, title: e.target.value }))}
-                    className="w-full p-3 bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 focus:ring-1 focus:ring-[#8b7ff9] focus:border-[#8b7ff9]"
+                    className="w-full p-3 bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 focus:ring-1 focus:ring-[#8b7ff9] focus:border-[#8b7ff9] text-[#5C5C5C]"
+                    style={{ color: '#5C5C5C' }}
                     required
                     autoFocus
                   />
@@ -175,11 +176,13 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
                     value={newSchedule.content}
                     onChange={(e) => setNewSchedule(prev => ({ ...prev, content: e.target.value }))}
                     className="w-full p-3 bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 focus:ring-1 focus:ring-[#8b7ff9] focus:border-[#8b7ff9]"
+                    style={{ color: '#5C5C5C' }}
                   />
                   <TimePicker
                     value={newSchedule.time}
                     onChange={(time) => setNewSchedule(prev => ({ ...prev, time }))}
                     required
+                    style={{ color: '#5C5C5C' }}
                   />
                   <div className="flex gap-2">
                     <Button
@@ -199,7 +202,7 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
                           select_date: params.date
                         })
                       }}
-                      className="flex-1 bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 hover:border-gray-300"
+                      className="flex-1 bg-gray-100 text-[#5C5C5C] hover:bg-gray-200 border border-gray-200 hover:border-gray-300"
                     >
                       취소
                     </Button>
@@ -213,18 +216,19 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.2 }}
-                className="space-y-4"
               >
-                {schedules.map((schedule, index) => (
-                  <ScheduleCard
-                    key={schedule.id}
-                    schedule={schedule}
-                    onDelete={handleDelete}
-                    onTogglePin={onTogglePin}
-                    onUpdate={handleUpdate}
-                    index={index}
-                  />
-                ))}
+                <AnimatePresence initial={false}>
+                  {schedules.map((schedule, index) => (
+                    <ScheduleCard
+                      key={schedule.id}
+                      schedule={schedule}
+                      onDelete={handleDelete}
+                      onTogglePin={onTogglePin}
+                      onUpdate={handleUpdate}
+                      index={index}
+                    />
+                  ))}
+                </AnimatePresence>
               </motion.div>
             )}
           </AnimatePresence>

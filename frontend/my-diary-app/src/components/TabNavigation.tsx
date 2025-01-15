@@ -39,7 +39,7 @@ const TabNavigation = ({ date, activeTab }: TabNavigationProps) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => router.push(`/${tab.id}/${date}`)}
-              className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl transition-all duration-300 ${
+              className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition-all duration-300 ${
                 isActive
                   ? 'bg-violet-100/80 text-violet-600'
                   : 'text-gray-400 hover:bg-violet-50/80 hover:text-violet-600'

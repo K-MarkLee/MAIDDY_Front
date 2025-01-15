@@ -116,6 +116,7 @@ const TodoPage = ({ params }: TodoPageProps) => {
                     onChange={(e) => setNewTodo(e.target.value)}
                     placeholder="새로운 할일을 입력하세요..."
                     className="w-full p-3 bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 focus:ring-1 focus:ring-[#8b7ff9] focus:border-[#8b7ff9]"
+                    style={{ color: '#5C5C5C' }}
                     autoFocus
                   />
                   <div className="flex gap-2">

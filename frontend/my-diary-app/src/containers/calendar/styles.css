@@ -1,6 +1,6 @@
 .calendar-header {
     padding: 0 2rem;
-    margin-top: 0;
+    margin-top: 0
   }
   
   .calendar-title {
@@ -8,19 +8,12 @@
     font-weight: 700;
     color: #8b7ff9;
     text-align: center;
-    margin-bottom: 0.5rem;
-    padding-top: 0;
-    margin-top: 0;
+    margin-bottom: 0rem;
+    padding-top: 6rem; /* 상단 패딩 추가 */
+    padding-bottom: 0rem; 
   }
   
-  .calendar-container {
-    padding: 0.75rem 1rem;
-    background-color: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    margin: 4rem 2rem 1rem 2rem; /* 상단 마진만 4rem으로 증가 */
-  }
-  
+
   .calendar-nav {
     display: flex;
     justify-content: space-between;
@@ -86,7 +79,7 @@
   .calendar-day-current-month:hover {
     background-color: rgba(165, 180, 252, 0.2);
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(195, 62, 62, 0.1);
   }
   
   .calendar-day-selected {
@@ -104,3 +97,9 @@
     margin: 6rem 2rem 1rem 2rem; /* 상단 마진을 6rem으로 증가 */
     transform: translateY(2rem); /* Y축으로 2rem 추가 이동 */
   }
+
+  
+  
+
+
+  

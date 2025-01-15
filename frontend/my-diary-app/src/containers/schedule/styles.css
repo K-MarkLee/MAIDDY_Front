@@ -36,8 +36,8 @@
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    padding: 0rem 0rem;  /* 이 부분이 카드의 크기를 조절합니다 */
-    margin-bottom: 1rem;
+    padding: 0rem 0rem;
+    margin-bottom: 2rem;
 }
   
   .schedule-time {
@@ -79,3 +79,26 @@
   }
 
   
+  input, textarea {
+    color: #5C5C5C !important;
+  }
+
+  .schedule-detail-content {
+    margin-top: 2rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .schedule-detail-expanded {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .schedule-detail-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .schedule-detail-textarea {
+    margin-top: 1.5rem;
+  }

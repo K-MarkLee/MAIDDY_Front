@@ -4,16 +4,6 @@ import { motion } from 'framer-motion';
 import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-interface TodoProps {
-  todo: {
-    id: number;
-    content: string;
-    is_completed: boolean;
-  };
-  onDelete: (id: number) => void;
-  onToggle: (id: number) => void;
-}
-
 export default function TodoCard({ todo, onDelete, onToggle }: TodoProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,7 +17,7 @@ export default function TodoCard({ todo, onDelete, onToggle }: TodoProps) {
       onHoverEnd={() => setIsHovered(false)}
       className="mb-4"
     >
-      <motion.div 
+      <motion.div
         className={`
           relative overflow-hidden
           flex items-center justify-between p-4
@@ -41,26 +31,30 @@ export default function TodoCard({ todo, onDelete, onToggle }: TodoProps) {
           ${isHovered ? 'scale-[1.02]' : ''}
         `}
       >
-        <div className="flex items-center flex-1">
+        <div className="flex items-center flex-1 gap-3">
           <input
             type="checkbox"
             checked={todo.is_completed}
             onChange={() => onToggle(todo.id)}
             className="todo-checkbox"
           />
-          <span className={`ml-8 ${todo.is_completed ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+          <span 
+            className={`${todo.is_completed ? 'line-through' : ''}`}
+            style={{
+              color: todo.is_completed ? '#9CA3AF' : '#5C5C5C'
+            }}
+          >
             {todo.content}
           </span>
         </div>
 
-        <motion.button
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : 20 }}
+        {/* 삭제 버튼 */}
+        <button
           onClick={() => onDelete(todo.id)}
-          className="p-1 rounded-xl bg-white/80 backdrop-blur-xl border border-white/40 hover:bg-violet-50/80 transition-colors duration-200"
+          className="ml-4 p-2 rounded-xl hover:bg-violet-50/80 transition-colors duration-200"
         >
           <Trash2 className="h-5 w-5 text-gray-400 hover:text-red-500 transition-colors duration-200" />
-        </motion.button>
+        </button>
       </motion.div>
     </motion.div>
   );

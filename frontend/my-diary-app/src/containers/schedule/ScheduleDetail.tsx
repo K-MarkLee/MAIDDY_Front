@@ -104,13 +104,20 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
   }
 
   return (
-    <div className="relative w-full px-1 max-w-1xl overflow-hidden"> 
+    <div className={`relative w-full px-1 ${isExpanded ? 'max-w-full' : 'max-w-2xl'} overflow-hidden`}> 
       <motion.div 
         onClick={() => !isEditing && setIsExpanded(!isExpanded)}
-        className="cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-2xl p-2 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-white/40 mb-0"
+        className={`
+          cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-2xl p-4 
+          shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-white/40 mb-0
+          ${isExpanded ? 'min-h-[200px]' : ''}
+        `}
         layout
       >
-        <motion.div className="flex items-center justify-between" layout="position">
+        <motion.div 
+          className="flex items-center justify-between mb-4"
+          layout="position"
+        >
           {isEditing ? (
             <input
               value={editedTitle}
@@ -118,10 +125,19 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
               className="w-full p-3 rounded-xl bg-[#ffd7ec] backdrop-blur-xl border-2 border-[#ffd7ec]/60 focus:border-[#ffd7ec]/70 focus:outline-none text-base shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.12)] transition-all duration-300"
               onClick={(e) => e.stopPropagation()}
               placeholder="일정 제목을 입력하세요"
+              style={{ color: '#5C5C5C' }}
             />
           ) : (
             <div className="flex items-center justify-between w-full">
-              <motion.h3 layout="position" className="text-gray-900 text-base p-1 truncate">
+              <motion.h3 
+                layout="position" 
+                className="text-base p-1 truncate"
+                style={{
+                  transform: 'none',
+                  transformOrigin: '50% 50% 0px',
+                  color: '#5C5C5C'
+                }}
+              >
                 {schedule.title}
               </motion.h3>
               {isExpanded && (
@@ -148,20 +164,21 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
               initial="collapsed"
               animate="expanded"
               exit="collapsed"
-              className="mt-4"
+              className="mt-4 border-t border-gray-100 pt-4"
               onClick={(e) => e.stopPropagation()}
               layout
             >
               {isEditing ? (
-                <motion.div className="space-y-12" layout>
+                <motion.div className="space-y-6" layout>
                   <textarea
                     value={editedContent}
                     onChange={(e) => setEditedContent(e.target.value)}
                     className="w-full p-3 rounded-xl bg-[#ffd7ec] backdrop-blur-xl border-2 border-[#ffd7ec]/60 focus:border-[#ffd7ec]/70 focus:outline-none text-base shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.12)] transition-all duration-300"
                     rows={4}
                     placeholder="일정 내용을 입력하세요"
+                    style={{ color: '#5C5C5C' }}
                   />
-                  <div className="flex justify-end gap-2">
+                  <div className="flex justify-end gap-2 pt-4">
                     <motion.button
                       onClick={handleSave}
                       className="px-3 py-1.5 rounded-xl bg-violet-100 hover:bg-violet-200 transition-all duration-200 text-violet-700 text-sm border border-violet-200"
@@ -173,7 +190,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
                         setIsEditing(false)
                         setIsExpanded(false)
                       }}
-                      className="px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-200 text-gray-700 text-sm border border-gray-200"
+                      className="px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-200 text-[#5C5C5C] text-sm border border-gray-200"
                     >
                       취소
                     </motion.button>
@@ -181,7 +198,12 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
                 </motion.div>
               ) : (
                 <motion.p 
-                  className="text-base text-gray-500 p-1"
+                  className="text-base p-3"
+                  style={{ 
+                    transform: 'none',
+                    transformOrigin: '50% 50% 0px',
+                    color: '#5C5C5C'
+                  }}
                   layout
                 >
                   {detailData?.content || schedule.content || '내용이 없습니다.'}

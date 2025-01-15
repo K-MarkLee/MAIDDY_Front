@@ -77,6 +77,7 @@ const DiaryPage = ({ params }: DiaryProps) => {
               setDiaryData(prev => ({ ...prev, content: e.target.value }))
             }
             className="w-full bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] focus:ring-1 focus:ring-[#8b7ff9] focus:border-[#8b7ff9]"
+            style={{ color: '#5C5C5C' }}
             placeholder="오늘의 일기를 기록해보세요..."
             rows={15}
           />
