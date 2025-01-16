@@ -23,10 +23,11 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-
+  
     try {
       const data = await handleLogin(formData)
       setAuthToken(data.access)
+      // refresh 토큰은 handleLogin 내부에서 자동으로 저장됩니다
       window.location.href = '/calendar'
     } catch (error) {
       console.error('로그인 실패:', error)

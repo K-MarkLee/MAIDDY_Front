@@ -13,7 +13,7 @@ interface PageTitleProps {
 export default function PageTitle({ date, rightElement }: PageTitleProps) {
   const router = useRouter()
   const [isFirstVisit, setIsFirstVisit] = useState(true)
-
+  
   useEffect(() => {
     if (isFirstVisit) {
       const timer = setTimeout(() => {
@@ -22,10 +22,10 @@ export default function PageTitle({ date, rightElement }: PageTitleProps) {
       return () => clearTimeout(timer)
     }
   }, [])
-
+  
   return (
-    <motion.div 
-      className="relative flex items-center justify-between w-full mb-8"
+    <motion.div
+      className="grid grid-cols-[auto_1fr_auto] gap-4 items-center w-full mb-8 h-10"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
@@ -34,15 +34,20 @@ export default function PageTitle({ date, rightElement }: PageTitleProps) {
         stiffness: 100
       }}
     >
-      <Button
-        variant="ghost"
-        onClick={() => router.push('/calendar')}
-        className="bg-[#8b7ff9] hover:bg-[#7a6ff8] text-white rounded-xl"
-      >
-        Back
-      </Button>
-      <motion.div 
-        className="flex-1 text-center"
+      {/* Back button */}
+      <div className="justify-self-start">
+        <Button
+          variant="ghost"
+          onClick={() => router.push('/calendar')}
+          className="bg-[#8b7ff9] hover:bg-[#7a6ff8] text-white rounded-xl"
+        >
+          Back
+        </Button>
+      </div>
+      
+      {/* Centered date */}
+      <motion.div
+        className="justify-self-center"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2 }}
@@ -51,11 +56,11 @@ export default function PageTitle({ date, rightElement }: PageTitleProps) {
           {date}
         </h1>
       </motion.div>
-      {rightElement ? (
-        <div className="w-[70px]">{rightElement}</div>
-      ) : (
-        <div className="w-[70px]" />
-      )}
+      
+      {/* Right element */}
+      <div className="justify-self-end">
+        {rightElement ? rightElement : <div className="w-[70px]" />}
+      </div>
     </motion.div>
   );
 }

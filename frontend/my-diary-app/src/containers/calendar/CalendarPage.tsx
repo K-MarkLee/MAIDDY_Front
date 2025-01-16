@@ -210,7 +210,7 @@ export default function Calendar() {
         </div>
 
         <motion.div 
-          className="calendar-container bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-4"
+          className="calendar-container bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-4 pt-1 pb-4"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 3, opacity: 1 }}
           transition={{
@@ -221,11 +221,11 @@ export default function Calendar() {
           }}
         >
           {/* 나머지 캘린더 내용은 동일 */}
-          <div className="calendar-nav flex items-center justify-between mb-4">
+          <div className="calendar-nav flex items-center justify-between">  {/* mb-1 제거 */}
             <Button
               variant="ghost"
               onClick={handlePrevMonth}
-              className="text-violet-600 hover:bg-violet-50/80"
+              className="text-violet-600 hover:bg-violet-50/80 rounded-xl"
             >
               <svg
                 className="w-5 h-5"
@@ -242,8 +242,6 @@ export default function Calendar() {
               </svg>
             </Button>
             <div className="calendar-month text-sm font-medium" style={{ color: '#5C5C5C' }}>
-
-              
               {currentDate.getFullYear()}년 {currentDate.toLocaleString('ko-KR', { month: 'long' })}
             </div>
             <Button

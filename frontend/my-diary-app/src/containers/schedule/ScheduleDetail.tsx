@@ -108,7 +108,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
       <motion.div 
         onClick={() => !isEditing && setIsExpanded(!isExpanded)}
         className={`
-          cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-2xl p-4 
+          cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-2xl p-2 
           shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-white/40 mb-0
           ${isExpanded ? 'min-h-[200px]' : ''}
         `}
@@ -131,7 +131,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
             <div className="flex items-center justify-between w-full">
               <motion.h3 
                 layout="position" 
-                className="text-base p-1 truncate"
+                className="text-base p-2 truncate"
                 style={{
                   transform: 'none',
                   transformOrigin: '50% 50% 0px',
@@ -164,7 +164,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
               initial="collapsed"
               animate="expanded"
               exit="collapsed"
-              className="mt-4 border-t border-gray-100 pt-4"
+              className="mt-2 border-t border-gray-100 pt-2"
               onClick={(e) => e.stopPropagation()}
               layout
             >
@@ -198,7 +198,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
                 </motion.div>
               ) : (
                 <motion.p 
-                  className="text-base p-3"
+                  className="text-base p-2"
                   style={{ 
                     transform: 'none',
                     transformOrigin: '50% 50% 0px',

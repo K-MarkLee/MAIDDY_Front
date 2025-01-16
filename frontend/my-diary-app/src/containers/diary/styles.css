@@ -19,7 +19,7 @@
   .diary-button {
     background-color: #8b7ff9;
     color: white;
-    border-radius: 0.75rem;
+    border-radius: 0rem;
   }
   
   .diary-button:hover {

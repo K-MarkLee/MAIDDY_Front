@@ -57,7 +57,7 @@ const DiaryPage = ({ date }: { date: string }) => {
           rightElement={
             <Button
               onClick={handleSave}
-              className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8]"
+              className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl"
             >
               Save
             </Button>

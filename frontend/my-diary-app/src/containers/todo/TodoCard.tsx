@@ -15,12 +15,12 @@ export default function TodoCard({ todo, onDelete, onToggle }: TodoProps) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="mb-4"
+      className="mb-2"
     >
       <motion.div
         className={`
           relative overflow-hidden
-          flex items-center justify-between p-4
+          flex items-center justify-between p-3
           w-full
           bg-white/80 backdrop-blur-xl
           rounded-2xl
