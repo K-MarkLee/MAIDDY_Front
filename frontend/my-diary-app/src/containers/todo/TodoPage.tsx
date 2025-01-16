@@ -154,7 +154,7 @@ const TodoPage = ({ params }: TodoPageProps) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsAddingTodo(true)}
-          style={{ bottom: '110px', left: '270px' }}
+          style={{ bottom: '120px', left: '270px' }}
           className="fixed bg-[#8b7ff9] text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 border-2 border-white hover:border-[#7a6ff8] transition-colors"
         >
           <Plus className="h-6 w-6" />
