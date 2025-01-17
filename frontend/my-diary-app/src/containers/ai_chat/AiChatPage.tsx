@@ -114,7 +114,7 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
             priority
             className="object-contain -mb-4"
           />
-          <span className="text-[#8b7ff9] font-bold text-xl">
+          <span className="text-[#8b7ff9] font-bold text-2xl">
             's CHAT
           </span>
         </div>
