@@ -21,13 +21,13 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      content: "과거데이터 알아야하고 감성적인 멘트? >",
+      content: "가보자고!",
       sender: 'ai',
       timestamp: new Date()
     },
     {
       id: 2,
-      content: "나 시험공부에 집중이 안돼",
+      content: "안녕?",
       sender: 'user',
       timestamp: new Date()
     }
