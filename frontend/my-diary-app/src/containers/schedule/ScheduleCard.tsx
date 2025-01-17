@@ -61,7 +61,7 @@ export default function ScheduleCard({
          flex items-center justify-between p-9
          w-full
          bg-white/80 backdrop-blur-xl
-         rounded-2xl
+         rounded-xl
          border border-white/40
          transition-all duration-300 ease-in-out
          shadow-[0_4px_8px_rgba(0,0,0,0.04)]

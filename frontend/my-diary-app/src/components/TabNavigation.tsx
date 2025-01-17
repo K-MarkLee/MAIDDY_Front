@@ -20,7 +20,7 @@ const TabNavigation = ({ date, activeTab }: TabNavigationProps) => {
 
   return (
     <motion.div 
-      className="w-full bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-1 mx-auto mb-2"
+      className="w-full bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-1 mx-auto mb-2"
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
@@ -39,7 +39,7 @@ const TabNavigation = ({ date, activeTab }: TabNavigationProps) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => router.push(`/${tab.id}/${date}`)}
-              className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition-all duration-300 ${
+              className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl transition-all duration-300 ${
                 isActive
                   ? 'bg-violet-100/80 text-violet-600'
                   : 'text-gray-400 hover:bg-violet-50/80 hover:text-violet-600'

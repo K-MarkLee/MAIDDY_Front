@@ -108,7 +108,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
       <motion.div 
         onClick={() => !isEditing && setIsExpanded(!isExpanded)}
         className={`
-          cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-2xl p-2 
+          cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-xl p-2 
           shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-white/40 mb-0
           ${isExpanded ? 'min-h-[200px]' : ''}
         `}

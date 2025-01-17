@@ -159,7 +159,7 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className="w-full bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] mb-4"
+                className="w-full bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] mb-4"
               >
                 <form onSubmit={handleAdd} className="space-y-4">
                   <Input

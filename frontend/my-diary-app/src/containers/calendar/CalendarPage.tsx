@@ -176,7 +176,7 @@ export default function Calendar() {
 
 
           <motion.div
-            className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-4 space-y-2 mt-8"
+            className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-4 space-y-2 mt-8"
             initial={{ y: -150, opacity: 0 }}
             animate={{ y: -5, opacity: 1 }}
             transition={{
@@ -210,7 +210,7 @@ export default function Calendar() {
         </div>
 
         <motion.div
-          className="calendar-container bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-4 pt-1 pb-4"
+          className="calendar-container bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-4 pt-1 pb-4"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 3, opacity: 1 }}
           transition={{
@@ -309,7 +309,7 @@ export default function Calendar() {
         >
           <Button
             onClick={handleMaiddy}
-            className="w-full bg-[#8b7ff9] backdrop-blur-xl rounded-2xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 group flex items-center justify-center"
+            className="w-full bg-[#8b7ff9] backdrop-blur-xl rounded-xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 group flex items-center justify-center"
           >
             <Crown className="h-5 w-5 mr-2 text-white group-hover:scale-110 transition-transform duration-300" />
             <span className="text-white">
