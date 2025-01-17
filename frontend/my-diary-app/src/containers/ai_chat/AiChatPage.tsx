@@ -50,7 +50,12 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
   }, [])
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "end",
+      })
+    }
   }
 
   useEffect(() => {
@@ -146,8 +151,8 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} className="pt-3" />
           </div>
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Fixed Input Container */}
