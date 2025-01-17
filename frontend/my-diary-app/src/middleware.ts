@@ -2,13 +2,18 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { jwtDecode } from 'jwt-decode'
 
-// 인증이 필요하지 않은 public 경로들
-const PUBLIC_PATHS = ['/login', '/signup', '/api']
+const PUBLIC_PATHS = ['/login', '/signup']
+const EXCLUDED_PATHS = ['/api', '_next/static', '_next/image', 'favicon.ico']
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // public 경로들은 인증 체크하지 않고 통과
+  // 제외될 경로 체크
+  if (EXCLUDED_PATHS.some(path => pathname.startsWith(path))) {
+    return NextResponse.next()
+  }
+
+  // 공개 경로 체크
   if (PUBLIC_PATHS.some(path => pathname.startsWith(path))) {
     return NextResponse.next()
   }
@@ -18,24 +23,31 @@ export function middleware(request: NextRequest) {
 
   // 토큰이 없으면 로그인 페이지로
   if (!accessToken) {
-    const url = new URL('/login', request.url)
-    return NextResponse.redirect(url)
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
   try {
+    // JWT 토큰 검증
     const decoded = jwtDecode(accessToken)
+    
+    // 토큰 만료 체크 추가
+    const currentTime = Date.now() / 1000
+    if (decoded.exp && decoded.exp < currentTime) {
+      throw new Error('Token expired')
+    }
+
     return NextResponse.next()
   } catch (error) {
-    // 토큰이 유효하지 않으면 로그인 페이지로
-    const url = new URL('/login', request.url)
-    return NextResponse.redirect(url)
+    // 쿠키 삭제
+    const response = NextResponse.redirect(new URL('/login', request.url))
+    response.cookies.delete('accessToken')
+    return response
   }
 }
 
-// 미들웨어를 적용할 경로 설정
 export const config = {
   matcher: [
-    // 제외할 경로들
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    // 정적 파일과 API 경로를 제외한 모든 경로 매칭
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 }

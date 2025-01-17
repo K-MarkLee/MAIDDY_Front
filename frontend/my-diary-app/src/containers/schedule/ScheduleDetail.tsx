@@ -128,10 +128,10 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
               style={{ color: '#5C5C5C' }}
             />
           ) : (
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center w-full">
               <motion.h3 
                 layout="position" 
-                className="text-base p-2 truncate"
+                className="text-base p-2 truncate flex-1 mr-8"
                 style={{
                   transform: 'none',
                   transformOrigin: '50% 50% 0px',
@@ -148,7 +148,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
                     e.stopPropagation()
                     handleEditClick()
                   }}
-                  className="p-2 rounded-xl hover:bg-violet-50/80 transition-all duration-200"
+                  className="p-2 rounded-xl hover:bg-violet-50/80 transition-all duration-200 ml-auto"
                 >
                   <Edit2 className="h-5 w-5 text-gray-400" />
                 </motion.button>
