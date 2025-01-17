@@ -120,7 +120,7 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
         </div>
 
         {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto px-8 py-2 pb-24">
+        <div className="flex-1 overflow-y-auto px-4 py-2 pb-24">
           <div className="flex flex-col-reverse">
             {messages.map((message) => (
               <div
