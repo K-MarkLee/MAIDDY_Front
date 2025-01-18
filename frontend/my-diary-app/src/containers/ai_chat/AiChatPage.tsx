@@ -6,7 +6,6 @@ import SharedLayout from '@/components/layout/SharedLayout'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Send } from 'lucide-react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 interface Message {
@@ -61,11 +60,19 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
-
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!newMessage.trim() || isLoading) return
-
+  
+    const accessToken = localStorage.getItem('accessToken')
+    if (!accessToken) {
+      console.error('액세스 토큰이 없습니다.')
+      return
+    }
+  
+    const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]))
+    const userId = tokenPayload.user_id
+  
     try {
       setIsLoading(true)
       const userMessage: Message = {
@@ -76,36 +83,48 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
       }
       setMessages(prev => [...prev, userMessage])
       setNewMessage('')
-
-      const response = await fetch('http://localhost:8000/chat', {
+  
+      const response = await fetch('http://localhost:8000/ai/chatbot/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          'Authorization': `Bearer ${accessToken}`
         },
-        body: JSON.stringify({ message: newMessage })
+        body: JSON.stringify({
+          user_id: userId,
+          query: newMessage
+        })
       })
-
-      if (!response.ok) {
-        throw new Error('AI 응답 실패')
+  
+      if (response.status === 403) {
+        throw new Error('인증에 실패했습니다. 다시 로그인해주세요.')
       }
-
+  
+      if (!response.ok) {
+        throw new Error(`AI 응답 실패: ${response.status}`)
+      }
+  
       const data = await response.json()
       
       const aiMessage: Message = {
         id: Date.now() + 1,
-        content: data.message,
+        content: data.response,
         sender: 'ai',
         timestamp: new Date()
       }
       setMessages(prev => [...prev, aiMessage])
     } catch (error) {
       console.error('메시지 전송 실패:', error)
+      setMessages(prev => [...prev, {
+        id: Date.now(),
+        content: '메시지 전송에 실패했습니다. 다시 시도해주세요.',
+        sender: 'ai',
+        timestamp: new Date()
+      }])
     } finally {
       setIsLoading(false)
     }
   }
-
   return (
     <SharedLayout>
       <div className="flex flex-col h-full relative">
@@ -125,8 +144,8 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
         </div>
 
         {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto px-4 py-2 pb-24">
-          <div className="flex flex-col-reverse">
+        <div className="flex-1 overflow-y-auto px-4 py-2">
+          <div className="flex flex-col">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -155,8 +174,8 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
           </div>
         </div>
 
-        {/* Fixed Input Container */}
-        <div className="fixed bottom-[82px] left-0 right-0 px-8 pb-4">
+        {/* Input Container - 위치 변경 */}
+        <div className="px-8 pb-10">
           <form onSubmit={sendMessage}>
             <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex items-center p-2">
               <Input

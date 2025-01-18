@@ -94,6 +94,17 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   margin: 6rem 2rem 1rem 2rem; /* 상단 마진을 6rem으로 증가 */
   transform: translateY(2rem); /* Y축으로 2rem 추가 이동 */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.calendar-day[data-highlighted="true"] {
+  background-color: rgba(139, 127, 249, 0.1);
+  color: #8b7ff9;
+}
+
+.calendar-day:hover {
+  background-color: rgba(139, 127, 249, 0.05);
 }
 
 

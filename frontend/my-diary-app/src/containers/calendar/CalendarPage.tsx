@@ -288,7 +288,7 @@ export default function Calendar() {
                   }
               `}
                 style={date.isCurrentMonth ? { color: '#5C5C5C' } : {}}
-                data-highlighted={[1, 8, 15, 16].includes(date.day)}
+                data-highlighted={[].includes(date.day)}
               >
                 {date.day}
               </motion.div>
