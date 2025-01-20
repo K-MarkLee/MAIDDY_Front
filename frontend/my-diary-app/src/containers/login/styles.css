@@ -62,3 +62,14 @@
     color: #7a6ff8;
   }
   
+  .login-title,
+  .login-form label,
+  .login-input,
+  .login-link {
+    color: #7a6ff8;
+  }
+
+  .login-button {
+    color: white;
+  }
+  

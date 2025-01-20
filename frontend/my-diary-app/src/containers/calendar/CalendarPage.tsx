@@ -126,21 +126,20 @@ export default function Calendar() {
     )
     router.push(`/chatbot`)
   }
-
   return (
     <SharedLayout>
       <motion.div
         className="w-full space-y-2"
-        initial={{ y: -200, opacity: 0 }}
-        animate={{ y: -100, opacity: 1 }}
+        initial={{ y: 0, opacity: 0 }}
+        animate={{ y: -90, opacity: 1 }}
         transition={{
           type: "spring",
           damping: 20,
           stiffness: 100
         }}
       >
-        <div className="calendar-header space-y-2 mt-16">
-          <div className="calendar-title flex justify-center items-center gap-2 mb-1 pt-8">
+        <div className="calendar-header space-y-1 mt-8">
+          <div className="calendar-title flex justify-center items-center gap-2 mb-1 pt-2">
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -173,8 +172,7 @@ export default function Calendar() {
               's CALENDAR
             </motion.span>
           </div>
-
-
+  
           <motion.div
             className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-4 space-y-2 mt-8"
             initial={{ y: -150, opacity: 0 }}
@@ -208,7 +206,7 @@ export default function Calendar() {
             )}
           </motion.div>
         </div>
-
+  
         <motion.div
           className="calendar-container bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-4 pt-1 pb-4"
           initial={{ y: -50, opacity: 0 }}
@@ -224,7 +222,7 @@ export default function Calendar() {
             <Button
               variant="ghost"
               onClick={handlePrevMonth}
-              className="tstyle={{ color: '#5C5C5C' } hover:bg-violet-50/80 rounded-xl"
+              className="hover:bg-violet-50/80 rounded-xl"
             >
               <svg
                 className="w-5 h-5"
@@ -246,7 +244,7 @@ export default function Calendar() {
             <Button
               variant="ghost"
               onClick={handleNextMonth}
-              className="style={{ color: '#5C5C5C' } hover:bg-violet-50/80"
+              className="hover:bg-violet-50/80"
             >
               <svg
                 className="w-5 h-5"
@@ -263,7 +261,7 @@ export default function Calendar() {
               </svg>
             </Button>
           </div>
-
+  
           <div className="calendar-grid grid grid-cols-7 gap-1">
             {DAY_NAMES.map((day) => (
               <div key={day} className="calendar-day-name text-xs font-medium text-gray-400 text-center py-2">
@@ -295,7 +293,7 @@ export default function Calendar() {
             ))}
           </div>
         </motion.div>
-
+  
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 10, opacity: 1 }}
@@ -319,5 +317,5 @@ export default function Calendar() {
         </motion.div>
       </motion.div>
     </SharedLayout>
-  )
+  ) 
 }

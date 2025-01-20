@@ -88,3 +88,19 @@
     margin-top: 0.25rem;
   }
   
+  .signup-title,
+  .signup-form label,
+  .signup-input,
+  .signup-button,
+  .signup-link {
+    color: #7a6ff8;
+  }
+  
+  .signup-button {
+    color: white;
+  }
+  
+  .signup-link {
+    color: #7a6ff8;
+  }
+  

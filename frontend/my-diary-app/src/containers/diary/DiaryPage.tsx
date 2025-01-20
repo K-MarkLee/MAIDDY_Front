@@ -1,11 +1,10 @@
-// src/containers/diary/DiaryPage.tsx
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Crown } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import SharedLayout from '@/components/layout/SharedLayout'
 import TabNavigation from '@/components/TabNavigation'
 import { DiaryData } from './types'
@@ -15,10 +14,11 @@ import PageTitle from '@/components/common/PageTitle'
 
 const DiaryPage = ({ date }: { date: string }) => {
   const router = useRouter()
-  const [diaryData, setDiaryData] = useState({
+  const [diaryData, setDiaryData] = useState<DiaryData>({
     content: '',
     select_date: date
   })
+  const [isSaving, setIsSaving] = useState(false)
 
   const loadDiaryContent = useCallback(async () => {
     try {
@@ -37,8 +37,13 @@ const DiaryPage = ({ date }: { date: string }) => {
   }, [loadDiaryContent])
 
   const handleSave = async () => {
+    if (isSaving) return; // Prevent double clicks
+    
     try {
+      setIsSaving(true)
+      console.log('Saving diary:', diaryData) // Debug log
       await saveDiary(diaryData)
+      alert('저장되었습니다.')
     } catch (error) {
       console.error('저장 실패:', error)
       if (error instanceof Error) {
@@ -46,20 +51,27 @@ const DiaryPage = ({ date }: { date: string }) => {
       } else {
         alert('저장에 실패했습니다.')
       }
+    } finally {
+      setIsSaving(false)
     }
+  }
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDiaryData(prev => ({ ...prev, content: e.target.value }))
   }
 
   return (
     <SharedLayout>
       <div className="p-8 pt-16 pb-0">
-        <PageTitle 
+        <PageTitle
           date={date}
           rightElement={
             <Button
               onClick={handleSave}
-              className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl"
+              disabled={isSaving}
+              className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl disabled:opacity-50"
             >
-              Save
+              {isSaving ? 'Saving...' : 'Save'}
             </Button>
           }
         />
@@ -74,9 +86,7 @@ const DiaryPage = ({ date }: { date: string }) => {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             value={diaryData.content}
-            onChange={(e) => 
-              setDiaryData(prev => ({ ...prev, content: e.target.value }))
-            }
+            onChange={handleContentChange}
             className="w-full bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] focus:ring-1 focus:ring-[#8b7ff9] focus:border-[#8b7ff9]"
             style={{ color: '#5C5C5C' }}
             placeholder="오늘의 일기를 기록해보세요..."
@@ -100,11 +110,9 @@ const DiaryPage = ({ date }: { date: string }) => {
             </Button>
           </motion.div>
         </div>
-      </div>  
+      </div>
     </SharedLayout>
   )
 }
 
-export default DiaryPage;
-
-
+export default DiaryPage
