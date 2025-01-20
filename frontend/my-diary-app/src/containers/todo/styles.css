@@ -52,6 +52,7 @@
     border: 2px solid #8b7ff9;
     color: #8b7ff9;
     margin-right: 1rem;
+    accent-color: #8b7ff9;
   }
   
   .todo-checkbox:focus {
@@ -59,7 +60,7 @@
   }
   
   .todo-content {
-    color: #1f2937;
+    color: #8b7ff9;
   }
   
   .todo-content-completed {
