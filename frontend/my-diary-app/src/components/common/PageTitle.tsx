@@ -52,7 +52,7 @@ export default function PageTitle({ date, rightElement }: PageTitleProps) {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <h1 className="text-xl font-semibold text-pink-400">
+        <h1 className="text-xl font-semibold text-[#FF77C2]">
           {date}
         </h1>
       </motion.div>
