@@ -43,12 +43,12 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
   return (
     <SharedLayout>
       <div className="ai-comment-header">
-        <div className="flex items-center mb-6">
-          <div className="w-[70px]">
+        <div className="flex items-center mb-6 relative">
+          <div className="w-[70px] relative z-50">
             <Button 
               variant="ghost"
               onClick={() => router.back()}
-              className="ai-comment-button"
+              className="ai-comment-button pointer-events-auto"
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
