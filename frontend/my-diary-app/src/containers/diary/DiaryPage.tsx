@@ -62,22 +62,24 @@ const DiaryPage = ({ date }: { date: string }) => {
 
   return (
     <SharedLayout>
-      <div className="p-8 pt-16 pb-0">
+      {/* Header 부분의 z-index를 높이고 pointer-events-auto 추가 */}
+      <div className="p-8 pt-16 pb-0 relative z-50 pointer-events-auto">
         <PageTitle
           date={date}
           rightElement={
             <Button
               onClick={handleSave}
               disabled={isSaving}
-              className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl disabled:opacity-50"
+              className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl disabled:opacity-50 pointer-events-auto"
             >
-              {isSaving ? 'Saving...' : 'Save'}
+              {isSaving ? 'Save' : 'Save'}
             </Button>
           }
         />
         <TabNavigation date={date} activeTab="diary" />
       </div>
-
+  
+      {/* Content 영역 */}
       <div className="px-8 overflow-y-auto h-[calc(100%-200px)] pt-0 pb-24 relative z-10">
         <div className="space-y-4">
           <motion.textarea
@@ -92,12 +94,13 @@ const DiaryPage = ({ date }: { date: string }) => {
             placeholder="오늘의 일기를 기록해보세요..."
             rows={15}
           />
-
+  
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
+            className="pointer-events-auto"
           >
             <Button
               onClick={() => router.push(`/ai_comment/${date}`)}
