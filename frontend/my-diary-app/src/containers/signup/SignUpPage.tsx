@@ -82,7 +82,7 @@ export default function SignUpForm() {
               }}
             >
               <Image
-                src="public/images/logo.png"
+                src="/images/logo.png"
                 alt="Signup Logo"
                 width={160}
                 height={160}
