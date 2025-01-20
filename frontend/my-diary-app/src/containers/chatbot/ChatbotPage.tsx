@@ -8,6 +8,7 @@ import SharedLayout from '@/components/layout/SharedLayout'
 import { fetchInitialMessage } from './utils'
 import { ChatMessage } from './types'
 import './styles.css'
+import { ArrowLeft } from 'lucide-react'
 
 export default function ChatbotPage() {
   const router = useRouter()
@@ -40,7 +41,7 @@ export default function ChatbotPage() {
             onClick={() => router.back()}
             className="chatbot-button"
           >
-            Back
+            <ArrowLeft className="h-5 w-5" />
           </Button>
           <h1 className="chatbot-title">MAIDDY</h1>
           <div className="w-[100px]" />

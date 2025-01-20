@@ -54,7 +54,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
           <h1 className="ai-comment-title">
             MAIDDY'S Comment
           </h1>
-          <div className="w-[64px]" />
+          <div className="w-[100px]" />
         </div>
       </div>
     <div className="px-2">
