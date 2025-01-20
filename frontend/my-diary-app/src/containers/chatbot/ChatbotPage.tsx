@@ -60,7 +60,7 @@ export default function ChatbotPage() {
       <div className="chatbot-image">
         <div className="w-32 h-32 relative">
           <Image
-            src="/images/logo.png"
+            src="public/images/logo.png"
             alt="Maiddy character"
             width={128}
             height={128}
