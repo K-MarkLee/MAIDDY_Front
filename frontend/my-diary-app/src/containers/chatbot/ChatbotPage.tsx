@@ -36,15 +36,24 @@ export default function ChatbotPage() {
       <div className="chatbot-container">
         
         <div className="chatbot-header">
-          <Button 
+          {/* <Button 
             variant="ghost"
             onClick={() => router.back()}
             className="chatbot-button"
           >
             <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <h1 className="chatbot-title">MAIDDY</h1>
-          <div className="w-[100px]" />
+          </Button> */}
+           <div className="h-8 relative -mt-1">
+              <Image
+                src="/Images/logo2.png"
+                alt="Maiddy Logo"
+                width={12000}
+                height={10}
+                className="object-contain"
+                priority
+              />
+            </div>         
+         <div className="w-[100px]" />
         </div>
       </div>
 

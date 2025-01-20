@@ -79,7 +79,15 @@ export default function LoginForm() {
                 priority
               />
             </motion.div>
-            <h1 className="login-title">Welcome</h1>
+            
+            <Image
+              src="/Images/logo1.png"
+              alt="Login Title"
+              width={10000}
+              height={1000}
+              priority
+              className="object-contain"
+            />
           </motion.div>
 
           <motion.form 

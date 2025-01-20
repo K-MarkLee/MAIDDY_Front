@@ -43,33 +43,37 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
   return (
     <SharedLayout>
       <div className="ai-comment-header">
-        <div className="flex items-center justify-between mb-6">
-          <Button 
-            variant="ghost"
-            onClick={() => router.back()}
-            className="ai-comment-button"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <h1 className="ai-comment-title">
-            MAIDDY'S Comment
-          </h1>
-          <div className="w-[100px]" />
+        <div className="flex items-center mb-6">
+          <div className="w-[70px]">
+            <Button 
+              variant="ghost"
+              onClick={() => router.back()}
+              className="ai-comment-button"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+          </div>
+          <div className="flex-grow flex justify-center">
+            <h1 className="ai-comment-title">
+              MAIDDY'S Comment
+            </h1>
+          </div>
+          <div className="w-[110px]" />
         </div>
       </div>
-    <div className="px-2">
-      <div className="ai-comment-content">
-        {isLoading ? (
-          <div className="ai-comment-loading">
-            <div className="ai-comment-loading-text">응답을 생성하고 있습니다...</div>
-          </div>
-        ) : (
-          <div className="ai-comment-response">
-            <p className="whitespace-pre-wrap">{aiResponse}</p>
-          </div>
-        )}
+      <div className="px-2">
+        <div className="ai-comment-content">
+          {isLoading ? (
+            <div className="ai-comment-loading">
+              <div className="ai-comment-loading-text">응답을 생성하고 있습니다...</div>
+            </div>
+          ) : (
+            <div className="ai-comment-response">
+              <p className="whitespace-pre-wrap">{aiResponse}</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </SharedLayout>
   )
 }
