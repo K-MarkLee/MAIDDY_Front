@@ -31,7 +31,9 @@ export default function ChatbotPage() {
 
   return (
     <SharedLayout>
+    <div className="px-2">
       <div className="chatbot-container">
+        
         <div className="chatbot-header">
           <Button 
             variant="ghost"
@@ -41,7 +43,7 @@ export default function ChatbotPage() {
             Back
           </Button>
           <h1 className="chatbot-title">MAIDDY</h1>
-          <div className="w-[70px]" />
+          <div className="w-[100px]" />
         </div>
       </div>
 
@@ -92,6 +94,7 @@ export default function ChatbotPage() {
           <span>→</span>
         </Button>
       </div>
+    </div>
     </SharedLayout>
   );
 }

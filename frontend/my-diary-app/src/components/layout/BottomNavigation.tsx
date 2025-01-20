@@ -112,7 +112,7 @@ export default function BottomNavigation() {
           }
           
           return (
-            <motion.div 
+            <motion.div
               key={index}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -122,19 +122,19 @@ export default function BottomNavigation() {
                 variant="ghost"
                 onClick={() => handleNavigation(item.path)}
                 className={`relative flex flex-col gap-1 items-center py-3 px-3 hover:bg-transparent group ${
-                  isActive ? 'text-violet-600' : 'text-gray-400'
+                  isActive ? 'text-[#7c3aed]' : 'text-gray-400'
                 }`}
               >
                 <div className={`flex items-center justify-center ${
-                  isActive ? 'bg-violet-100/80' : 'bg-transparent'
-                } rounded-xl p-2 transition-colors duration-300 group-hover:bg-violet-50/80`}>
+                  isActive ? 'bg-[#7c3aed]/10' : 'bg-transparent'
+                } rounded-xl p-2 transition-colors duration-300 group-hover:bg-[#7c3aed]/10`}>
                   <item.icon className={`h-[18px] w-[18px] transition-transform duration-300 ${
                     isActive ? 'scale-110' : 'scale-100'
-                  } group-hover:scale-110`} />
+                  } group-hover:scale-110 group-hover:text-[#7c3aed]`} />
                 </div>
                 <span className={`text-[10px] font-medium transition-colors duration-300 whitespace-nowrap ${
-                  isActive ? 'text-violet-600' : 'text-gray-500'
-                } group-hover:text-violet-600`}>
+                  isActive ? 'text-[#7c3aed]' : 'text-gray-400'
+                } group-hover:text-[#7c3aed]`}>
                   {item.label}
                 </span>
               </Button>

@@ -57,7 +57,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
           <div className="w-[64px]" />
         </div>
       </div>
-
+    <div className="px-2">
       <div className="ai-comment-content">
         {isLoading ? (
           <div className="ai-comment-loading">
@@ -69,6 +69,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
           </div>
         )}
       </div>
+    </div>
     </SharedLayout>
   )
 }
