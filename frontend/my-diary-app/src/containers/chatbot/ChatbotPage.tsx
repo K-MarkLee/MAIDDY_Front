@@ -8,42 +8,71 @@ import SharedLayout from '@/components/layout/SharedLayout'
 import { fetchInitialMessage } from './utils'
 import { ChatMessage } from './types'
 import './styles.css'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
+import { Skeleton } from "@/components/ui/skeleton"
+
+interface RecommendationData {
+  recommendation: string;
+}
 
 export default function ChatbotPage() {
   const router = useRouter()
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [recommendations, setRecommendations] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const loadInitialMessage = async () => {
       try {
-        const initialMessage = await fetchInitialMessage()
-        setMessages([initialMessage])
-      } catch (error) {
-        console.error('챗봇 로딩 실패:', error)
-        if (error instanceof Error && error.message.includes('token')) {
-          window.location.href = '/login'
+        setIsLoading(true)
+        const response = await fetch('http://localhost:8000/ai/recommend/', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: 2 })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch recommendations');
         }
+
+        const data = await response.json();
+        const recommendationList = data.data.recommendation.split('\n');
+        setRecommendations(recommendationList);
+
+        const initialMessage = await fetchInitialMessage();
+        setMessages([initialMessage]);
+      } catch (error) {
+        console.error('챗봇 로딩 실패:', error);
+        if (error instanceof Error && error.message.includes('token')) {
+          window.location.href = '/login';
+        }
+      } finally {
+        setIsLoading(false)
       }
     }
 
-    loadInitialMessage()
-  }, [])
+    loadInitialMessage();
+  }, []);
+
+  const LoadingSkeleton = () => (
+    <div className="space-y-3">
+      <Skeleton className="h-4 w-[250px]" />
+      <Skeleton className="h-4 w-[200px]" />
+      <Skeleton className="h-4 w-[230px]" />
+      <Skeleton className="h-4 w-[180px]" />
+      <Skeleton className="h-4 w-[220px]" />
+    </div>
+  );
 
   return (
     <SharedLayout>
-    <div className="px-2">
-      <div className="chatbot-container">
-        
-        <div className="chatbot-header">
-          {/* <Button 
-            variant="ghost"
-            onClick={() => router.back()}
-            className="chatbot-button"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button> */}
-           <div className="h-8 relative -mt-1">
+      <div className="px-2">
+        <div className="chatbot-container">
+          <div className="chatbot-header">
+            <div className="h-8 relative -mt-1">
               <Image
                 src="/Images/logo2.png"
                 alt="Maiddy Logo"
@@ -52,59 +81,56 @@ export default function ChatbotPage() {
                 className="object-contain"
                 priority
               />
-            </div>         
-         <div className="w-[100px]" />
-        </div>
-      </div>
-
-      <div className="chatbot-image">
-        <div className="w-32 h-32 relative">
-          <Image
-            src="/images/logo.png"
-            alt="Maiddy character"
-            width={128}
-            height={128}
-            className="rounded-full"
-          />
-        </div>
-      </div>
-
-      <div className="chatbot-analysis">
-        <div className="chatbot-card">
-          <h2 className="text-lg font-semibold">AI 맞춤 일정 추천</h2>
-          
-          <div className="chatbot-recommendation">
-            <div className="text-sm text-gray-600">
-              
             </div>
-            <div className="text-sm">
-              ✨ 추천 일정:<br />
-             
-            </div>
+            <div className="w-[100px]" />
           </div>
+        </div>
 
-          <div className="chatbot-recommendation">
-            <div className="text-sm text-gray-600">
-          
-            </div>
-            <div className="text-sm">
-              ✨ 추천 일정:<br />
-       
+        <div className="chatbot-image">
+          <div className="w-32 h-32 relative">
+            <Image
+              src="/images/logo.png"
+              alt="Maiddy character"
+              width={128}
+              height={128}
+              className="rounded-full"
+            />
+          </div>
+        </div>
+
+        <div className="chatbot-analysis">
+          <div className="chatbot-card">
+            <h2 className="text-lg font-semibold">일정 추천</h2>
+            
+            <div className="chatbot-recommendation">
+              {isLoading ? (
+                <div className="flex flex-col items-center space-y-4 py-4">
+                  <p className="text-sm text-gray-500">추천 일정을 불러오는 중입니다...</p>
+                  <LoadingSkeleton />
+                </div>
+              ) : (
+                <div className="text-sm">
+                  {recommendations.map((recommendation, index) => (
+                    <div key={index} className="mb-2">
+                      ✨ {recommendation}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="chatbot-chat">
-        <Button
-          onClick={() => router.push('/ai_chat')}
-          className="chatbot-chat-button"
-        >
-          <span>Maiddy에게 메시지를 보내보세요</span>
-          <span>→</span>
-        </Button>
+        <div className="chatbot-chat">
+          <Button
+            onClick={() => router.push('/ai_chat')}
+            className="chatbot-chat-button"
+          >
+            <span>Maiddy에게 메시지를 보내보세요</span>
+            <span>→</span>
+          </Button>
+        </div>
       </div>
-    </div>
     </SharedLayout>
   );
 }

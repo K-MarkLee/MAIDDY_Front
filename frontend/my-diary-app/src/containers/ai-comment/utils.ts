@@ -38,24 +38,34 @@ export const fetchDiaryContent = async (date: string): Promise<DiaryData | null>
 
   return detailResponse.json();
 };
-
 export const generateAiResponse = async (diary: DiaryData): Promise<string> => {
-  const response = await fetch(API_ENDPOINTS.AI_COMMENT, {
+  const token = localStorage.getItem('accessToken');
+  const userId = localStorage.getItem('userId'); // userId 가져오기
+  
+  if (!token) {
+    throw new Error('인증이 필요합니다');
+  }
+
+  if (!userId) {
+    throw new Error('사용자 정보를 찾을 수 없습니다');
+  }
+
+  const response = await fetch(`${API_URL}${API_ENDPOINTS.AI_FEEDBACK}`, {
     method: 'POST',
     headers: {
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      title: diary.title,
-      content: diary.content,
-      date: diary.select_date,
+      user_id: parseInt(userId), // localStorage에서 가져온 userId 사용
+      select_date: diary.select_date
     }),
   });
 
   if (!response.ok) {
-    throw new Error('AI 응답을 가져오는데 실패했습니다');
+    throw new Error('AI 피드백을 가져오는데 실패했습니다');
   }
 
-  const data = await response.json();
-  return data.message;
+  const data: FeedbackResponse = await response.json();
+  return data.data.feedback;
 };

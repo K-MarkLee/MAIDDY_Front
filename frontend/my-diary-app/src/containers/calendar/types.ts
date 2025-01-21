@@ -1,14 +1,18 @@
-export interface Schedule {
-  id: number;
+export interface DiaryData {
   title: string;
   content: string;
-  time: string;
   select_date: string;
-  is_pinned: boolean;
+  id?: string;
 }
 
-export interface CalendarDay {
-  day: number;
-  isCurrentMonth: boolean;
-  pinnedSchedules?: Schedule[];
+export interface AiCommentProps {
+  params: {
+    date: string;
+  };
+}
+
+export interface AiCommentProps {
+  params: {
+    date: string;
+  };
 }
