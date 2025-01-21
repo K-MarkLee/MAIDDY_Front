@@ -25,13 +25,21 @@ export default function ChatbotPage() {
     const loadInitialMessage = async () => {
       try {
         setIsLoading(true)
+        const accessToken = localStorage.getItem('accessToken')
+        if (!accessToken) {
+          throw new Error('액세스 토큰이 없습니다.')
+        }
+
+        const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]))
+        const userId = tokenPayload.user_id
+
         const response = await fetch('http://localhost:8000/ai/recommend/', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ user_id: 2 })
+          body: JSON.stringify({ user_id: userId })
         });
 
         if (!response.ok) {
@@ -89,10 +97,10 @@ export default function ChatbotPage() {
         <div className="chatbot-image">
           <div className="w-32 h-32 relative">
             <Image
-              src="/images/logo.png"
+              src="/Images/1.png"
               alt="Maiddy character"
-              width={128}
-              height={128}
+              width={160}
+              height={160}
               className="rounded-full"
             />
           </div>

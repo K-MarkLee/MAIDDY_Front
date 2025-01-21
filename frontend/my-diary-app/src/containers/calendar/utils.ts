@@ -15,6 +15,7 @@ export const getDaysInPrevMonth = (date: Date): number => {
 }
 
 export const generateCalendarDays = (currentDate: Date): CalendarDay[] => {
+  
   const firstDayOfMonth = getFirstDayOfMonth(currentDate)
   const daysInMonth = getDaysInMonth(currentDate)
   const daysInPrevMonth = getDaysInPrevMonth(currentDate)

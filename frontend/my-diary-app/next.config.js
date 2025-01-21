@@ -8,4 +8,16 @@ const nextConfig = {
   },
 }
 
+module.exports = {
+  images: {
+    domains: ['http://localhost:3000/images/'], // 이미지를 호스팅하는 도메인 추가
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+}
+
 module.exports = nextConfig

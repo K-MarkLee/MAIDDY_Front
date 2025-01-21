@@ -71,9 +71,9 @@ export default function LoginForm() {
               }}
             >
               <Image
-                src="/images/logo.png"
+                src="/Images/1.png"
                 alt="Login Logo"
-                width={160}
+                width={160} 
                 height={160}
                 className="rounded-full object-cover"
                 priority

@@ -18,22 +18,24 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
     const fetchFeedback = async () => {
       try {
         setIsLoading(true)
-        const token = localStorage.getItem('accessToken')
-        const userId = localStorage.getItem('userId')
-
-        if (!token) {
+        const accessToken = localStorage.getItem('accessToken')
+        
+        if (!accessToken) {
           router.push('/login')
           return
         }
 
+        const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]))
+        const userId = tokenPayload.user_id
+
         const response = await fetch('http://localhost:8000/ai/feedback/', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            user_id: userId ? parseInt(userId) : 2,  // userId가 없으면 기본값 2 사용
+            user_id: userId,
             select_date: params.date
           })
         })
