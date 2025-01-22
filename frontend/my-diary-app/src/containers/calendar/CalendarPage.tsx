@@ -10,7 +10,7 @@ import { DAY_NAMES } from './constants'
 import {
   generateCalendarDays,
   formatDate,
-  fetchCalendarData
+//  fetchCalendarData
 } from './utils'
 import { API_URL } from './constants'
 import './styles.css'
@@ -42,13 +42,13 @@ export default function Calendar() {
   }, [])
 
   useEffect(() => {
-    const loadCalendarData = async () => {
-      try {
-        const data = await fetchCalendarData()
-      } catch (error) {
-        console.error('캘린더 데이터 로딩 실패:', error)
-      }
-    }
+  //   const loadCalendarData = async () => {
+  //     try {
+  //       const data = await fetchCalendarData()
+  //     } catch (error) {
+  //       console.error('캘린더 데이터 로딩 실패:', error)
+  //     }
+  //   }
 
     const loadPinnedSchedules = async () => {
       try {
@@ -81,7 +81,7 @@ export default function Calendar() {
       }
     }
 
-    loadCalendarData()
+//   loadCalendarData()
     loadPinnedSchedules()
   }, [currentDate])
 

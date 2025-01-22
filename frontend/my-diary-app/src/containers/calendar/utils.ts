@@ -52,20 +52,20 @@ export const formatDate = (year: number, month: number, day: number): string => 
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 }
 
-export const fetchCalendarData = async () => {
-  const token = localStorage.getItem('accessToken')
-  const response = await fetch(`${API_URL}/api/calendar/`, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
+// export const fetchCalendarData = async () => {
+//   const token = localStorage.getItem('accessToken')
+//   const response = await fetch(`${API_URL}/api/calendar/`, {
+//     headers: {
+//       'Authorization': `Bearer ${token}`
+//     }
+//   })
 
-  if (!response.ok) {
-    throw new Error('캘린더 데이터를 가져오는데 실패했습니다')
-  }
+//   if (!response.ok) {
+//     throw new Error('캘린더 데이터를 가져오는데 실패했습니다')
+//   }
 
-  return await response.json()
-}
+//   return await response.json()
+// }
 
 export const fetchPinnedTodos = async (date: string) => {
   const token = localStorage.getItem('accessToken')
