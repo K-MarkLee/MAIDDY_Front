@@ -4,9 +4,9 @@ services:
     build: .
     ports:
       - "3000:3000"
-    networks:
-      - shared_network
+#     networks:
+#       - shared_network
 
-networks:
-  shared_network:
-    driver: bridge 
+# networks:
+#   shared_network:
+#     driver: bridge  
