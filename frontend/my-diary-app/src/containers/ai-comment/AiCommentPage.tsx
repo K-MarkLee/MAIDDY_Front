@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
 import SharedLayout from '@/components/layout/SharedLayout'
 import { AiCommentProps } from './types'
 import { Skeleton } from "@/components/ui/skeleton"
@@ -70,47 +70,48 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
 
   return (
     <SharedLayout>
-      <div className="ai-comment-header">
-        <div className="flex items-center mb-6 relative">
-          <div className="w-[70px] relative z-50">
-            <Button 
-              variant="ghost"
-              onClick={() => router.back()}
-              className="ai-comment-button pointer-events-auto"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
+      <div className="px-8">
+        <div className="ai-comment-header">
+        <div className="mb-6 flex items-center"> {/* flex와 items-center 추가 */}
+         <div className="w-[70px] relative z-50">
+              <Button
+                variant="ghost"
+                onClick={() => router.back()}
+                className="ai-comment-button pointer-events-auto ml-0"
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            </div>
+            <div className="flex-grow flex justify-center">
+              <h1 className="ai-comment-title whitespace-nowrap">
+             MAIDDY'S Comment
+              </h1>
+            </div>
+            <div className="w-[100px]" />
           </div>
-          <div className="flex-grow flex justify-center">
-            <h1 className="ai-comment-title">
-              MAIDDY'S Comment
-            </h1>
-          </div>
-          <div className="w-[110px]" />
         </div>
-      </div>
-      <div className="px-2">
-        <div className="ai-comment-content">
-          {isLoading ? (
-            <div className="chatbot-card bg-pink-50 rounded-lg p-4 shadow-sm">
-              <h2 className="text-lg font-semibold mb-4"></h2>
-              <div className="text-center text-gray-600 mb-4">
-                피드백을 불러오고 있습니다...
-              </div>
-              <LoadingSkeleton />
+
+        <div className="ai-comment-analysis">
+          <div className="ai-comment-card rounded-lg bg-white shadow-md ">
+            <h2 className="text-lg text-[#5C5C5C] font-semibold">일일 피드백</h2>
+            
+            <div className="ai-comment-content">
+              {isLoading ? (
+                <div className="flex flex-col items-center space-y-4 py-4">
+                  <p className="text-sm text-[#5C5C5C]">피드백을 불러오고 있습니다...</p>
+                  <LoadingSkeleton />
+                </div>
+              ) : (
+                <div className="text-sm text-[#5C5C5C] space-y-2">
+                  {feedback.split('\n').map((line, index) => (
+                    <div key={index} className="mb-2">
+                      ✨ {line}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="chatbot-card bg-pink-50 rounded-lg p-4 shadow-sm">
-              <h2 className="text-lg font-semibold mb-4"></h2>
-              <div className="ai-comment-response">
-                {feedback.split('\n').map((line, index) => (
-                  <div key={index} className="mb-4">
-                    {line}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </SharedLayout>

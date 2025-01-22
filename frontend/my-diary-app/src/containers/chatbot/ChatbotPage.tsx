@@ -108,16 +108,16 @@ export default function ChatbotPage() {
 
         <div className="chatbot-analysis">
           <div className="chatbot-card">
-            <h2 className="text-lg font-semibold">일정 추천</h2>
+            <h2 className="text-lg text-[#5C5C5C] font-semibold">일정 추천</h2>
             
             <div className="chatbot-recommendation">
               {isLoading ? (
                 <div className="flex flex-col items-center space-y-4 py-4">
-                  <p className="text-sm text-gray-500">추천 일정을 불러오는 중입니다...</p>
+                  <p className="text-sm text-[#5C5C5C]">추천 일정을 불러오는 중입니다...</p>
                   <LoadingSkeleton />
                 </div>
               ) : (
-                <div className="text-sm">
+                <div className="text-sm text-[#5C5C5C]">
                   {recommendations.map((recommendation, index) => (
                     <div key={index} className="mb-2">
                       ✨ {recommendation}

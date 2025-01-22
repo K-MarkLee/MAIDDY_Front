@@ -1,13 +1,13 @@
 .chatbot-container {
     padding: 1.5rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
   }
   
   .chatbot-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
   
   .chatbot-title {
@@ -41,6 +41,7 @@
     background-color: white;
     border-radius: 1.5rem;
     padding: 1.5rem;
+    color: #5C5C5C;
   }
   
   .chatbot-recommendation {
@@ -48,6 +49,7 @@
     border-radius: 0.75rem;
     padding: 1rem;
     margin-top: 0.5rem;
+    color: #5C5C5C;
   }
   
   .chatbot-chat {
