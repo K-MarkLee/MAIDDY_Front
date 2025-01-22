@@ -8,7 +8,7 @@ export const validatePasswords = (password: string, password2: string): string =
 }
 
 export const handleSignUp = async (formData: SignUpFormData) => {
-  const response = await fetch('http://localhost:8000/api/users/create/', {
+  const response = await fetch('http://43.200.166.176:8000/api/users/create/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

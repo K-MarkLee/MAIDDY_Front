@@ -28,7 +28,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
         const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]))
         const userId = tokenPayload.user_id
 
-        const response = await fetch('http://localhost:8000/ai/feedback/', {
+        const response = await fetch('http://43.200.166.176.8000/ai/feedback/', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${accessToken}`,

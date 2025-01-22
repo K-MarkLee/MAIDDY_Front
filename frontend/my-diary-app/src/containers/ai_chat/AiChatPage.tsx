@@ -80,7 +80,7 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
       setMessages(prev => [...prev, userMessage])
       setNewMessage('')
   
-      const response = await fetch('http://localhost:8000/ai/chatbot/', {
+      const response = await fetch('http://43.200.166.176:8000/ai/chatbot/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -189,18 +189,21 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
                     initial={{ scale: 0.8 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.2 }}
+                    style={{ color: message.sender === 'ai' ? '#5C5C5C' : 'white' }}
                     className={`
                       max-w-[80%] p-3 rounded-xl
                       ${message.sender === 'user'
-                        ? 'bg-[#8b7ff9] text-white'
+                        ? 'bg-[#8b7ff9]'
                         : 'bg-white shadow-sm'
                       }
                     `}
                   >
-                    <p className="text-sm leading-relaxed">
+                    <p style={{ color: message.sender === 'ai' ? '#5C5C5C' : 'inherit' }}
+                       className="text-sm leading-relaxed">
                       {message.content}
                     </p>
-                    <span className="text-xs opacity-70 mt-1 block">
+                    <span style={{ color: message.sender === 'ai' ? '#5C5C5C' : 'inherit' }}
+                          className="text-xs opacity-70 mt-1 block">
                       {message.timestamp.toLocaleTimeString('ko-KR', {
                         hour: '2-digit',
                         minute: '2-digit'

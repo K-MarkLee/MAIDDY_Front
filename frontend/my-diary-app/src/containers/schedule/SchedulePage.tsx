@@ -42,22 +42,28 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
 
   const loadSchedules = async () => {
     try {
-      const data = await fetchSchedules(params.date)
-      setSchedules(data)
+      const data = await fetchSchedules(params.date);
+      setSchedules(data);
     } catch (error) {
-      console.error('일정 목록 로딩 실패:', error)
-      if (error instanceof Error && error.message.includes('token')) {
-        window.location.href = '/login'
+      console.error('일정 목록 로딩 실패:', error);
+      
+      // 토큰 관련 에러
+      if (error instanceof Error && error.message.includes('인증')) {
+        window.location.href = '/login';
+        return;
       }
+      
+      // 네트워크나 기타 에러
+      alert('일정을 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.');
     }
-  }
+  };
 
   const handleDelete = async (id: number) => {
     try {
       const token = localStorage.getItem('accessToken')
       if (!token) return
 
-      const response = await fetch(`http://localhost:8000/api/schedules/delete/${id}/`, {
+      const response = await fetch(`http://43.200.166.176:8000/api/schedules/delete/${id}/`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
