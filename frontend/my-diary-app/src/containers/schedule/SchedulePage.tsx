@@ -92,7 +92,7 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
         return
       }
 
-      const response = await fetch('http://localhost:8000/api/schedules/create/', {
+      const response = await fetch('http://43.200.166.176:8000/api/schedules/create/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
