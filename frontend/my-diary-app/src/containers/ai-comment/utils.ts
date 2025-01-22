@@ -1,4 +1,4 @@
-import { DiaryData } from './types';
+import { DiaryData, AiCommentProps } from './types';
 import { API_URL, API_ENDPOINTS } from './constants';
 
 export const fetchDiaryContent = async (date: string): Promise<DiaryData | null> => {
@@ -38,10 +38,12 @@ export const fetchDiaryContent = async (date: string): Promise<DiaryData | null>
 
   return detailResponse.json();
 };
+
 export const generateAiResponse = async (diary: DiaryData): Promise<string> => {
   const token = localStorage.getItem('accessToken');
-  const userId = localStorage.getItem('userId'); // userId 가져오기
-  
+  const tokenPayload = token ? JSON.parse(atob(token.split('.')[1])) : null;
+  const userId = tokenPayload?.user_id;
+
   if (!token) {
     throw new Error('인증이 필요합니다');
   }
@@ -57,7 +59,7 @@ export const generateAiResponse = async (diary: DiaryData): Promise<string> => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      user_id: parseInt(userId), // localStorage에서 가져온 userId 사용
+      user_id: userId,
       select_date: diary.select_date
     }),
   });

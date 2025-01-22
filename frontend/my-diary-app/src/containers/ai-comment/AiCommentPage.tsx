@@ -3,21 +3,29 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import SharedLayout from '@/components/layout/SharedLayout'
-import { AiCommentProps } from './types'
 import { Skeleton } from "@/components/ui/skeleton"
+import { generateAiResponse } from './utils'
 import './styles.css'
+
+interface AiCommentProps {
+  params: {
+    date: string;
+  };
+}
 
 const AiCommentPage = ({ params }: AiCommentProps) => {
   const router = useRouter()
   const [feedback, setFeedback] = useState<string>('')
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
         setIsLoading(true)
+        setError(null)
         const accessToken = localStorage.getItem('accessToken')
         
         if (!accessToken) {
@@ -25,29 +33,11 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
           return
         }
 
-        const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]))
-        const userId = tokenPayload.user_id
-
-        const response = await fetch('http://43.200.166.176.8000/ai/feedback/', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_id: userId,
-            select_date: params.date
-          })
-        })
-
-        if (!response.ok) {
-          throw new Error('피드백을 가져오는데 실패했습니다')
-        }
-
-        const data = await response.json()
-        setFeedback(data.data.feedback)
+        const response = await generateAiResponse({ select_date: params.date });
+        setFeedback(response)
       } catch (error) {
         console.error('피드백 로딩 실패:', error)
+        setError('피드백을 불러오는데 실패했습니다. 다시 시도해주세요.')
       } finally {
         setIsLoading(false)
       }
@@ -63,8 +53,6 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
       <Skeleton className="h-4 w-[250px]" />
       <Skeleton className="h-4 w-[200px]" />
       <Skeleton className="h-4 w-[230px]" />
-      <Skeleton className="h-4 w-[180px]" />
-      <Skeleton className="h-4 w-[220px]" />
     </div>
   )
 
@@ -72,8 +60,8 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
     <SharedLayout>
       <div className="px-8">
         <div className="ai-comment-header">
-        <div className="mb-6 flex items-center"> {/* flex와 items-center 추가 */}
-         <div className="w-[70px] relative z-50">
+          <div className="mb-6 flex items-center">
+            <div className="w-[70px] relative z-50">
               <Button
                 variant="ghost"
                 onClick={() => router.back()}
@@ -84,7 +72,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
             </div>
             <div className="flex-grow flex justify-center">
               <h1 className="ai-comment-title whitespace-nowrap">
-             MAIDDY'S Comment
+                MAIDDY'S Comment
               </h1>
             </div>
             <div className="w-[100px]" />
@@ -92,8 +80,8 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
         </div>
 
         <div className="ai-comment-analysis">
-          <div className="ai-comment-card rounded-lg bg-white shadow-md ">
-            <h2 className="text-lg text-[#5C5C5C] font-semibold">일일 피드백</h2>
+          <div className="ai-comment-card rounded-lg bg-white shadow-md p-6">
+            <h2 className="text-lg text-[#5C5C5C] font-semibold mb-4">일일 피드백</h2>
             
             <div className="ai-comment-content">
               {isLoading ? (
@@ -101,6 +89,8 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
                   <p className="text-sm text-[#5C5C5C]">피드백을 불러오고 있습니다...</p>
                   <LoadingSkeleton />
                 </div>
+              ) : error ? (
+                <div className="text-red-500 text-sm">{error}</div>
               ) : (
                 <div className="text-sm text-[#5C5C5C] space-y-2">
                   {feedback.split('\n').map((line, index) => (
