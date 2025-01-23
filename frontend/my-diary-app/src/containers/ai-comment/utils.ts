@@ -65,7 +65,7 @@ export const generateAiResponse = async (params: AiFeedbackRequest): Promise<str
     },
     body: JSON.stringify({
       user_id: userId,
-      select_date: diary.select_date
+      select_date: params.select_date  // diary.select_date를 params.select_date로 수정
     }),
   });
 
@@ -73,13 +73,6 @@ export const generateAiResponse = async (params: AiFeedbackRequest): Promise<str
     throw new Error('AI 피드백을 가져오는데 실패했습니다');
   }
 
-
-  interface FeedbackResponse {
-    data: {
-      feedback: string;
-    };
-  }
-  
   const data: FeedbackResponse = await response.json();
   return data.data.feedback;
 };

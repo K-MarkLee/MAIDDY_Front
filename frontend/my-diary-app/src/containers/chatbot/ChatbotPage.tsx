@@ -120,7 +120,7 @@ export default function ChatbotPage() {
                 <div className="text-sm text-[#5C5C5C]">
                   {recommendations.map((recommendation, index) => (
                     <div key={index} className="mb-2">
-                      ✨ {recommendation}
+                      {recommendation}
                     </div>
                   ))}
                 </div>

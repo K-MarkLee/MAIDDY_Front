@@ -113,7 +113,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
                 <div className="text-sm text-[#5C5C5C] space-y-2">
                   {feedback.split('\n').map((line, index) => (
                     <div key={index} className="mb-2">
-                      ✨ {line}
+                      {line}
                     </div>
                   ))}
                 </div>
