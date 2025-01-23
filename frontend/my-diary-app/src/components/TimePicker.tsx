@@ -109,11 +109,11 @@ export default function TimePicker({ value, onChange, required = false }: TimePi
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 10, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="absolute mt-1 p-3 bg-white/95 backdrop-blur-xl rounded-xl border border-white/40 shadow-lg z-50"
-            style={{ width: '200px' }}
+            exit={{ opacity: 0, y: -1 }}
+            className="absolute mb-1 p-3 bg-white/95 backdrop-blur-xl rounded-xl border border-white/40 shadow-lg z-50"
+            style={{ width: '200px', bottom: '-200%' }}
           >
             <div className="text-center mb-3 text-lg text-violet-600 font-medium">
               {`${internalValue.hours}:${internalValue.minutes} ${internalValue.period}`}

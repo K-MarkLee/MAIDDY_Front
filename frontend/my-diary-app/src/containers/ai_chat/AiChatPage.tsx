@@ -165,8 +165,15 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
             }}
             className="text-[#8b7ff9] font-bold text-2xl self-end mt-8"
           >
-            <span style={{ color: '#8b7ff9' }}>'s</span>
-            <span style={{ color: '#8b7ff9' }}> CHAT</span>
+            <Image
+              className="signup-header flex justify-center"
+              src="/Images/chat.png"
+              alt="Login Title"
+              width={120}
+              height={160}
+              priority
+              className="object-contain"
+            />
           </motion.div>
         </div>
 

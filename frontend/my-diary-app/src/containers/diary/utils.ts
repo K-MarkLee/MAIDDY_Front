@@ -35,7 +35,7 @@ export const fetchDiaryContent = async (date: string): Promise<DiaryData> => {
 
 export const saveDiary = async (diaryData: DiaryData): Promise<void> => {
   const token = localStorage.getItem('accessToken');
-  if (!token) {
+  if (!token) {fetchDiaryContent
     window.location.href = '/login';
     throw new Error('인증이 필요합니다');
   }

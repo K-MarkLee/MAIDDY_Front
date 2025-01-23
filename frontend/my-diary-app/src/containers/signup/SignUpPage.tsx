@@ -60,7 +60,6 @@ export default function SignUpForm() {
       >
         <div className="signup-content">
           <motion.div 
-            className="signup-header"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{
@@ -90,7 +89,16 @@ export default function SignUpForm() {
                 priority
               />
             </motion.div>
-            <h1 className="signup-title">Create Account</h1>
+
+            <Image
+              className="signup-header flex justify-center"
+              src="/Images/create.png"
+              alt="Login Title"
+              width={320}
+              height={160}
+              priority
+              className="object-contain"
+            />
           </motion.div>
 
           <motion.form 

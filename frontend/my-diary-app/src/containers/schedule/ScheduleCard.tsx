@@ -93,7 +93,7 @@ export default function ScheduleCard({
                    : 'hover:border-violet-200'
                  }
                `}
-               style={{ color: schedule.pinned ? '#8B5CF6' : '#5C5C5C' }}
+               style={{ color: schedule.pinned ? '#FF77C2' : '#5C5C5C' }}
                whileHover={{ scale: 1.05 }}
                whileTap={{ scale: 0.95 }}
                onClick={(e) => {
@@ -104,14 +104,14 @@ export default function ScheduleCard({
                <Pin 
                  className={`h-4 w-4 mb-1 transition-all duration-300 ${
                    schedule.pinned 
-                     ? 'text-violet-600 rotate-45 transform' 
+                     ? 'text-[#FF77C2] rotate-45 transform' 
                      : ''
                  }`}
-                 style={{ color: schedule.pinned ? '#8B5CF6' : '#5C5C5C' }}
+                 style={{ color: schedule.pinned ? '#FA9FFF' : '#5C5C5C' }}
                />
                <div 
                  className={`text-sm font-bold transition-colors duration-200`}
-                 style={{ color: schedule.pinned ? '#8B5CF6' : '#5C5C5C' }}
+                 style={{ color: schedule.pinned ? '#FA9FFF' : '#5C5C5C' }}
                >
                  {formatTime(schedule.time)}
                </div>

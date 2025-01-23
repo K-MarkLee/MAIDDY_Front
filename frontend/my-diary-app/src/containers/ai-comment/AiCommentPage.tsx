@@ -8,6 +8,8 @@ import SharedLayout from '@/components/layout/SharedLayout'
 import { Skeleton } from "@/components/ui/skeleton"
 import { generateAiResponse } from './utils'
 import './styles.css'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 interface AiCommentProps {
   params: {
@@ -71,9 +73,25 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
               </Button>
             </div>
             <div className="flex-grow flex justify-center">
-              <h1 className="ai-comment-title whitespace-nowrap">
-                MAIDDY'S Comment
-              </h1>
+            <motion.div
+            initial={{ x: 0, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              damping: 20,
+              stiffness: 100
+            }}
+            className="flex items-center"
+            >
+              <Image
+                src="/Images/comment.png"
+                alt="MAIDDY"
+                width={700} 
+                height={700}
+                priority
+                className="object-contain -mb-2"
+              />
+              </motion.div>
             </div>
             <div className="w-[100px]" />
           </div>

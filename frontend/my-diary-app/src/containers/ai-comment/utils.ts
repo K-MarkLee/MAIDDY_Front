@@ -1,6 +1,7 @@
 import { DiaryData, AiCommentProps } from './types';
 import { API_URL, API_ENDPOINTS } from './constants';
 
+
 export const fetchDiaryContent = async (date: string): Promise<DiaryData | null> => {
   const token = localStorage.getItem('accessToken');
   if (!token) {
@@ -39,7 +40,11 @@ export const fetchDiaryContent = async (date: string): Promise<DiaryData | null>
   return detailResponse.json();
 };
 
-export const generateAiResponse = async (diary: DiaryData): Promise<string> => {
+interface AiFeedbackRequest {
+  select_date: string;
+}
+
+export const generateAiResponse = async (params: AiFeedbackRequest): Promise<string> => {
   const token = localStorage.getItem('accessToken');
   const tokenPayload = token ? JSON.parse(atob(token.split('.')[1])) : null;
   const userId = tokenPayload?.user_id;
@@ -68,6 +73,13 @@ export const generateAiResponse = async (diary: DiaryData): Promise<string> => {
     throw new Error('AI 피드백을 가져오는데 실패했습니다');
   }
 
+
+  interface FeedbackResponse {
+    data: {
+      feedback: string;
+    };
+  }
+  
   const data: FeedbackResponse = await response.json();
   return data.data.feedback;
 };

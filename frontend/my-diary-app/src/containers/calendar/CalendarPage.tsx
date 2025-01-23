@@ -169,7 +169,16 @@ export default function Calendar() {
               }}
               className="text-[#8b7ff9] font-bold text-2xl self-end mt-8"
             >
-              's CALENDAR
+              <Image
+              className="signup-header flex justify-center"
+              src="/Images/calendar.png"
+              alt="Login Title"
+              width={170}
+              height={160}
+              priority
+              className="object-contain"
+            />
+
             </motion.span>
           </div>
   

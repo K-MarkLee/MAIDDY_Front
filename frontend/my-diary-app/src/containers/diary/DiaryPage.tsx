@@ -56,6 +56,22 @@ const DiaryPage = ({ date }: { date: string }) => {
     }
   }
 
+  const handleMaiddyComment = async () => {
+    try {
+      // 먼저 현재 일기 내용을 저장
+      await saveDiary(diaryData);
+      // 저장 성공 후 AI 코멘트 페이지로 이동
+      router.push(`/ai_comment/${date}`);
+    } catch (error) {
+      console.error('저장 실패:', error);
+      if (error instanceof Error) {
+        alert(`저장에 실패했습니다: ${error.message}`);
+      } else {
+        alert('저장에 실패했습니다.');
+      }
+    }
+  };
+
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDiaryData(prev => ({ ...prev, content: e.target.value }))
   }
@@ -103,7 +119,7 @@ const DiaryPage = ({ date }: { date: string }) => {
             className="pointer-events-auto"
           >
             <Button
-              onClick={() => router.push(`/ai_comment/${date}`)}
+              onClick={handleMaiddyComment}
               className="w-full bg-[#8b7ff9] backdrop-blur-xl rounded-xl p-4 border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 group flex items-center justify-center"
             >
               <Crown className="h-5 w-5 mr-2 text-white group-hover:scale-110 transition-transform duration-300" />
