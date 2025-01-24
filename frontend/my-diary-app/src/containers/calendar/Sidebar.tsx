@@ -73,48 +73,56 @@ return (
     </Button>
 
     {isOpen && (
-      <>
+      <div className="relative">
         <motion.div 
-          className="fixed right-0 bottom-4 w-[280px] h-[120px] z-[100] bg-white/80 backdrop-blur-xl rounded-l-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
-          initial={{ x: 280 }}
-          animate={{ x: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="fixed inset-0 flex items-center justify-end isolate z-[9999]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          <div className="flex flex-col gap-2 mt-4 p-2">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center w-full px-3 py-2 rounded-xl text-gray-400 hover:bg-violet-50/80 hover:text-violet-600 transition-all duration-300"
-              onClick={() => {
-                setShowLogoutAlert(true);
-                setIsOpen(false);
-              }}
-            >
-              <LogOut className="mr-2 h-5 w-5" />
-              <span className="text-sm font-medium">로그아웃</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center w-full px-3 py-2 rounded-xl text-red-600 hover:bg-red-50/80 transition-all duration-300"
-              onClick={() => {
-                setShowDeleteAlert(true);
-                setIsOpen(false);
-              }}
-            >
-              <UserX className="mr-2 h-5 w-5" />
-              <span className="text-sm font-medium">회원탈퇴</span>
-            </motion.button>
-          </div>
+          <motion.div 
+            className="w-[280px] h-[120px] bg-white/80 backdrop-blur-xl rounded-l-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
+            initial={{ x: 280 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{ isolation: 'isolate' }}
+          >
+            <div className="flex flex-col gap-2 p-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center w-full px-3 py-2 rounded-xl text-gray-400 hover:bg-violet-50/80 hover:text-violet-600 transition-all duration-300"
+                onClick={() => {
+                  setShowLogoutAlert(true);
+                  setIsOpen(false);
+                }}
+              >
+                <LogOut className="mr-2 h-5 w-5" />
+                <span className="text-sm font-medium">로그아웃</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center w-full px-3 py-2 rounded-xl text-red-600 hover:bg-red-50/80 transition-all duration-300"
+                onClick={() => {
+                  setShowDeleteAlert(true);
+                  setIsOpen(false);
+                }}
+              >
+                <UserX className="mr-2 h-5 w-5" />
+                <span className="text-sm font-medium">회원탈퇴</span>
+              </motion.button>
+            </div>
+          </motion.div>
         </motion.div>
         <motion.div 
-         className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[90]"
-         initial={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998]"
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
           onClick={() => setIsOpen(false)}
         />
-      </>
+      </div>
     )}
 
     <AlertDialog open={showLogoutAlert} onOpenChange={setShowLogoutAlert}>
