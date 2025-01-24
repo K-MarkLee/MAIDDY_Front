@@ -7,12 +7,9 @@ import { Pin, Crown } from 'lucide-react'
 import { motion } from 'framer-motion'
 import SharedLayout from '@/components/layout/SharedLayout'
 import { DAY_NAMES } from './constants'
-import Sidebar from './Sidebar';
-
 import {
   generateCalendarDays,
   formatDate,
-//  fetchCalendarData
 } from './utils'
 import { API_URL } from './constants'
 import './styles.css'
@@ -209,9 +206,8 @@ export default function Calendar() {
 
   return (
     <SharedLayout>
-      <Sidebar />
       <motion.div
-        className="w-full space-y-2"
+        className="w-full space-y-2 relative z-[1]"
         initial={{ y: 0, opacity: 0 }}
         animate={{ y: -90, opacity: 1 }}
         transition={{
@@ -263,7 +259,7 @@ export default function Calendar() {
 
             </motion.span>
           </div>
-  
+    
           <motion.div
             className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-4 space-y-2 mt-8"
             initial={{ y: -150, opacity: 0 }}
@@ -297,7 +293,7 @@ export default function Calendar() {
             )}
           </motion.div>
         </div>
-  
+    
         <motion.div
           className="calendar-container bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-4 pt-1 pb-4"
           initial={{ y: -50, opacity: 0 }}
@@ -352,7 +348,7 @@ export default function Calendar() {
               </svg>
             </Button>
           </div>
-  
+    
           <div className="calendar-grid grid grid-cols-7 gap-1">
             {DAY_NAMES.map((day) => (
               <div key={day} className="calendar-day-name text-xs font-medium text-gray-400 text-center py-2">
@@ -387,7 +383,7 @@ export default function Calendar() {
             ))}
           </div>
         </motion.div>
-  
+    
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 10, opacity: 1 }}

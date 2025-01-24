@@ -88,12 +88,14 @@
 }
 
 .calendar-container {
+  position: relative;
+  z-index: 1;  /* 낮은 z-index 설정 */
   padding: 0.75rem 1rem;
   background-color: white;
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  margin: 6rem 2rem 1rem 2rem; /* 상단 마진을 6rem으로 증가 */
-  transform: translateY(2rem); /* Y축으로 2rem 추가 이동 */
+  margin: 6rem 2rem 1rem 2rem;
+  transform: translateY(2rem);
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
 }
@@ -138,6 +140,13 @@
   background-color: rgba(194, 253, 83, 0.2);
   border-radius: 30%;
   z-index: -1;
+}
+
+/* 사이드바 관련 스타일 추가 */
+.sidebar-layer {
+  position: relative;
+  z-index: 999;
+  isolation: isolate;
 }
 
 

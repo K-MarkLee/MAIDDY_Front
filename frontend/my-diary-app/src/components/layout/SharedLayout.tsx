@@ -22,7 +22,7 @@ const SharedLayout = ({ children }: SharedLayoutProps) => {
           {/* Content Container */}
           <div className="h-full relative overflow-hidden">
             {/* Top transparent section */}
-            <div className="absolute inset-x-0 top-0 h-40 bg-transparent">
+            <div className="absolute inset-x-0 top-0 h-40 bg-transparent z-[99998]">
               {/* Status Bar */}
               <div className="h-7 flex items-center justify-center pointer-events-none">
                 <div className="w-[120px] h-[24px] bg-black rounded-full" />
