@@ -43,7 +43,7 @@ const DiaryPage = ({ date }: { date: string }) => {
       setIsSaving(true)
       console.log('Saving diary:', diaryData) // Debug log
       await saveDiary(diaryData)
-      alert('저장되었습니다.')
+      // alert('저장되었습니다.')
     } catch (error) {
       console.error('저장 실패:', error)
       if (error instanceof Error) {

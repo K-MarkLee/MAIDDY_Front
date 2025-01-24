@@ -7,6 +7,8 @@ import { Pin, Crown } from 'lucide-react'
 import { motion } from 'framer-motion'
 import SharedLayout from '@/components/layout/SharedLayout'
 import { DAY_NAMES } from './constants'
+import Sidebar from './Sidebar';
+
 import {
   generateCalendarDays,
   formatDate,
@@ -207,6 +209,7 @@ export default function Calendar() {
 
   return (
     <SharedLayout>
+      <Sidebar />
       <motion.div
         className="w-full space-y-2"
         initial={{ y: 0, opacity: 0 }}

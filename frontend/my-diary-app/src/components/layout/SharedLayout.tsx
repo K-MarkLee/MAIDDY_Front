@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { SharedLayoutProps } from './types'
 import BottomNavigation from './BottomNavigation'
+import Sidebar from '@/containers/calendar/Sidebar'
 
 const SharedLayout = ({ children }: SharedLayoutProps) => {
   return (
@@ -26,6 +27,9 @@ const SharedLayout = ({ children }: SharedLayoutProps) => {
               <div className="h-7 flex items-center justify-center pointer-events-none">
                 <div className="w-[120px] h-[24px] bg-black rounded-full" />
               </div>
+              
+              {/* Sidebar */}
+              <Sidebar />
             </div>
             
             {/* Main content with original background */}
@@ -52,7 +56,6 @@ const SharedLayout = ({ children }: SharedLayoutProps) => {
 }
 
 export default SharedLayout
-
 
 
 // 'use client'

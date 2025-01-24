@@ -66,7 +66,6 @@ export const saveDiary = async (diaryData: DiaryData): Promise<void> => {
     throw new Error(errorData.error || errorData.detail || '다이어리 저장에 실패했습니다');
   }
 
-  return response.status === 201 ? 
-    alert('새로운 일기가 작성되었습니다!') : 
+  return response.status === 201 
     alert('일기가 수정되었습니다!');
 };
