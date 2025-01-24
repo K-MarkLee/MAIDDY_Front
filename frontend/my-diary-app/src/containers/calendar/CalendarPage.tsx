@@ -126,6 +126,25 @@ export default function Calendar() {
     )
     router.push(`/chatbot`)
   }
+
+  const renderCell = (date: Date) => {
+    const today = new Date();
+    const isToday = 
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear();
+
+    return (
+      <div
+        className={`h-full w-full ${
+          isToday ? 'calendar-day-today' : ''
+        }`}
+      >
+        {date.getDate()}
+      </div>
+    );
+  };
+
   return (
     <SharedLayout>
       <motion.div
@@ -152,7 +171,7 @@ export default function Calendar() {
             >
               <Image
                 src={currentImage}
-                alt="MAIDDY"
+                alt="MAIDDY"  
                 width={100}
                 height={100}
                 priority
@@ -297,7 +316,7 @@ export default function Calendar() {
                 style={date.isCurrentMonth ? { color: '#5C5C5C' } : {}}
                 data-highlighted={[].includes(date.day)}
               >
-                {date.day}
+                {renderCell(new Date(currentDate.getFullYear(), currentDate.getMonth(), date.day))}
               </motion.div>
             ))}
           </div>

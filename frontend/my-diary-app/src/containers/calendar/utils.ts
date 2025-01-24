@@ -2,8 +2,7 @@ import { CalendarDay } from './types'
 import { API_URL } from './constants'
 
 export const getFirstDayOfMonth = (date: Date): number => {
-  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay()
-  return firstDay === 0 ? 6 : firstDay - 1
+  return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
 }
 
 export const getDaysInMonth = (date: Date): number => {

@@ -11,8 +11,7 @@ export interface AiCommentProps {
   };
 }
 
-export interface AiCommentProps {
-  params: {
-    date: string;
-  };
+export interface CalendarDay {
+  day: number;
+  isCurrentMonth: boolean;
 }

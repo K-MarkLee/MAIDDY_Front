@@ -14,6 +14,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // 루트 경로('/')로 접근하는 경우 무조건 로그인 페이지로 리다이렉트
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
   // 로그인/회원가입 페이지 접근 시도하는 경우
   if (PUBLIC_PATHS.some(path => pathname.startsWith(path))) {
     // // 이미 로그인된 상태라면 캘린더 페이지로 리디렉션

@@ -107,6 +107,19 @@
   background-color: rgba(139, 127, 249, 0.05);
 }
 
+.calendar-day-today {
+  background-color: #ffd3f3;  /* bg-blue-100 */
+  border-radius: 9999px;      /* rounded-full */
+  font-weight: bold;          /* font-bold */
+  color: #ffffff;            /* text-blue-600 */
+  width: 2rem;             /* 너비 증가 */
+  height: 2rem;            /* 높이 증가 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.10rem;           /* 패딩 증가 */
+}
+
 
 
 
