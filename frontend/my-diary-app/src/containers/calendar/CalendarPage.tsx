@@ -24,6 +24,11 @@ interface PinnedSchedule {
   pinned: boolean;
 }
 
+interface DiaryEntry {
+  date: string;
+  has_diary: boolean;
+}
+
 export default function Calendar() {
   const router = useRouter()
   const [currentDate, setCurrentDate] = useState(new Date(2025, 0, 1))
@@ -31,6 +36,7 @@ export default function Calendar() {
   const [pinnedSchedules, setPinnedSchedules] = useState<PinnedSchedule[]>([])
   const [isFirstMount, setIsFirstMount] = useState(true)
   const [currentImage, setCurrentImage] = useState('/Images/maiddy.png')
+  const [diaryDates, setDiaryDates] = useState<DiaryEntry[]>([])
 
   const allDays = generateCalendarDays(currentDate)
 
@@ -49,6 +55,47 @@ export default function Calendar() {
   //       console.error('캘린더 데이터 로딩 실패:', error)
   //     }
   //   }
+
+    const loadDiaryDates = async () => {
+      try {
+        const token = localStorage.getItem('accessToken')
+        if (!token) return
+
+        const daysInMonth = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+          0
+        ).getDate()
+
+        const diaryPromises = Array.from({ length: daysInMonth }, (_, i) => {
+          const date = formatDate(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            i + 1
+          )
+          
+          return fetch(`${API_URL}/api/diaries/?date=${date}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }).then(response => {
+            if (response.status === 200) {
+              return { date, has_diary: true }
+            }
+            return { date, has_diary: false }
+          }).catch(() => {
+            return { date, has_diary: false }
+          })
+        })
+
+        const results = await Promise.all(diaryPromises)
+        const diariesWithEntries = results.filter(result => result.has_diary)
+        setDiaryDates(diariesWithEntries)
+      } catch (error) {
+        console.error('일기 데이터 로딩 실패:', error)
+        setDiaryDates([])
+      }
+    }
 
     const loadPinnedSchedules = async () => {
       try {
@@ -82,6 +129,7 @@ export default function Calendar() {
     }
 
 //   loadCalendarData()
+    loadDiaryDates()
     loadPinnedSchedules()
   }, [currentDate])
 
@@ -127,17 +175,29 @@ export default function Calendar() {
     router.push(`/chatbot`)
   }
 
-  const renderCell = (date: Date) => {
+  const renderCell = (date: Date, isCurrentMonth: boolean) => {
     const today = new Date();
     const isToday = 
       date.getDate() === today.getDate() &&
       date.getMonth() === today.getMonth() &&
       date.getFullYear() === today.getFullYear();
-
+      
+    const formattedDate = formatDate(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    );
+    
+    const hasDiary = isCurrentMonth && diaryDates.some(
+      entry => entry.date === formattedDate && entry.has_diary
+    );
+    
     return (
       <div
         className={`h-full w-full ${
           isToday ? 'calendar-day-today' : ''
+        } ${
+          hasDiary ? 'diary-exists' : ''
         }`}
       >
         {date.getDate()}
@@ -316,7 +376,10 @@ export default function Calendar() {
                 style={date.isCurrentMonth ? { color: '#5C5C5C' } : {}}
                 data-highlighted={[].includes(date.day)}
               >
-                {renderCell(new Date(currentDate.getFullYear(), currentDate.getMonth(), date.day))}
+                {renderCell(
+                  new Date(currentDate.getFullYear(), currentDate.getMonth(), date.day),
+                  date.isCurrentMonth
+                )}
               </motion.div>
             ))}
           </div>

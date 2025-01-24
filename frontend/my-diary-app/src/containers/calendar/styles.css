@@ -117,7 +117,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.10rem;           /* 패딩 증가 */
+  padding: 1.20rem;           /* 패딩 증가 */
+}
+
+.diary-exists {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diary-exists::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  height: 35px; 
+  background-color: rgba(194, 253, 83, 0.2);
+  border-radius: 30%;
+  z-index: -1;
 }
 
 
