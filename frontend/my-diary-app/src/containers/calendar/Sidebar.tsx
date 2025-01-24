@@ -82,7 +82,7 @@ return (
           onClick={() => setIsOpen(false)}
         >
           <motion.div 
-            className="w-[280px] h-[120px] bg-white/80 backdrop-blur-xl rounded-l-2xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
+            className="w-[280px] h-[120px] bg-white/80 backdrop-blur-xl rounded-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)]"            
             initial={{ x: 280 }}
             animate={{ x: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
@@ -106,7 +106,7 @@ return (
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center w-full px-3 py-2 rounded-xl text-red-600 hover:bg-red-50/80 transition-all duration-300"
+                className="flex items-center w-full px-3 py-2 rounded-xl text-gray-400 hover:bg-violet-50/80 hover:text-violet-600 transition-all duration-300"
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowDeleteAlert(true);
@@ -123,7 +123,7 @@ return (
     )}
 
     <AlertDialog open={showLogoutAlert} onOpenChange={setShowLogoutAlert}>
-      <AlertDialogContent className="w-[280px] mx-auto rounded-lg bg-white/80 backdrop-blur-xl border border-white/40">
+      <AlertDialogContent className="w-[280px] mx-auto rounded-xl bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
         <AlertDialogHeader>
           <AlertDialogTitle>로그아웃</AlertDialogTitle>
           <AlertDialogDescription>
@@ -131,9 +131,9 @@ return (
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="hover:bg-violet-50/80 hover:text-violet-600">취소</AlertDialogCancel>
+          <AlertDialogCancel className="rounded-xl hover:bg-violet-50/80 hover:text-violet-600 transition-all duration-300">취소</AlertDialogCancel>
           <AlertDialogAction 
-            className="bg-violet-600 hover:bg-violet-700" 
+            className="rounded-xl bg-violet-600 hover:bg-violet-700 transition-all duration-300" 
             onClick={handleLogout}
           >
             로그아웃
@@ -143,7 +143,7 @@ return (
     </AlertDialog>
 
     <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
-      <AlertDialogContent className="w-[280px] mx-auto rounded-lg bg-white/80 backdrop-blur-xl border border-white/40">
+      <AlertDialogContent className="w-[280px] mx-auto rounded-xl bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
         <AlertDialogHeader>
           <AlertDialogTitle>회원탈퇴</AlertDialogTitle>
           <AlertDialogDescription>
@@ -151,10 +151,10 @@ return (
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="hover:bg-violet-50/80 hover:text-violet-600">취소</AlertDialogCancel>
+          <AlertDialogCancel className="rounded-xl hover:bg-violet-50/80 hover:text-violet-600 transition-all duration-300">취소</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDeleteAccount}
-            className="bg-red-600 hover:bg-red-700"
+            className="rounded-xl bg-red-600 hover:bg-red-700 transition-all duration-300"
           >
             회원탈퇴
           </AlertDialogAction>
