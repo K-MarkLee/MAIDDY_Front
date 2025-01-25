@@ -6,39 +6,27 @@ import Sidebar from '@/containers/calendar/Sidebar'
 const SharedLayout = ({ children }: SharedLayoutProps) => {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      {/* 외부 컨테이너 */}
       <div className="relative w-[374px] h-[810px] min-w-[374px] min-h-[810px]">
-        {/* 흰색 외곽 테두리 */}
         <div className="absolute -inset-3 bg-white rounded-[65px]" />
-        
-        {/* 검은색 내부 테두리 */}
         <div className="absolute -inset-2 bg-neutral-800 rounded-[62px]" />
         
-        {/* 메인 컨테이너 */}
-        <div className="relative w-full h-full bg-gradient-to-br from-rose-100 via-violet-100 to-cyan-100 backdrop-blur-xl overflow-hidden rounded-[55px] shadow-[0_8px_32px_rgba(0,0,0,0.12)]
-          before:content-[''] before:absolute before:inset-0 before:rounded-[55px] before:pointer-events-none
-          after:content-[''] after:absolute after:inset-0 after:rounded-[55px] after:pointer-events-none">
+        <div className="relative w-full h-full bg-gradient-to-br from-rose-100 via-violet-100 to-cyan-100 backdrop-blur-xl overflow-hidden rounded-[55px] shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
           
-          {/* Content Container */}
           <div className="h-full relative overflow-hidden">
-            {/* Top transparent section */}
-            <div className="absolute inset-x-0 top-0 h-40 bg-transparent z-[99998]">
-              {/* Status Bar */}
-              <div className="h-7 flex items-center justify-center pointer-events-none">
+            {/* z-index 조정 */}
+            <div className="absolute inset-x-0 top-0 h-40 bg-transparent z-10">
+              <div className="h-7 flex items-center justify-center">
                 <div className="w-[120px] h-[24px] bg-black rounded-full" />
               </div>
-              
-              {/* Sidebar */}
               <Sidebar />
             </div>
             
-            {/* Main content with original background */}
-            <div className="h-full pt-10 bg-white/20">
+            {/* pointer-events-auto 추가 */}
+            <div className="h-full pt-10 bg-white/20 pointer-events-auto">
               <div className="h-full pb-24 overflow-y-auto">
                 {children}
               </div>
               
-              {/* Bottom Navigation */}
               <div className="absolute bottom-0 left-0 right-0">
                 <BottomNavigation />
               </div>
@@ -46,7 +34,6 @@ const SharedLayout = ({ children }: SharedLayoutProps) => {
           </div>
         </div>
         
-        {/* 측면 버튼들 */}
         <div className="absolute -right-1 top-24 w-1 h-16 bg-neutral-800 rounded-r-lg" />
         <div className="absolute -left-1 top-20 w-1 h-24 bg-neutral-800 rounded-l-lg" />
         <div className="absolute -left-1 top-60 w-1 h-24 bg-neutral-800 rounded-l-lg" />

@@ -16,6 +16,8 @@ AlertDialogHeader,
 AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { API_URL } from './constants';
+import Image from 'next/image'
+
 
 export default function CustomSidebar() {
 const router = useRouter();
@@ -69,7 +71,15 @@ return (
       className="absolute top-4 right-4 z-[999]"
       onClick={() => setIsOpen(!isOpen)}
     >
-      <img src="/Images/cat.png" alt="Menu" className="h-6 w-6 object-contain" />
+      <Image 
+        src="/Images/cat.png" 
+        alt="Menu" 
+        width={100}
+        height={100}
+        className="object-contain"
+        priority
+        loading="eager"
+      />
     </Button>
 
     {isOpen && (

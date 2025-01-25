@@ -78,6 +78,7 @@ export default function LoginForm() {
               className="rounded-full"
               priority
               sizes="(max-width: 768px) 100vw, 160px"
+              loading="eager" // 추가
             />
             </motion.div>
             
@@ -87,6 +88,8 @@ export default function LoginForm() {
               width={1000}
               height={1000}
               priority
+              loading="eager" // 추가
+
             
             />
           </motion.div>
@@ -148,7 +151,7 @@ export default function LoginForm() {
                   type="button"
                   className="login-link"
                 >
-                  Social login
+
                 </button>
               </div>
             </div>
