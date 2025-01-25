@@ -114,7 +114,7 @@ export default function Calendar() {
           }
         })
 
-        if (!response.ok) {
+        if (!response.ok) { 
           throw new Error('Failed to fetch pinned schedules')
         }
 
