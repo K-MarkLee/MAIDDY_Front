@@ -27,31 +27,33 @@ const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
 const handleLogout = async () => {
   try {
-    const token = localStorage.getItem('accessToken');
-    const response = await fetch(`${API_URL}/api/logout/`, {
+    const refreshToken = localStorage.getItem('refreshToken');
+    const response = await fetch(`${API_URL}/api/users/logout/`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        refresh: refreshToken
+      })
     });
 
     if (response.ok) {
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       router.push('/login');
     }
   } catch (error) {
     console.error('Logout error:', error);
   }
 };
-
 const handleDeleteAccount = async () => {
   try {
-    // 비밀번호 입력 받기
     const password = prompt('계정 삭제를 위해 비밀번호를 입력해주세요:');
     if (!password) return;
-
+ 
     const token = localStorage.getItem('accessToken');
-    const response = await fetch(`${API_URL}/api/delete/`, {
+    const response = await fetch(`${API_URL}/api/users/delete/`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -59,18 +61,20 @@ const handleDeleteAccount = async () => {
       },
       body: JSON.stringify({ password })
     });
-
+ 
     if (response.ok) {
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       router.push('/signup');
     } else {
-      alert('비밀번호가 올바르지 않습니다.');
+      const data = await response.json();
+      alert(data.error || '계정 삭제 실패');
     }
   } catch (error) {
     console.error('Account deletion error:', error);
     alert('계정 삭제 중 오류가 발생했습니다.');
   }
-};
+ };
 
 return (
   <>
