@@ -51,7 +51,7 @@ export default function PageTitle({ date, rightElement, dateClassName }: PageTit
        animate={{ scale: 1, opacity: 1 }}
        transition={{ delay: 0.2 }}
      >
-       <h1 className={`text-xl font-semibold text-[#FF77C2] ${dateClassName || 'ml-4'}`}>
+       <h1 className={`text-xl font-semibold text-[#FF77C2] ${dateClassName || 'ml-3'}`}>
          {date}
        </h1>
      </motion.div>
