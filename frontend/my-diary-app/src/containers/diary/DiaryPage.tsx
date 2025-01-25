@@ -80,18 +80,19 @@ const DiaryPage = ({ date }: { date: string }) => {
     <SharedLayout>
       {/* Header 부분의 z-index를 높이고 pointer-events-auto 추가 */}
       <div className="p-8 pt-16 pb-0 relative z-50 pointer-events-auto">
-        <PageTitle
-          date={date}
-          rightElement={
-            <Button
-              onClick={handleSave}
-              disabled={isSaving}
-              className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl disabled:opacity-50 pointer-events-auto"
-            >
-              {isSaving ? 'Save' : 'Save'}
-            </Button>
-          }
-        />
+      <PageTitle
+        date={date}
+        dateClassName="ml-8"
+        rightElement={
+          <Button
+            onClick={handleSave}
+            disabled={isSaving}
+            className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl disabled:opacity-50 pointer-events-auto"
+          >
+            {isSaving ? 'Save' : 'Save'}
+          </Button>
+        }
+      />
         <TabNavigation date={date} activeTab="diary" />
       </div>
   
