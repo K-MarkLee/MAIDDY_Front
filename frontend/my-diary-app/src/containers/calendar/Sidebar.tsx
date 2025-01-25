@@ -46,20 +46,29 @@ const handleLogout = async () => {
 
 const handleDeleteAccount = async () => {
   try {
+    // 비밀번호 입력 받기
+    const password = prompt('계정 삭제를 위해 비밀번호를 입력해주세요:');
+    if (!password) return;
+
     const token = localStorage.getItem('accessToken');
-    const response = await fetch(`${API_URL}/api/users/delete/`, {
+    const response = await fetch(`${API_URL}/api/delete/`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ password })
     });
 
     if (response.ok) {
       localStorage.removeItem('accessToken');
       router.push('/signup');
+    } else {
+      alert('비밀번호가 올바르지 않습니다.');
     }
   } catch (error) {
     console.error('Account deletion error:', error);
+    alert('계정 삭제 중 오류가 발생했습니다.');
   }
 };
 
