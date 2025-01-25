@@ -28,7 +28,7 @@ const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 const handleLogout = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await fetch(`${API_URL}/api/logout/`, {
+    const response = await fetch(`${API_URL}/api/users/logout/`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -47,7 +47,7 @@ const handleLogout = async () => {
 const handleDeleteAccount = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await fetch(`${API_URL}/api/delete/`, {
+    const response = await fetch(`${API_URL}/api/users/delete/`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
