@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { LogOut, UserX } from 'lucide-react';
+
 import {
 AlertDialog,
 AlertDialogAction,
@@ -21,10 +22,15 @@ import Image from 'next/image'
 
 export default function CustomSidebar() {
 const router = useRouter();
+const pathname = usePathname();
+
 const [isOpen, setIsOpen] = useState(false);
 const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
+if (pathname === '/login' || pathname === '/signup') {
+  return null;
+}
 const handleLogout = async () => {
   try {
     const refreshToken = localStorage.getItem('refreshToken');
