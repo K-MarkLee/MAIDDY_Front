@@ -82,8 +82,8 @@ export default function LoginForm() {
             <img
               src="/Images/logo1.png"
               alt="Login Title"
-              width={1000}
-              height={1000}
+              width={310}
+              height={310}
 
             />
           </motion.div>
