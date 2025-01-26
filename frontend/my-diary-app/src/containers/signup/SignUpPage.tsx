@@ -94,8 +94,8 @@ export default function SignUpForm() {
               className="signup-header flex justify-center"
               src="/Images/create.png"
               alt="Login Title"
-              width={320}
-              height={160}
+              width={310}
+              height={310}
               priority
               className="object-contain"
             />
