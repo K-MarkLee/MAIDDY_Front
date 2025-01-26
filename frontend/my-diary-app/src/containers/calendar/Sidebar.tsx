@@ -47,34 +47,43 @@ const handleLogout = async () => {
     console.error('Logout error:', error);
   }
 };
+
 const handleDeleteAccount = async () => {
   try {
     const password = prompt('계정 삭제를 위해 비밀번호를 입력해주세요:');
     if (!password) return;
  
     const token = localStorage.getItem('accessToken');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+
     const response = await fetch(`${API_URL}/api/users/delete/`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ password })
+      body: JSON.stringify({
+        password: password.trim()
+      })
     });
- 
+
+    const data = await response.json();
     if (response.ok) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+      localStorage.clear();
+      alert('회원 탈퇴가 완료되었습니다.');
       router.push('/signup');
     } else {
-      const data = await response.json();
       alert(data.error || '계정 삭제 실패');
     }
   } catch (error) {
     console.error('Account deletion error:', error);
-    alert('계정 삭제 중 오류가 발생했습니다.');
+    alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
   }
- };
+};
+
 
 return (
   <>

@@ -114,7 +114,7 @@ export default function Calendar() {
           }
         })
 
-        if (!response.ok) { 
+        if (!response.ok) {
           throw new Error('Failed to fetch pinned schedules')
         }
 
@@ -276,12 +276,15 @@ export default function Calendar() {
               <span className="font-medium text-sm" style={{ color: '#5C5C5C' }}>Pinned Today</span>
             </div>
             {pinnedSchedules.length > 0 ? (
-              <div className="space-y-1.5">
+              <div className="space-y-0.5">
                 {pinnedSchedules.map((schedule) => (
                   <div
                     key={schedule.id}
-                    className="flex items-center gap-2 p-2 rounded-xl bg-violet-50/80"
+                    className="flex items-center gap-2 py-0.5 px-1.5 rounded-xl bg-violet-50/80"
                   >
+                    <div className="text-sm font-bold text-[#7c3aed] transition-colors duration-200">
+                      {schedule.time ? schedule.time.slice(0, 5) : ''}
+                    </div>
                     <span className={`text-sm ${schedule.is_completed ? 'text-gray-400' : 'text-gray-700'}`}>
                       {schedule.title}
                     </span>
