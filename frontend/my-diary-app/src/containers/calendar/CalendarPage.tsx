@@ -273,7 +273,7 @@ export default function Calendar() {
           >
             <div className="flex items-center gap-2 mb-2">
               <Pin className="w-5 h-5 text-violet-600" />
-              <span className="font-medium text-sm" style={{ color: '#5C5C5C' }}>Pinned Today</span>
+              <span className="font-medium text-sm" style={{ color: '#5C5C5C' }}>Pinned Today</span>  
             </div>
             {pinnedSchedules.length > 0 ? (
               <div className="space-y-0.5">
