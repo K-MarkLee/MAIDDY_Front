@@ -70,27 +70,21 @@ export default function LoginForm() {
                 delay: 0.3
               }}
             >
-            <Image
+            <img
               src="/Images/1.png"
               alt="Login Logo"
-              width={160} 
-              height={160}
+              width="160"
+              height="160"
               className="rounded-full"
-              priority
-              sizes="(max-width: 768px) 100vw, 160px"
-              loading="eager" // 추가
             />
             </motion.div>
             
-            <Image
+            <img
               src="/Images/logo1.png"
               alt="Login Title"
               width={1000}
               height={1000}
-              priority
-              loading="eager" // 추가
 
-            
             />
           </motion.div>
 
