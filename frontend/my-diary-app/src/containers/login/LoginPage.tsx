@@ -70,7 +70,7 @@ export default function LoginForm() {
                 delay: 0.3
               }}
             >
-            <img
+            <Image
               src="/Images/1.png"
               alt="Login Logo"
               width="160"
@@ -79,7 +79,7 @@ export default function LoginForm() {
             />
             </motion.div>
             
-            <img
+            <Image
               src="/Images/logo1.png"
               alt="Login Title"
               width={310}
