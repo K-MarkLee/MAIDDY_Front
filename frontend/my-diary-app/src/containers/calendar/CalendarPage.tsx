@@ -194,7 +194,7 @@ export default function Calendar() {
     return (
       <div
         className={`h-full w-full ${
-          isToday ? 'calendar-day-today' : ''
+          isToday ? 'calendar-day-today' : '' // 이거 처음로그인 했을때 안떠 왜그러지?
         } ${
           hasDiary ? 'diary-exists' : ''
         }`}
