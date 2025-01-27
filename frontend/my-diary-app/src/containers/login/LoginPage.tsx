@@ -107,7 +107,7 @@ export default function LoginForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="이메일을 입력해주세요"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
@@ -120,7 +120,7 @@ export default function LoginForm() {
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="비밀번호를 입력해주세요"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
@@ -138,7 +138,7 @@ export default function LoginForm() {
                 onClick={() => router.push('/signup')}
                 className="login-link"
               >
-                Create an account
+                계정을 생성하시겠습니까?
               </button>
               <div className="mt-3">
                 <button 

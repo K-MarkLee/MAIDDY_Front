@@ -31,7 +31,7 @@ export default function BottomNavigation() {
   // 네비게이션 아이템을 useMemo로 최적화
   const NAVIGATION_ITEMS = useMemo(() => [
     {
-      label: 'Calendar',
+      label: '달력',
       icon: Calendar,
       path: '/calendar'
     },

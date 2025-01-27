@@ -120,7 +120,7 @@ export default function SignUpForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="이메일을 입력해주세요"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
@@ -133,7 +133,7 @@ export default function SignUpForm() {
               <Input
                 id="username"
                 type="text"
-                placeholder="Enter your username"
+                placeholder="사용자 이름을 입력하세요"
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 required
@@ -146,7 +146,7 @@ export default function SignUpForm() {
               <Input
                 id="password"
                 type="password"
-                placeholder="Create a password"
+                placeholder="비밀번호를 입력해주세요"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
@@ -159,7 +159,7 @@ export default function SignUpForm() {
               <Input
                 id="password2"
                 type="password"
-                placeholder="Confirm your password"
+                placeholder="비밀번호를 확인해 주세요"
                 value={formData.password2}
                 onChange={(e) => setFormData({ ...formData, password2: e.target.value })}
                 required
@@ -177,7 +177,7 @@ export default function SignUpForm() {
                 onClick={() => router.push('/login')}
                 className="signup-link"
               >
-                Already have an account?
+                계정이 있으신가요? 
               </button>
             </div>
           </motion.form>

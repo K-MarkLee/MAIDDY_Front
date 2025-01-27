@@ -125,7 +125,7 @@ const DiaryPage = ({ date }: { date: string }) => {
             >
               <Crown className="h-5 w-5 mr-2 text-white group-hover:scale-110 transition-transform duration-300" />
               <span className="text-white">
-                MAIDDY&apos;S comment
+                MAIDDY&apos;s comment
               </span>
             </Button>
           </motion.div>

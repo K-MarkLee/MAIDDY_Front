@@ -14,7 +14,7 @@ const TabNavigation = ({ date, activeTab }: TabNavigationProps) => {
 
   const tabs = [
     { id: 'schedule', label: '일정', icon: CalendarDays },
-    { id: 'todo', label: 'TO DO', icon: ListTodo },
+    { id: 'todo', label: '할일', icon: ListTodo },
     { id: 'diary', label: '일기', icon: BookText },
   ];
 
