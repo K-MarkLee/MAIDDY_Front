@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { motion } from 'framer-motion';
 import { Trash2 } from 'lucide-react';
@@ -12,7 +12,7 @@ export default function TodoCard({ todo, onDelete, onToggle }: TodoProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       className="mb-2"
@@ -38,10 +38,10 @@ export default function TodoCard({ todo, onDelete, onToggle }: TodoProps) {
             onChange={() => onToggle(todo.id)}
             className="todo-checkbox"
           />
-          <span 
+          <span
             className={`${todo.is_completed ? 'line-through' : ''}`}
             style={{
-              color: todo.is_completed ? '#9CA3AF' : '#5C5C5C'
+              color: todo.is_completed ? '#9CA3AF' : '#5C5C5C',
             }}
           >
             {todo.content}

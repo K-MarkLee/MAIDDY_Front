@@ -43,20 +43,20 @@ const nextConfig = {
       },
       {
         protocol: 'http',
-        hostname: 'maiddy.co.kr', 
+        hostname: 'maiddy.co.kr',
         port: '3000',
         pathname: '/images/**',
       },
       {
         protocol: 'https',
         hostname: '**',
-      }
+      },
     ],
   },
   reactStrictMode: false,
   output: 'standalone',
   compress: true,
   poweredByHeader: false,
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

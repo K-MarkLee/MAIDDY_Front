@@ -1,17 +1,16 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Plus } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import SharedLayout from '@/components/layout/SharedLayout'
-import TabNavigation from '@/components/TabNavigation'
-import { TodoItem } from './types'
-import { fetchTodos, addTodo, deleteTodo, toggleTodo } from './utils'
-import TodoCard from './TodoCard'
-import './styles.css'
-import PageTitle from '@/components/common/PageTitle'
+import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import SharedLayout from '@/components/layout/SharedLayout';
+import TabNavigation from '@/components/TabNavigation';
+import { TodoItem } from './types';
+import { fetchTodos, addTodo, deleteTodo, toggleTodo } from './utils';
+import TodoCard from './TodoCard';
+import './styles.css';
+import PageTitle from '@/components/common/PageTitle';
 
 interface TodoPageProps {
   params: {
@@ -20,65 +19,60 @@ interface TodoPageProps {
 }
 
 const TodoPage = ({ params }: TodoPageProps) => {
-  const router = useRouter()
-  const [todos, setTodos] = useState<TodoItem[]>([])
-  const [newTodo, setNewTodo] = useState('')
-  const [isAddingTodo, setIsAddingTodo] = useState(false)
+  const [todos, setTodos] = useState<TodoItem[]>([]);
+  const [newTodo, setNewTodo] = useState('');
+  const [isAddingTodo, setIsAddingTodo] = useState(false);
 
-  useEffect(() => {
-    loadTodos()
-  }, [params.date])
-
-  const loadTodos = async () => {
+  const loadTodos = useCallback(async () => {
     try {
-      const data = await fetchTodos(params.date)
-      setTodos(data)
+      const data = await fetchTodos(params.date);
+      setTodos(data);
     } catch (error) {
-      console.error('할일 목록 로딩 실패:', error)
+      console.error('할일 목록 로딩 실패:', error);
       if (error instanceof Error && error.message.includes('token')) {
-        window.location.href = '/login'
+        window.location.href = '/login';
       }
     }
-  }
+  }, [params.date]);
+
+  useEffect(() => {
+    loadTodos();
+  }, [loadTodos]);
 
   const handleAddTodo = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!newTodo.trim()) return
+    e.preventDefault();
+    if (!newTodo.trim()) return;
 
     try {
-      const savedTodo = await addTodo(newTodo, params.date)
-      setTodos([...todos, savedTodo])
-      setNewTodo('')
-      setIsAddingTodo(false)
+      const savedTodo = await addTodo(newTodo, params.date);
+      setTodos([...todos, savedTodo]);
+      setNewTodo('');
+      setIsAddingTodo(false);
     } catch (error) {
-      console.error('할일 추가 실패:', error)
-      alert('할일 추가에 실패했습니다')
+      console.error('할일 추가 실패:', error);
+      alert('할일 추가에 실패했습니다');
     }
-  }
+  };
 
   const handleDeleteTodo = async (id: number) => {
     try {
-      await deleteTodo(id)
-      setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
+      await deleteTodo(id);
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
     } catch (error) {
-      console.error('할일 삭제 실패:', error)
-      alert('할일 삭제에 실패했습니다')
+      console.error('할일 삭제 실패:', error);
+      alert('할일 삭제에 실패했습니다');
     }
-  }
+  };
 
   const handleToggleTodo = async (id: number) => {
     try {
-      const updatedTodo = await toggleTodo(id, params.date)
-      setTodos(prevTodos =>
-        prevTodos.map(todo =>
-          todo.id === id ? updatedTodo : todo
-        )
-      )
+      const updatedTodo = await toggleTodo(id, params.date);
+      setTodos((prevTodos) => prevTodos.map((todo) => (todo.id === id ? updatedTodo : todo)));
     } catch (error) {
-      console.error('할일 상태 변경 실패:', error)
-      alert('할일 상태 변경에 실패했습니다')
+      console.error('할일 상태 변경 실패:', error);
+      alert('할일 상태 변경에 실패했습니다');
     }
-  }
+  };
 
   return (
     <SharedLayout>
@@ -129,14 +123,14 @@ const TodoPage = ({ params }: TodoPageProps) => {
                     <Button
                       type="button"
                       onClick={() => {
-                        setIsAddingTodo(false)
-                        setNewTodo('')
+                        setIsAddingTodo(false);
+                        setNewTodo('');
                       }}
                       className="flex-1 bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 hover:border-gray-300"
                     >
                       취소
                     </Button>
-                  </div>  
+                  </div>
                 </div>
               </motion.form>
             )}
@@ -147,9 +141,9 @@ const TodoPage = ({ params }: TodoPageProps) => {
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{
-            type: "spring",
+            type: 'spring',
             duration: 0.5,
-            bounce: 0.3
+            bounce: 0.3,
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

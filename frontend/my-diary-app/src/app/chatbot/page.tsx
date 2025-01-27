@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import ChatbotPage from '@/containers/chatbot/ChatbotPage'
+import ChatbotPage from '@/containers/chatbot/ChatbotPage';
 
 export default function Page() {
-  return <ChatbotPage />
+  return <ChatbotPage />;
 }

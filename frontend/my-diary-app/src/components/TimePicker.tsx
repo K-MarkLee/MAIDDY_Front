@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { Clock } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 interface TimePickerProps {
-  value: string;
-  onChange: (time: string) => void;
-  required?: boolean;
+  value: string;  // Date 타입은 제거합니다 - 실제로 string만 사용하고 있기 때문
+  onChange: (time: string) => void;  // 반환 타입도 string으로 명확히 지정
 }
 
 interface TimePickerColumnProps {
@@ -29,7 +28,7 @@ const TimePickerColumn = ({ items, value, onChange }: TimePickerColumnProps) => 
     }
   }, [value, items, isDragging]);
 
-  const handleDragEnd = (_: any, info: PanInfo) => {
+  const handleDragEnd = (_: Event, info: PanInfo) => {  // any를 Event로 변경
     setIsDragging(false);
     const newOffset = offset + info.offset.y;
     const rawIndex = -Math.round(newOffset / ITEM_HEIGHT);
@@ -69,7 +68,7 @@ const TimePickerColumn = ({ items, value, onChange }: TimePickerColumnProps) => 
   );
 };
 
-export default function TimePicker({ value, onChange, required = false }: TimePickerProps) {
+export default function TimePicker({ value, onChange }: TimePickerProps) {  // required 제거
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(() => {
     if (!value) return { hours: '12', minutes: '00', period: 'AM' };
@@ -78,7 +77,7 @@ export default function TimePicker({ value, onChange, required = false }: TimePi
     return {
       hours: String(hours > 12 ? hours - 12 : hours || 12).padStart(2, '0'),
       minutes: m,
-      period: hours >= 12 ? 'PM' : 'AM'
+      period: hours >= 12 ? 'PM' : 'AM',
     };
   });
 
@@ -102,7 +101,9 @@ export default function TimePicker({ value, onChange, required = false }: TimePi
       >
         <Clock className="h-4 w-4 text-violet-600" />
         <span className="text-gray-600 text-sm">
-          {value ? `${internalValue.hours}:${internalValue.minutes} ${internalValue.period}` : '시간 선택'}
+          {value
+            ? `${internalValue.hours}:${internalValue.minutes} ${internalValue.period}`
+            : '시간 선택'}
         </span>
       </div>
 
@@ -123,23 +124,25 @@ export default function TimePicker({ value, onChange, required = false }: TimePi
               <TimePickerColumn
                 items={hourNumbers}
                 value={internalValue.hours}
-                onChange={(hours) => setInternalValue(prev => ({ ...prev, hours }))}
+                onChange={(hours) => setInternalValue((prev) => ({ ...prev, hours }))}
               />
               <TimePickerColumn
                 items={minuteNumbers}
                 value={internalValue.minutes}
-                onChange={(minutes) => setInternalValue(prev => ({ ...prev, minutes }))}
+                onChange={(minutes) => setInternalValue((prev) => ({ ...prev, minutes }))}
               />
               <div className="flex-1">
                 <div className="space-y-2">
                   {['AM', 'PM'].map((period) => (
                     <div
                       key={period}
-                      onClick={() => setInternalValue(prev => ({ ...prev, period }))}
+                      onClick={() => setInternalValue((prev) => ({ ...prev, period }))}
                       className={`h-8 flex items-center justify-center text-sm rounded-lg cursor-pointer
-                        ${internalValue.period === period 
-                          ? 'bg-violet-100 text-violet-600 font-medium' 
-                          : 'text-gray-600 hover:bg-gray-100'}
+                        ${
+                          internalValue.period === period
+                            ? 'bg-violet-100 text-violet-600 font-medium'
+                            : 'text-gray-600 hover:bg-gray-100'
+                        }
                       `}
                     >
                       {period}

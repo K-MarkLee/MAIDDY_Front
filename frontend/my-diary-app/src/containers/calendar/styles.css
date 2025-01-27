@@ -1,6 +1,6 @@
 .calendar-header {
   padding: 0 2rem;
-  margin-top: 0
+  margin-top: 0;
 }
 
 .calendar-title {
@@ -10,14 +10,13 @@
   text-align: center;
   margin-bottom: 0rem;
   padding-top: 6rem; /* 상단 패딩 추가 */
-  padding-bottom: 0rem; 
+  padding-bottom: 0rem;
 }
 
-
 .calendar-nav {
-  margin: 0;  /* 기존 마진 제거 */
-  padding: 0.25rem 0;  /* 위아래 패딩만 약간 줄임 */
-  min-height: 40px;  /* 최소 높이 설정 */
+  margin: 0; /* 기존 마진 제거 */
+  padding: 0.25rem 0; /* 위아래 패딩만 약간 줄임 */
+  min-height: 40px; /* 최소 높이 설정 */
 }
 
 .calendar-nav-button {
@@ -44,7 +43,7 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 0.125rem;
   justify-items: center;
-  margin-left: -0.50rem;
+  margin-left: -0.5rem;
 }
 
 .calendar-day-name {
@@ -89,18 +88,20 @@
 
 .calendar-container {
   position: relative;
-  z-index: 1;  /* 낮은 z-index 설정 */
+  z-index: 1; /* 낮은 z-index 설정 */
   padding: 0.75rem 1rem;
   background-color: white;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   margin: 6rem 2rem 1rem 2rem;
   transform: translateY(2rem);
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
 }
 
-.calendar-day[data-highlighted="true"] {
+.calendar-day[data-highlighted='true'] {
   background-color: rgba(139, 127, 249, 0.1);
   color: #8b7ff9;
 }
@@ -110,16 +111,16 @@
 }
 
 .calendar-day-today {
-  background-color: #ffd3f3;  /* bg-blue-100 */
-  border-radius: 9999px;      /* rounded-full */
-  font-weight: bold;          /* font-bold */
-  color: #ffffff;            /* text-blue-600 */
-  width: 2rem;             /* 너비 증가 */
-  height: 2rem;            /* 높이 증가 */
+  background-color: #ffd3f3; /* bg-blue-100 */
+  border-radius: 9999px; /* rounded-full */
+  font-weight: bold; /* font-bold */
+  color: #ffffff; /* text-blue-600 */
+  width: 2rem; /* 너비 증가 */
+  height: 2rem; /* 높이 증가 */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.20rem;           /* 패딩 증가 */
+  padding: 1.2rem; /* 패딩 증가 */
 }
 
 .diary-exists {
@@ -136,7 +137,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 35px;
-  height: 35px; 
+  height: 35px;
   background-color: rgba(194, 253, 83, 0.2);
   border-radius: 30%;
   z-index: -1;
@@ -148,8 +149,3 @@
   z-index: 999;
   isolation: isolate;
 }
-
-
-
-
-

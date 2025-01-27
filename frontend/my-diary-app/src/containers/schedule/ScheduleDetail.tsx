@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Edit2, Save, X } from 'lucide-react'
-import { API_URL, API_ENDPOINTS } from './constants'
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Edit2, Save, X } from 'lucide-react';
+import { API_URL, API_ENDPOINTS } from './constants';
 
 export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange }) {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [isEditing, setIsEditing] = useState(false)
-  const [editedTitle, setEditedTitle] = useState('')
-  const [editedContent, setEditedContent] = useState('')
-  const [detailData, setDetailData] = useState(null)
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState('');
+  const [editedContent, setEditedContent] = useState('');
+  const [detailData, setDetailData] = useState(null);
 
   const handleEditClick = () => {
-    setEditedTitle(detailData?.title || schedule.title)
-    setEditedContent(detailData?.content || schedule.content || '')
-    setIsEditing(true)
-  }
+    setEditedTitle(detailData?.title || schedule.title);
+    setEditedContent(detailData?.content || schedule.content || '');
+    setIsEditing(true);
+  };
 
   useEffect(() => {
     if (onExpandedChange) {
@@ -24,88 +24,90 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
 
   useEffect(() => {
     if (isExpanded) {
-      fetchDetail()
+      fetchDetail();
     }
-  }, [isExpanded, schedule.id])
+  }, [isExpanded, schedule.id]);
 
   const fetchDetail = async () => {
-    if (!isExpanded) return
-    
+    if (!isExpanded) return;
+
     try {
-      const token = localStorage.getItem('accessToken')
-      if (!token) return
+      const token = localStorage.getItem('accessToken');
+      if (!token) return;
 
       const response = await fetch(`${API_URL}${API_ENDPOINTS.DETAIL}${schedule.id}/`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
-        }
-      })
+        },
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch schedule details')
+        throw new Error('Failed to fetch schedule details');
       }
 
-      const data = await response.json()
-      setDetailData(data)
+      const data = await response.json();
+      setDetailData(data);
     } catch (error) {
-      console.error('Failed to load details:', error)
+      console.error('Failed to load details:', error);
     }
-  }
+  };
 
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem('accessToken')
-      if (!token) return
+      const token = localStorage.getItem('accessToken');
+      if (!token) return;
 
       const response = await fetch(`${API_URL}${API_ENDPOINTS.UPDATE}?id=${schedule.id}`, {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           title: editedTitle,
           content: editedContent,
-        })
-      })
+        }),
+      });
 
-      const updatedSchedule = await response.json()
-      
+      const updatedSchedule = await response.json();
+
       if (!response.ok) {
-        throw new Error(updatedSchedule.message || 'Failed to update schedule')
+        throw new Error(updatedSchedule.message || 'Failed to update schedule');
       }
 
-      onUpdate(schedule.id, updatedSchedule)
-      setIsEditing(false)
-      setIsExpanded(false)
-      setDetailData(updatedSchedule)
+      onUpdate(schedule.id, updatedSchedule);
+      setIsEditing(false);
+      setIsExpanded(false);
+      setDetailData(updatedSchedule);
     } catch (error) {
-      console.error('Failed to update schedule:', error)
+      console.error('Failed to update schedule:', error);
       if (error instanceof Error) {
-        alert(error.message)
+        alert(error.message);
       } else {
-        alert('Failed to update schedule')
+        alert('Failed to update schedule');
       }
     }
-  }
+  };
 
   const contentVariants = {
-    collapsed: { 
-      height: 0, 
+    collapsed: {
+      height: 0,
       opacity: 0,
-      transition: { duration: 0.2, ease: "easeInOut" }
+      transition: { duration: 0.2, ease: 'easeInOut' },
     },
-    expanded: { 
-      height: 'auto', 
-      opacity: 1, 
-      transition: { duration: 0.2, ease: "easeInOut" } 
-    }
-  }
+    expanded: {
+      height: 'auto',
+      opacity: 1,
+      transition: { duration: 0.2, ease: 'easeInOut' },
+    },
+  };
 
   return (
-    <div className={`relative w-full px-1 ${isExpanded ? 'max-w-full' : 'max-w-2xl'} overflow-hidden`}> 
-      <motion.div 
+    <div
+      className={`relative w-full px-1 ${isExpanded ? 'max-w-full' : 'max-w-2xl'} overflow-hidden`}
+    >
+      <motion.div
         onClick={() => !isEditing && setIsExpanded(!isExpanded)}
         className={`
           cursor-pointer w-full bg-white/80 backdrop-blur-xl rounded-xl p-2 
@@ -114,10 +116,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
         `}
         layout
       >
-        <motion.div 
-          className="flex items-center justify-between mb-4"
-          layout="position"
-        >
+        <motion.div className="flex items-center justify-between mb-4" layout="position">
           {isEditing ? (
             <input
               value={editedTitle}
@@ -129,13 +128,13 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
             />
           ) : (
             <div className="flex items-center w-full">
-              <motion.h3 
-                layout="position" 
+              <motion.h3
+                layout="position"
                 className="text-base p-2 truncate flex-1 mr-8"
                 style={{
                   transform: 'none',
                   transformOrigin: '50% 50% 0px',
-                  color: '#5C5C5C'
+                  color: '#5C5C5C',
                 }}
               >
                 {schedule.title}
@@ -145,8 +144,8 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   onClick={(e) => {
-                    e.stopPropagation()
-                    handleEditClick()
+                    e.stopPropagation();
+                    handleEditClick();
                   }}
                   className="p-2 rounded-xl hover:bg-violet-50/80 transition-all duration-200 ml-auto"
                 >
@@ -187,8 +186,8 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
                     </motion.button>
                     <motion.button
                       onClick={() => {
-                        setIsEditing(false)
-                        setIsExpanded(false)
+                        setIsEditing(false);
+                        setIsExpanded(false);
                       }}
                       className="px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-200 text-[#5C5C5C] text-sm border border-gray-200"
                     >
@@ -197,12 +196,12 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
                   </div>
                 </motion.div>
               ) : (
-                <motion.p 
+                <motion.p
                   className="text-base p-2"
-                  style={{ 
+                  style={{
                     transform: 'none',
                     transformOrigin: '50% 50% 0px',
-                    color: '#5C5C5C'
+                    color: '#5C5C5C',
                   }}
                   layout
                 >
@@ -214,5 +213,5 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
         </AnimatePresence>
       </motion.div>
     </div>
-  )
+  );
 }

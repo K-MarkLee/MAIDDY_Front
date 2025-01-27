@@ -19,7 +19,7 @@ const subscribeTokenRefresh = (cb: (token: string) => void) => {
 
 // 토큰 갱신 후 대기 중인 요청들을 처리하는 함수
 const onTokenRefreshed = (token: string) => {
-  refreshSubscribers.map(cb => cb(token));
+  refreshSubscribers.map((cb) => cb(token));
   refreshSubscribers = [];
 };
 
@@ -40,8 +40,8 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
         // 토큰 갱신 중이면 대기
-        return new Promise(resolve => {
-          subscribeTokenRefresh(token => {
+        return new Promise((resolve) => {
+          subscribeTokenRefresh((token) => {
             originalRequest.headers.Authorization = `Bearer ${token}`;
             resolve(axios(originalRequest));
           });
@@ -55,7 +55,7 @@ apiClient.interceptors.response.use(
         const newToken = await refreshAccessToken();
         isRefreshing = false;
         onTokenRefreshed(newToken);
-        
+
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return axios(originalRequest);
       } catch (refreshError) {

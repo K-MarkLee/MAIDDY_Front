@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from 'lucide-react'
-import SharedLayout from '@/components/layout/SharedLayout'
-import { Skeleton } from "@/components/ui/skeleton"
-import { generateAiResponse } from './utils'
-import './styles.css'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import SharedLayout from '@/components/layout/SharedLayout';
+import { Skeleton } from '@/components/ui/skeleton';
+import { generateAiResponse } from './utils';
+import './styles.css';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 interface AiCommentProps {
   params: {
@@ -18,37 +18,37 @@ interface AiCommentProps {
 }
 
 const AiCommentPage = ({ params }: AiCommentProps) => {
-  const router = useRouter()
-  const [feedback, setFeedback] = useState<string>('')
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const router = useRouter();
+  const [feedback, setFeedback] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
-        setIsLoading(true)
-        setError(null)
-        const accessToken = localStorage.getItem('accessToken')
-        
+        setIsLoading(true);
+        setError(null);
+        const accessToken = localStorage.getItem('accessToken');
+
         if (!accessToken) {
-          router.push('/login')
-          return
+          router.push('/login');
+          return;
         }
 
         const response = await generateAiResponse({ select_date: params.date });
-        setFeedback(response)
+        setFeedback(response);
       } catch (error) {
-        console.error('피드백 로딩 실패:', error)
-        setError('피드백을 불러오는데 실패했습니다. 다시 시도해주세요.')
+        console.error('피드백 로딩 실패:', error);
+        setError('피드백을 불러오는데 실패했습니다. 다시 시도해주세요.');
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
     if (params.date) {
-      fetchFeedback()
+      fetchFeedback();
     }
-  }, [params.date, router])
+  }, [params.date, router]);
 
   const LoadingSkeleton = () => (
     <div className="space-y-3">
@@ -56,7 +56,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
       <Skeleton className="h-4 w-[200px]" />
       <Skeleton className="h-4 w-[230px]" />
     </div>
-  )
+  );
 
   return (
     <SharedLayout>
@@ -73,24 +73,24 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
               </Button>
             </div>
             <div className="flex-grow flex justify-center">
-            <motion.div
-            initial={{ x: 0, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{
-              type: "spring",
-              damping: 20,
-              stiffness: 100
-            }}
-            className="flex items-center"
-            >
-              <Image
-                src="/Images/comment.png"
-                alt="MAIDDY"
-                width={700} 
-                height={700}
-                priority
-                className="object-contain -mb-2"
-              />
+              <motion.div
+                initial={{ x: 0, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{
+                  type: 'spring',
+                  damping: 20,
+                  stiffness: 100,
+                }}
+                className="flex items-center"
+              >
+                <Image
+                  src="/Images/comment.png"
+                  alt="MAIDDY"
+                  width={700}
+                  height={700}
+                  priority
+                  className="object-contain -mb-2"
+                />
               </motion.div>
             </div>
             <div className="w-[100px]" />
@@ -100,7 +100,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
         <div className="ai-comment-analysis">
           <div className="ai-comment-card rounded-lg bg-white shadow-md p-6">
             <h2 className="text-lg text-[#5C5C5C] font-semibold mb-4">일일 피드백</h2>
-            
+
             <div className="ai-comment-content">
               {isLoading ? (
                 <div className="flex flex-col items-center space-y-4 py-4">
@@ -123,7 +123,7 @@ const AiCommentPage = ({ params }: AiCommentProps) => {
         </div>
       </div>
     </SharedLayout>
-  )
-}
+  );
+};
 
-export default AiCommentPage
+export default AiCommentPage;

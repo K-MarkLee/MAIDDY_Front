@@ -78,9 +78,9 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-input, textarea {
-  color: #5C5C5C !important;
+input,
+textarea {
+  color: #5c5c5c !important;
 }
 
 .schedule-detail-content {
@@ -102,5 +102,3 @@ input, textarea {
 .schedule-detail-textarea {
   margin-top: 1.5rem;
 }
-
-

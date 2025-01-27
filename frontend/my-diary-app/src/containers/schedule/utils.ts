@@ -4,7 +4,7 @@ import { API_URL, API_ENDPOINTS } from './constants';
 // utils.ts
 export const fetchSchedules = async (date: string): Promise<Schedule[]> => {
   const token = localStorage.getItem('accessToken');
-  
+
   if (!token) {
     console.log('토큰이 없습니다');
     window.location.href = '/login';
@@ -13,12 +13,12 @@ export const fetchSchedules = async (date: string): Promise<Schedule[]> => {
 
   try {
     console.log('API 요청 시작:', `${API_URL}${API_ENDPOINTS.LIST}?date=${date}`);
-    
+
     const response = await fetch(`${API_URL}${API_ENDPOINTS.LIST}?date=${date}`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
-      }
+      },
     });
 
     if (!response.ok) {
@@ -43,9 +43,9 @@ export const handleDeleteSchedule = async (id: number): Promise<void> => {
   const response = await fetch(`${API_URL}${API_ENDPOINTS.DELETE}${id}/`, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
-    }
+    },
   });
 
   if (!response.ok) {
@@ -53,7 +53,9 @@ export const handleDeleteSchedule = async (id: number): Promise<void> => {
   }
 };
 
-export const handleAddSchedule = async (scheduleData: Omit<Schedule, 'id' | 'pinned' | 'user'>): Promise<Schedule> => {
+export const handleAddSchedule = async (
+  scheduleData: Omit<Schedule, 'id' | 'pinned' | 'user'>
+): Promise<Schedule> => {
   const token = localStorage.getItem('accessToken');
   if (!token) {
     window.location.href = '/login';
@@ -63,10 +65,10 @@ export const handleAddSchedule = async (scheduleData: Omit<Schedule, 'id' | 'pin
   const response = await fetch(`${API_URL}${API_ENDPOINTS.CREATE}`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(scheduleData)
+    body: JSON.stringify(scheduleData),
   });
 
   if (!response.ok) {
@@ -83,9 +85,9 @@ export const handleTogglePin = async (scheduleId: number, date: string): Promise
   const response = await fetch(`${API_URL}${API_ENDPOINTS.PINNED}?date=${date}&id=${scheduleId}`, {
     method: 'PATCH',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
-    }
+    },
   });
 
   if (!response.ok) {

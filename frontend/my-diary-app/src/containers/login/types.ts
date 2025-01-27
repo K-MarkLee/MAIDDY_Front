@@ -5,5 +5,5 @@ export interface LoginFormData {
 
 export interface LoginResponse {
   access: string;
-  refresh: string;  // refresh 토큰 추가
+  refresh: string; // refresh 토큰 추가
 }

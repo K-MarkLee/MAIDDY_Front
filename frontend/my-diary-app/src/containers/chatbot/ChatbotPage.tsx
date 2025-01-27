@@ -1,45 +1,38 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import { Button } from "@/components/ui/button"
-import SharedLayout from '@/components/layout/SharedLayout'
-import { fetchInitialMessage } from './utils'
-import { ChatMessage } from './types'
-import './styles.css'
-import { ArrowLeft, Loader2 } from 'lucide-react'
-import { Skeleton } from "@/components/ui/skeleton"
-
-interface RecommendationData {
-  recommendation: string;
-}
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import SharedLayout from '@/components/layout/SharedLayout';
+import { fetchInitialMessage } from './utils';
+import './styles.css';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ChatbotPage() {
-  const router = useRouter()
-  const [messages, setMessages] = useState<ChatMessage[]>([])
-  const [recommendations, setRecommendations] = useState<string[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter();
+  const [recommendations, setRecommendations] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadInitialMessage = async () => {
       try {
-        setIsLoading(true)
-        const accessToken = localStorage.getItem('accessToken')
+        setIsLoading(true);
+        const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
-          throw new Error('액세스 토큰이 없습니다.')
+          throw new Error('액세스 토큰이 없습니다.');
         }
 
-        const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]))
-        const userId = tokenPayload.user_id
+        const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]));
+        const userId = tokenPayload.user_id;
 
         const response = await fetch('http://43.200.166.176:8000/ai/recommend/', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ user_id: userId })
+          body: JSON.stringify({ user_id: userId }),
         });
 
         if (!response.ok) {
@@ -50,17 +43,16 @@ export default function ChatbotPage() {
         const recommendationList = data.data.recommendation.split('\n');
         setRecommendations(recommendationList);
 
-        const initialMessage = await fetchInitialMessage();
-        setMessages([initialMessage]);
+        await fetchInitialMessage();
       } catch (error) {
         console.error('챗봇 로딩 실패:', error);
         if (error instanceof Error && error.message.includes('token')) {
           window.location.href = '/login';
         }
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
     loadInitialMessage();
   }, []);
@@ -109,7 +101,7 @@ export default function ChatbotPage() {
         <div className="chatbot-analysis">
           <div className="chatbot-card">
             <h2 className="text-lg text-[#5C5C5C] font-semibold">일정 추천</h2>
-            
+
             <div className="chatbot-recommendation">
               {isLoading ? (
                 <div className="flex flex-col items-center space-y-4 py-4">
@@ -130,10 +122,7 @@ export default function ChatbotPage() {
         </div>
 
         <div className="chatbot-chat">
-          <Button
-            onClick={() => router.push('/ai_chat')}
-            className="chatbot-chat-button"
-          >
+          <Button onClick={() => router.push('/ai_chat')} className="chatbot-chat-button">
             <span>Maiddy에게 메시지를 보내보세요</span>
             <span>→</span>
           </Button>

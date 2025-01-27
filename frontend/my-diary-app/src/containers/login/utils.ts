@@ -46,7 +46,7 @@ export const handleLogin = async (formData: LoginFormData): Promise<LoginRespons
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(formData)
+    body: JSON.stringify(formData),
   });
 
   if (!response.ok) {
@@ -54,14 +54,14 @@ export const handleLogin = async (formData: LoginFormData): Promise<LoginRespons
   }
 
   const data = await response.json();
-  
+
   if (!data.access || !data.refresh) {
     throw new Error('토큰이 없습니다');
   }
 
   // refresh 토큰도 저장
   setRefreshToken(data.refresh);
-  
+
   return data;
 };
 

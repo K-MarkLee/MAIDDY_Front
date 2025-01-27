@@ -1,83 +1,83 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import SharedLayout from '@/components/layout/SharedLayout'
-import { SignUpFormData } from './types'
-import { validatePasswords, handleSignUp } from './utils'
-import './styles.css'
-import { motion } from 'framer-motion'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import SharedLayout from '@/components/layout/SharedLayout';
+import { SignUpFormData } from './types';
+import { validatePasswords, handleSignUp } from './utils';
+import './styles.css';
+import { motion } from 'framer-motion';
 
 export default function SignUpForm() {
-  const router = useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState<SignUpFormData>({
     email: '',
     username: '',
     password: '',
-    password2: ''
-  })
-  const [error, setError] = useState('')
+    password2: '',
+  });
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => { 
-    e.preventDefault()
-    setError('')
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
 
-    const passwordError = validatePasswords(formData.password, formData.password2)
+    const passwordError = validatePasswords(formData.password, formData.password2);
     if (passwordError) {
-      setError(passwordError)
-      return
+      setError(passwordError);
+      return;
     }
 
     try {
-      const data = await handleSignUp(formData)
-      console.log('회원가입 성공:', data)
-      router.push('/login')
+      const data = await handleSignUp(formData);
+      console.log('회원가입 성공:', data);
+      router.push('/login');
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message)
+        setError(err.message);
       } else {
-        setError('An unexpected error occurred')
+        setError('An unexpected error occurred');
       }
-      console.error('회원가입 에러:', err)
+      console.error('회원가입 에러:', err);
     }
-  }
+  };
 
   return (
     <SharedLayout>
-      <motion.div 
+      <motion.div
         className="signup-container"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
-          type: "spring",
+          type: 'spring',
           damping: 20,
-          stiffness: 100
+          stiffness: 100,
         }}
       >
         <div className="signup-content">
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               damping: 20,
               stiffness: 100,
-              delay: 0.2
+              delay: 0.2,
             }}
           >
-            <motion.div 
+            <motion.div
               className="signup-logo"
               initial={{ y: -100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 damping: 20,
                 stiffness: 100,
-                delay: 0.3
+                delay: 0.3,
               }}
             >
               <Image
@@ -101,16 +101,16 @@ export default function SignUpForm() {
             />
           </motion.div>
 
-          <motion.form 
-            onSubmit={handleSubmit} 
+          <motion.form
+            onSubmit={handleSubmit}
             className="signup-form"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               damping: 20,
               stiffness: 100,
-              delay: 0.4
+              delay: 0.4,
             }}
           >
             {error && <div className="signup-error">{error}</div>}
@@ -172,17 +172,13 @@ export default function SignUpForm() {
             </Button>
 
             <div className="text-center mt-2">
-              <button 
-                type="button"
-                onClick={() => router.push('/login')}
-                className="signup-link"
-              >
-                계정이 있으신가요? 
+              <button type="button" onClick={() => router.push('/login')} className="signup-link">
+                계정이 있으신가요?
               </button>
             </div>
           </motion.form>
         </div>
       </motion.div>
     </SharedLayout>
-  )
+  );
 }

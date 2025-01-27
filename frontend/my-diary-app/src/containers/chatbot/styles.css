@@ -1,73 +1,73 @@
 .chatbot-container {
-    padding: 1.5rem;
-    padding-top: 1rem;
-  }
-  
-  .chatbot-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-  
-  .chatbot-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #f472b6;
-  }
-  
-  .chatbot-button {
-    background-color: #8b7ff9;
-    color: white;
-    border-radius: 0.75rem;
-  }
-  
-  .chatbot-button:hover {
-    background-color: #7a6ff8;
-  }
-  
-  .chatbot-image {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  .chatbot-analysis {
-    padding: 0 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .chatbot-card {
-    background-color: white;
-    border-radius: 1.5rem;
-    padding: 1.5rem;
-    color: #5C5C5C;
-  }
-  
-  .chatbot-recommendation {
-    background-color: #fdf2f8;
-    border-radius: 0.75rem;
-    padding: 1rem;
-    margin-top: 0.5rem;
-    color: #5C5C5C;
-  }
-  
-  .chatbot-chat {
-    padding: 0 1.5rem;
-    margin-bottom: 5rem;
-  }
-  
-  .chatbot-chat-button {
-    width: 100%;
-    background-color: #8b7ff9;
-    color: white;
-    border-radius: 0.75rem;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .chatbot-chat-button:hover {
-    background-color: #7a6ff8;
-  }
+  padding: 1.5rem;
+  padding-top: 1rem;
+}
+
+.chatbot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.chatbot-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f472b6;
+}
+
+.chatbot-button {
+  background-color: #8b7ff9;
+  color: white;
+  border-radius: 0.75rem;
+}
+
+.chatbot-button:hover {
+  background-color: #7a6ff8;
+}
+
+.chatbot-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.chatbot-analysis {
+  padding: 0 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chatbot-card {
+  background-color: white;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  color: #5c5c5c;
+}
+
+.chatbot-recommendation {
+  background-color: #fdf2f8;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  color: #5c5c5c;
+}
+
+.chatbot-chat {
+  padding: 0 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.chatbot-chat-button {
+  width: 100%;
+  background-color: #8b7ff9;
+  color: white;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatbot-chat-button:hover {
+  background-color: #7a6ff8;
+}

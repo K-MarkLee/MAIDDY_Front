@@ -26,4 +26,3 @@ export interface ScheduleCardProps {
   onTogglePin: (id: number) => void;
   onUpdate: (id: number, updatedData: Partial<Schedule>) => void;
 }
-

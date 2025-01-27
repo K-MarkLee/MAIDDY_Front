@@ -1,6 +1,5 @@
-import { DiaryData, AiCommentProps } from './types';
+import { DiaryData } from './types';
 import { API_URL, API_ENDPOINTS } from './constants';
-
 
 export const fetchDiaryContent = async (date: string): Promise<DiaryData | null> => {
   const token = localStorage.getItem('accessToken');
@@ -10,12 +9,12 @@ export const fetchDiaryContent = async (date: string): Promise<DiaryData | null>
   }
 
   const headers = {
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   };
 
   const listResponse = await fetch(`${API_URL}${API_ENDPOINTS.DIARIES}`, {
-    headers: headers
+    headers: headers,
   });
 
   if (!listResponse.ok) {
@@ -23,14 +22,12 @@ export const fetchDiaryContent = async (date: string): Promise<DiaryData | null>
   }
 
   const diaries = await listResponse.json();
-  const todayDiary = diaries.find(
-    (diary: DiaryData) => diary.select_date === date
-  );
+  const todayDiary = diaries.find((diary: DiaryData) => diary.select_date === date);
 
   if (!todayDiary) return null;
 
   const detailResponse = await fetch(`${API_URL}${API_ENDPOINTS.DIARIES}${todayDiary.id}/`, {
-    headers: headers
+    headers: headers,
   });
 
   if (!detailResponse.ok) {
@@ -60,12 +57,12 @@ export const generateAiResponse = async (params: AiFeedbackRequest): Promise<str
   const response = await fetch(`${API_URL}${API_ENDPOINTS.AI_FEEDBACK}`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       user_id: userId,
-      select_date: params.select_date  // diary.select_date를 params.select_date로 수정
+      select_date: params.select_date, // diary.select_date를 params.select_date로 수정
     }),
   });
 

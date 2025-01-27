@@ -10,9 +10,9 @@ export const fetchInitialMessage = async (): Promise<ChatMessage> => {
 
   const response = await fetch(`${API_URL}${API_ENDPOINTS.CHATBOT}`, {
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
-    }
+    },
   });
 
   if (!response.ok) {
@@ -22,6 +22,6 @@ export const fetchInitialMessage = async (): Promise<ChatMessage> => {
   const data = await response.json();
   return {
     message: data.initial_message || '안녕하세요! 메이디예요 🌟',
-    isBot: true
+    isBot: true,
   };
 };
