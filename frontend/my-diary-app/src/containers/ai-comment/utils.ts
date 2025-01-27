@@ -54,7 +54,7 @@ export const generateAiResponse = async (params: AiFeedbackRequest): Promise<str
     throw new Error('사용자 정보를 찾을 수 없습니다');
   }
 
-  const response = await fetch(`${API_URL}${API_ENDPOINTS.AI_FEEDBACK}`, {
+  const response = await fetch(`${API_URL}${API_ENDPOINTS.AI_FEEDBACK}`, {  // URL 결합 방식이 올바름
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ export const generateAiResponse = async (params: AiFeedbackRequest): Promise<str
     },
     body: JSON.stringify({
       user_id: userId,
-      select_date: params.select_date, // diary.select_date를 params.select_date로 수정
+      select_date: params.select_date,
     }),
   });
 

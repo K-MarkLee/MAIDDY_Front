@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import SharedLayout from '@/components/layout/SharedLayout';
 import { fetchInitialMessage } from './utils';
+import { API_URL, API_ENDPOINTS } from './constants';
 import './styles.css';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -26,7 +27,7 @@ export default function ChatbotPage() {
         const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]));
         const userId = tokenPayload.user_id;
 
-        const response = await fetch('http://43.200.166.176:8000/ai/recommend/', {
+        const response = await fetch(`${API_URL}${API_ENDPOINTS.CHATBOT}`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${accessToken}`,

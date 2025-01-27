@@ -1,5 +1,7 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const API_ENDPOINTS = {
-  CHATBOT: '/ai/recommend/',
+    DIARIES: '/diaries/',
+    AI_FEEDBACK: '/ai/feedback/',
+    CHATBOT: '/ai/chatbot/',
 };

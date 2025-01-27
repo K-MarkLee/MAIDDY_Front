@@ -25,7 +25,7 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
   useEffect(() => {
     if (isExpanded) {
       fetchDetail();
-    }
+    } 
   }, [isExpanded, schedule.id]);
 
   const fetchDetail = async () => {

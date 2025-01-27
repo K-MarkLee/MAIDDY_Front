@@ -6,9 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Pin, Crown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SharedLayout from '@/components/layout/SharedLayout';
-import { DAY_NAMES } from './constants';
+import { DAY_NAMES, API_URL, API_ENDPOINTS } from './constants';
 import { generateCalendarDays, formatDate } from './utils';
-import { API_URL } from './constants';
 import './styles.css';
 import Image from 'next/image';
 
@@ -18,6 +17,7 @@ interface PinnedSchedule {
   is_completed: boolean;
   date: string;
   pinned: boolean;
+  time?: string;
 }
 
 interface DiaryEntry {
@@ -50,7 +50,7 @@ export default function Calendar() {
         const diaryPromises = Array.from({ length: daysInMonth }, (_, i) => {
           const date = formatDate(currentDate.getFullYear(), currentDate.getMonth(), i + 1);
 
-          return fetch(`${API_URL}/api/diaries/?date=${date}`, {
+          return fetch(`${API_URL}${API_ENDPOINTS.DIARIES}/?date=${date}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -83,7 +83,7 @@ export default function Calendar() {
         const today = new Date();
         const dateStr = formatDate(today.getFullYear(), today.getMonth(), today.getDate());
 
-        const response = await fetch(`${API_URL}/api/schedules/?date=${dateStr}`, {
+        const response = await fetch(`${API_URL}${API_ENDPOINTS.SCHEDULES}/?date=${dateStr}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -105,7 +105,7 @@ export default function Calendar() {
     loadDiaryDates();
     loadPinnedSchedules();
   }, [currentDate]);
-
+  
   useEffect(() => {
     const imageInterval = setInterval(() => {
       setCurrentImage((prev) =>

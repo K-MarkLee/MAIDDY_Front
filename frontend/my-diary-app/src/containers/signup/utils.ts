@@ -1,3 +1,4 @@
+import { API_URL, API_ENDPOINTS } from './constants';
 import { SignUpFormData } from './types';
 
 export const validatePasswords = (password: string, password2: string): string => {
@@ -8,7 +9,7 @@ export const validatePasswords = (password: string, password2: string): string =
 };
 
 export const handleSignUp = async (formData: SignUpFormData) => {
-  const response = await fetch('http://43.200.166.176:8000/api/users/create/', {
+  const response = await fetch(`${API_URL}${API_ENDPOINTS.SIGNUP}/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

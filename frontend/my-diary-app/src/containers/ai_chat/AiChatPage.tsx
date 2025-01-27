@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Send } from 'lucide-react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { API_URL, API_ENDPOINTS } from '@/containers/ai_chat/constants'
 
 interface Message {
   id: number;
@@ -80,7 +81,7 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
       setMessages(prev => [...prev, userMessage])
       setNewMessage('')
 
-      const response = await fetch('http://43.200.166.176:8000/ai/chatbot/', {
+      const response = await fetch(`${API_URL}${API_ENDPOINTS.CHATBOT}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -188,8 +189,7 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'
-                    }`}
+                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <motion.div
                     initial={{ scale: 0.8 }}
