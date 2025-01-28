@@ -111,16 +111,16 @@
 }
 
 .calendar-day-today {
-  background-color: #ffd3f3; /* bg-blue-100 */
-  border-radius: 9999px; /* rounded-full */
-  font-weight: bold; /* font-bold */
-  color: #ffffff; /* text-blue-600 */
-  width: 2rem; /* 너비 증가 */
-  height: 2rem; /* 높이 증가 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.2rem; /* 패딩 증가 */
+  background-color: #ffd3f3 !important;
+  border-radius: 9999px !important;
+  font-weight: bold !important;
+  color: #ffffff !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1.2rem !important;
 }
 
 .diary-exists {

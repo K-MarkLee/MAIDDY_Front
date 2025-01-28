@@ -153,8 +153,16 @@ export default function Calendar() {
       isCurrentMonth && diaryDates.some((entry) => entry.date === formattedDate && entry.has_diary);
 
     return (
-      <div className={`h-full w-full ${isToday ? 'calendar-day-today text-pink-500 font-bold' : ''} ${hasDiary ? 'diary-exists' : ''}`}>
-        {date.getDate()}
+      // 여기서 텍스트 색상만 적용
+      <div className={`${isToday ? 'text-pink-500 font-bold' : ''}`}>
+        {/* 실제 달력 셀을 위한 div */}
+        <div className={`
+        h-full w-full 
+        ${isToday ? 'calendar-day-today' : ''} 
+        ${hasDiary ? 'diary-exists' : ''}
+      `}>
+          {date.getDate()}
+        </div>
       </div>
     );
   };
