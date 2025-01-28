@@ -143,6 +143,7 @@ export default function Calendar() {
   const renderCell = (date: Date, isCurrentMonth: boolean) => {
     const today = new Date();
     const isToday =
+      isCurrentMonth &&
       date.getDate() === today.getDate() &&
       date.getMonth() === today.getMonth() &&
       date.getFullYear() === today.getFullYear();
@@ -152,7 +153,7 @@ export default function Calendar() {
       isCurrentMonth && diaryDates.some((entry) => entry.date === formattedDate && entry.has_diary);
 
     return (
-      <div className={`h-full w-full ${isToday ? 'calendar-day-today' : ''} ${hasDiary ? 'diary-exists' : ''}`}>
+      <div className={`h-full w-full ${isToday ? 'calendar-day-today text-pink-500 font-bold' : ''} ${hasDiary ? 'diary-exists' : ''}`}>
         {date.getDate()}
       </div>
     );
