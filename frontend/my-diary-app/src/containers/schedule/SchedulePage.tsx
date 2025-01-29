@@ -59,7 +59,7 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
       const token = localStorage.getItem('accessToken');
       if (!token) return;
 
-      const response = await fetch(`${API_URL}${API_ENDPOINTS.DELETE}/${id}/`, {
+      const response = await fetch(`http://43.200.166.176:8000/api/schedules/delete/${id}/`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
         return;
       }
 
-      const response = await fetch(`${API_URL}${API_ENDPOINTS.CREATE}`, {
+      const response = await fetch('http://43.200.166.176:8000/api/schedules/create/', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

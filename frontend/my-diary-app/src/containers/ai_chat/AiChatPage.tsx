@@ -81,7 +81,7 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
       setMessages(prev => [...prev, userMessage])
       setNewMessage('')
 
-      const response = await fetch(`${API_URL}${API_ENDPOINTS.CHATBOT}`, {
+      const response = await fetch('http://43.200.166.176:8000/ai/chatbot/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

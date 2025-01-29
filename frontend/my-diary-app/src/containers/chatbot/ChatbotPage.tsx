@@ -27,7 +27,7 @@ export default function ChatbotPage() {
         const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]));
         const userId = tokenPayload.user_id;
 
-        const response = await fetch(`${API_URL}${API_ENDPOINTS.CHATBOT}`, {
+        const response = await fetch('http://43.200.166.176:8000/ai/recommend/', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${accessToken}`,

@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const API_URL = 'http://43.200.166.176:8000';
 export const API_ENDPOINTS = {
   LIST: '/api/schedules/',
   CREATE: '/api/schedules/create/',
