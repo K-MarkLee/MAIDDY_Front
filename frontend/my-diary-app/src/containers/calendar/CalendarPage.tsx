@@ -142,11 +142,10 @@ export default function Calendar() {
 
   const renderCell = (date: Date, isCurrentMonth: boolean) => {
     const today = new Date();
-    const isToday =
-      isCurrentMonth &&
-      date.getDate() === today.getDate() &&
-      date.getMonth() === today.getMonth() &&
-      date.getFullYear() === today.getFullYear();
+    const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const cellDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    const isToday = isCurrentMonth && todayDate.getTime() === cellDate.getTime();
 
     const formattedDate = formatDate(date.getFullYear(), date.getMonth(), date.getDate());
     const hasDiary =
