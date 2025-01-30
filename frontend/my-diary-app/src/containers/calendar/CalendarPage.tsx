@@ -143,9 +143,9 @@ export default function Calendar() {
   const renderCell = (date: Date, isCurrentMonth: boolean) => {
     const today = new Date();
     const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const cellDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
-    const isToday = isCurrentMonth && todayDate.getTime() === cellDate.getTime();
+  const cellDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  
+  const isToday = isCurrentMonth && todayDate.getTime() === cellDate.getTime();
 
     const formattedDate = formatDate(date.getFullYear(), date.getMonth(), date.getDate());
     const hasDiary =
@@ -154,6 +154,7 @@ export default function Calendar() {
     return (
       // 여기서 텍스트 색상만 적용
       <div className={`${isToday ? 'text-pink-500 font-bold' : ''}`}>
+        
         {/* 실제 달력 셀을 위한 div */}
         <div className={`
         h-full w-full 
