@@ -105,7 +105,7 @@ export default function Calendar() {
     loadDiaryDates();
     loadPinnedSchedules();
   }, [currentDate]);
-  
+
   useEffect(() => {
     const imageInterval = setInterval(() => {
       setCurrentImage((prev) =>
@@ -138,33 +138,6 @@ export default function Calendar() {
 
   const handleMaiddy = () => {
     router.push('/chatbot');
-  };
-
-  const renderCell = (date: Date, isCurrentMonth: boolean) => {
-    const today = new Date();
-    const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const cellDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  
-  const isToday = isCurrentMonth && todayDate.getTime() === cellDate.getTime();
-
-    const formattedDate = formatDate(date.getFullYear(), date.getMonth(), date.getDate());
-    const hasDiary =
-      isCurrentMonth && diaryDates.some((entry) => entry.date === formattedDate && entry.has_diary);
-
-    return (
-      // 여기서 텍스트 색상만 적용
-      <div className={`${isToday ? 'text-pink-500 font-bold' : ''}`}>
-        
-        {/* 실제 달력 셀을 위한 div */}
-        <div className={`
-        h-full w-full 
-        ${isToday ? 'calendar-day-today' : ''} 
-        ${hasDiary ? 'diary-exists' : ''}
-      `}>
-          {date.getDate()}
-        </div>
-      </div>
-    );
   };
 
   return (
@@ -315,29 +288,54 @@ export default function Calendar() {
                 {day}
               </div>
             ))}
-            {allDays.map((date, index) => (
-              <motion.div
-                key={`${date.isCurrentMonth ? 'current' : 'other'}-${date.day}-${index}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleDateClick(date.day, date.isCurrentMonth)}
-                className={`
-                calendar-day p-2 text-sm rounded-xl text-center cursor-pointer transition-all duration-300
-                ${date.isCurrentMonth ? 'hover:bg-violet-50/80' : 'text-gray-400'}
-                ${selectedDate === date.day && date.isCurrentMonth
-                    ? 'bg-violet-100/80 text-violet-600'
-                    : ''
-                  }
-              `}
-                style={date.isCurrentMonth ? { color: '#5C5C5C' } : {}}
-                data-highlighted={[].includes(date.day)}
-              >
-                {renderCell(
-                  new Date(currentDate.getFullYear(), currentDate.getMonth(), date.day),
-                  date.isCurrentMonth
-                )}
-              </motion.div>
-            ))}
+            {allDays.map((date, index) => {
+              const formattedDate = formatDate(
+                currentDate.getFullYear(),
+                currentDate.getMonth(),
+                date.day
+              );
+
+              const hasDiary = date.isCurrentMonth && diaryDates.some(
+                (entry) => entry.date === formattedDate && entry.has_diary
+              );
+
+              return (
+                <motion.div
+                  key={`${date.isCurrentMonth ? 'current' : 'other'}-${date.day}-${index}`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleDateClick(date.day, date.isCurrentMonth)}
+                  className={`
+                    calendar-day p-2 text-sm rounded-xl text-center cursor-pointer transition-all duration-300
+                    ${date.isCurrentMonth ? 'hover:bg-violet-50/80' : 'text-gray-400'}
+                    ${selectedDate === date.day && date.isCurrentMonth ? 'bg-violet-100/80 text-violet-600' : ''}
+                  `}
+                  style={date.isCurrentMonth ? { color: '#5C5C5C' } : {}}
+                >
+                  <div className={`${date.isCurrentMonth &&
+                      new Date().getDate() === date.day &&
+                      new Date().getMonth() === currentDate.getMonth() &&
+                      new Date().getFullYear() === currentDate.getFullYear()
+                      ? 'text-pink-500 font-bold'
+                      : ''
+                    }`}>
+                    <div className={`
+                      h-full w-full 
+                      ${date.isCurrentMonth &&
+                        new Date().getDate() === date.day &&
+                        new Date().getMonth() === currentDate.getMonth() &&
+                        new Date().getFullYear() === currentDate.getFullYear()
+                        ? 'calendar-day-today'
+                        : ''
+                      }
+                      ${hasDiary ? 'diary-exists' : ''}
+                    `}>
+                      {date.day}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
 
