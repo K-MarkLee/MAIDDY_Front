@@ -36,6 +36,9 @@ Next.js SSR/CSR 하이브리드 렌더링
 코드 스플리팅 > page, constants, css, type, utils로 파일 나눔
 
 모션 효과를 통한 로딩 UI 개선 
+
+
+캘린더 페이지 특징
 ------
 
 백엔드 api가 없는 캘린더페이지를 다른 페이지 api가지고 와서 설정 > 
