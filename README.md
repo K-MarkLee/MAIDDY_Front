@@ -16,17 +16,17 @@
 
 ```
 src/
-├── app/               # Next.js 14 App Router
+├── app/               # Next.js App Router
 ├── components/        # 재사용 가능한 컴포넌트
-├── containers/        # 페이지별 비즈니스 로직 컨테이너
-└── lib/              # 유틸리티 및 설정
+├── containers/        # 각 페이지별 로직 컨테이너
+└── lib/               # 유틸리티 및 설정
 ```
 ## Features
  - **코드 품질**
 
 ESLint를 통한 코드 스타일 통일
 
-TypeScript를 통한 타입 안정성 확보
+TypeScript를 통한 타입 관련 에러 즉시 확인 
 
 Husky를 통한 커밋 전 코드 검사
 
@@ -59,6 +59,3 @@ npm run build
 도커 실행
 
 docker-compose up --build
-
-
-
