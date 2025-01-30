@@ -27,7 +27,7 @@ interface DiaryEntry {
 
 export default function Calendar() {
   const router = useRouter();
-  const [currentDate, setCurrentDate] = useState(new Date(2025, 0, 1));
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [pinnedSchedules, setPinnedSchedules] = useState<PinnedSchedule[]>([]);
   const [currentImage, setCurrentImage] = useState('/Images/maiddy.png');
@@ -117,11 +117,11 @@ export default function Calendar() {
   }, []);
 
   const handlePrevMonth = () => {
-    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)));
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)));
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
 
   const handleDateClick = (day: number, isCurrentMonth: boolean) => {
@@ -313,11 +313,11 @@ export default function Calendar() {
                   style={date.isCurrentMonth ? { color: '#5C5C5C' } : {}}
                 >
                   <div className={`${date.isCurrentMonth &&
-                      new Date().getDate() === date.day &&
-                      new Date().getMonth() === currentDate.getMonth() &&
-                      new Date().getFullYear() === currentDate.getFullYear()
-                      ? 'text-pink-500 font-bold'
-                      : ''
+                    new Date().getDate() === date.day &&
+                    new Date().getMonth() === currentDate.getMonth() &&
+                    new Date().getFullYear() === currentDate.getFullYear()
+                    ? 'text-pink-500 font-bold'
+                    : ''
                     }`}>
                     <div className={`
                       h-full w-full 
