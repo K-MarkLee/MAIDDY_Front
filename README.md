@@ -25,9 +25,9 @@ src/
 
 ESLint를 통한 코드 스타일 통일
 
-TypeScript를 통한 타입 관련 에러 즉시 확인 
-
 Husky를 통한 커밋 전 코드 검사
+
+TypeScript를 통한 타입 관련 에러 즉시 확인 
 
 Next.js SSR/CSR 하이브리드 렌더링
 
@@ -70,6 +70,6 @@ npm run build
 
 ----
 
-도커 실행
+도커애서 실행
 
 docker-compose up --build
