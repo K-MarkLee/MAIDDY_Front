@@ -37,9 +37,10 @@ Next.js SSR/CSR 하이브리드 렌더링
 
 모션 효과를 통한 로딩 UI 개선 
 
+백엔드 api가 없는 캘린더페이지를 다른 페이지 api가지고 와서 설정 > result: 고정된 일정, 다이어리 쓴 달력 날짜 시각화 구현 > how: 스케줄 핀 데이터, 다이어리 데이터를 가지고 와서  
 
 ## 레퍼런스 
-
+폴더/파일 구조 레퍼런스
 https://miriya.net/blog/cliz752zc000lwb86y5gtxstu
 
 ## Getting Started
