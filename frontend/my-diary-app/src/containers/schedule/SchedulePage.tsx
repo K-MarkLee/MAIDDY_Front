@@ -9,7 +9,7 @@ import SharedLayout from '@/components/layout/SharedLayout';
 import TabNavigation from '@/components/TabNavigation';
 import PageTitle from '@/components/common/PageTitle';
 import { Schedule } from './types';
-import { fetchSchedules, handleDeleteSchedule, handleTogglePin } from './utils';
+import { fetchSchedules, handleDeleteSchedule, handleAddSchedule, handleTogglePin, handleUpdateSchedule } from './utils';
 import ScheduleCard from './ScheduleCard';
 import TimePicker from '@/components/TimePicker';
 
@@ -56,24 +56,9 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
 
   const handleDelete = async (id: number) => {
     try {
-      const token = localStorage.getItem('accessToken');
-      if (!token) return;
-
-      const response = await fetch(`http://43.200.166.176:8000/api/schedules/delete/${id}/`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        setSchedules((prevSchedules) => prevSchedules.filter((schedule) => schedule.id !== id));
-      } else {
-        throw new Error('일정 삭제에 실패했습니다');
-      }
+      await handleDeleteSchedule(id);
+      setSchedules((prevSchedules) => prevSchedules.filter((schedule) => schedule.id !== id));
     } catch (error) {
-      console.error('일정 삭제 실패:', error);
       alert('일정 삭제에 실패했습니다');
     }
   };
@@ -81,26 +66,7 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('accessToken');
-      if (!token) {
-        alert('로그인이 필요합니다');
-        window.location.href = '/login';
-        return;
-      }
-
-      const response = await fetch('http://43.200.166.176:8000/api/schedules/create/', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newSchedule),
-      });
-
-      if (!response.ok) {
-        throw new Error('일정 추가에 실패했습니다');
-      }
-
+      await handleAddSchedule(newSchedule);
       await loadSchedules();
       setNewSchedule({
         title: '',
@@ -110,23 +76,20 @@ const SchedulePage = ({ params }: SchedulePageProps) => {
       });
       setIsAddingSchedule(false);
     } catch (error) {
-      console.error('일정 추가 실패:', error);
       alert('일정 추가에 실패했습니다');
     }
   };
 
   const handleUpdate = async (id: number, updatedData: Partial<Schedule>) => {
     try {
-      const token = localStorage.getItem('accessToken');
-      if (!token) return;
-
+      const updated = await handleUpdateSchedule(id, updatedData);
       setSchedules((prevSchedules) =>
         prevSchedules.map((schedule) =>
-          schedule.id === id ? { ...schedule, ...updatedData } : schedule
+          schedule.id === id ? { ...schedule, ...updated } : schedule
         )
       );
     } catch (error) {
-      console.error('일정 업데이트 실패:', error);
+      alert('일정 업데이트에 실패했습니다');
     }
   };
 

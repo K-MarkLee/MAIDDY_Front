@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input"
 import { Send } from 'lucide-react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { API_URL, API_ENDPOINTS } from '@/containers/ai_chat/constants'
+import { API_ENDPOINTS } from '@/containers/ai_chat/constants'
+import apiClient from '@/lib/apiClient'
+import { getUserIdFromToken } from '@/lib/auth'
 
 interface Message {
   id: number;
@@ -61,14 +63,11 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
     e.preventDefault()
     if (!newMessage.trim() || isLoading) return
 
-    const accessToken = localStorage.getItem('accessToken')
-    if (!accessToken) {
-      console.error('액세스 토큰이 없습니다.')
+    const userId = getUserIdFromToken()
+    if (!userId) {
+      window.location.href = '/login'
       return
     }
-
-    const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]))
-    const userId = tokenPayload.user_id
 
     try {
       setIsLoading(true)
@@ -81,27 +80,10 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
       setMessages(prev => [...prev, userMessage])
       setNewMessage('')
 
-      const response = await fetch('http://43.200.166.176:8000/ai/chatbot/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          question: newMessage
-        })
+      const { data } = await apiClient.post(API_ENDPOINTS.CHATBOT, {
+        user_id: userId,
+        question: newMessage
       })
-
-      if (response.status === 403) {
-        throw new Error('인증에 실패했습니다. 다시 로그인해주세요.')
-      }
-
-      if (!response.ok) {
-        throw new Error(`AI 응답 실패: ${response.status}`)
-      }
-
-      const data = await response.json()
 
       const aiMessage: Message = {
         id: Date.now() + 1,
@@ -110,8 +92,7 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
         timestamp: new Date()
       }
       setMessages(prev => [...prev, aiMessage])
-    } catch (error) {
-      console.error('메시지 전송 실패:', error)
+    } catch {
       setMessages(prev => [...prev, {
         id: Date.now(),
         content: '메시지 전송에 실패했습니다. 다시 시도해주세요.',
@@ -167,9 +148,8 @@ export default function AiChatPage({ params }: { params: { date: string } }) {
             className="text-[#8b7ff9] font-bold text-2xl self-end mt-8"
           >
             <Image
-              className="signup-header flex justify-center"
               src="/Images/chat.png"
-              alt="Login Title"
+              alt="Chat Title"
               width={120}
               height={160}
               priority

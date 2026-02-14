@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Pin, Crown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SharedLayout from '@/components/layout/SharedLayout';
-import { DAY_NAMES, API_URL, API_ENDPOINTS } from './constants';
+import { DAY_NAMES, API_ENDPOINTS } from './constants';
 import { generateCalendarDays, formatDate } from './utils';
 import './styles.css';
 import Image from 'next/image';
+import apiClient from '@/lib/apiClient';
 
 interface PinnedSchedule {
   id: number;
@@ -21,8 +22,7 @@ interface PinnedSchedule {
 }
 
 interface DiaryEntry {
-  date: string;
-  has_diary: boolean;
+  select_date: string;
 }
 
 export default function Calendar() {
@@ -31,73 +31,46 @@ export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [pinnedSchedules, setPinnedSchedules] = useState<PinnedSchedule[]>([]);
   const [currentImage, setCurrentImage] = useState('/Images/maiddy.png');
-  const [diaryDates, setDiaryDates] = useState<DiaryEntry[]>([]);
+  const [diaryDates, setDiaryDates] = useState<Set<string>>(new Set());
 
   const allDays = generateCalendarDays(currentDate);
+
+  // 오늘 날짜 캐싱 (렌더링 루프에서 반복 생성 방지)
+  const today = useMemo(() => new Date(), []);
+  const isCurrentMonthView =
+    today.getMonth() === currentDate.getMonth() &&
+    today.getFullYear() === currentDate.getFullYear();
 
   useEffect(() => {
     const loadDiaryDates = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        if (!token) return;
+        // N+1 해결: 전체 일기 목록을 한 번에 가져와서 해당 월의 날짜만 필터링
+        const { data: diaries } = await apiClient.get('/api/diaries/');
 
-        const daysInMonth = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth() + 1,
-          0
-        ).getDate();
-
-        const diaryPromises = Array.from({ length: daysInMonth }, (_, i) => {
-          const date = formatDate(currentDate.getFullYear(), currentDate.getMonth(), i + 1);
-
-          return fetch(`${API_URL}${API_ENDPOINTS.DIARIES}/?date=${date}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-            .then((response) => {
-              if (response.status === 200) {
-                return { date, has_diary: true };
-              }
-              return { date, has_diary: false };
-            })
-            .catch(() => {
-              return { date, has_diary: false };
-            });
-        });
-
-        const results = await Promise.all(diaryPromises);
-        const diariesWithEntries = results.filter((result) => result.has_diary);
-        setDiaryDates(diariesWithEntries);
-      } catch (error) {
-        console.error('일기 데이터 로딩 실패:', error);
-        setDiaryDates([]);
+        const monthStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+        const datesWithDiary = new Set<string>(
+          diaries
+            .filter((d: DiaryEntry) => d.select_date?.startsWith(monthStr))
+            .map((d: DiaryEntry) => d.select_date)
+        );
+        setDiaryDates(datesWithDiary);
+      } catch {
+        setDiaryDates(new Set());
       }
     };
 
     const loadPinnedSchedules = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        if (!token) return;
+        const todayDate = new Date();
+        const dateStr = formatDate(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
 
-        const today = new Date();
-        const dateStr = formatDate(today.getFullYear(), today.getMonth(), today.getDate());
-
-        const response = await fetch(`${API_URL}${API_ENDPOINTS.SCHEDULES}/?date=${dateStr}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const { data } = await apiClient.get(`${API_ENDPOINTS.SCHEDULES}/`, {
+          params: { date: dateStr },
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch pinned schedules');
-        }
-
-        const data = await response.json();
         const pinnedOnly = data.filter((schedule: PinnedSchedule) => schedule.pinned === true);
         setPinnedSchedules(pinnedOnly);
-      } catch (error) {
-        console.error('핀 된 일정 로딩 실패:', error);
+      } catch {
         setPinnedSchedules([]);
       }
     };
@@ -185,7 +158,7 @@ export default function Calendar() {
             >
               <Image
                 src="/Images/calendar.png"
-                alt="Login Title"
+                alt="Calendar Title"
                 width={170}
                 height={160}
                 priority
@@ -295,9 +268,11 @@ export default function Calendar() {
                 date.day
               );
 
-              const hasDiary = date.isCurrentMonth && diaryDates.some(
-                (entry) => entry.date === formattedDate && entry.has_diary
-              );
+              const hasDiary = date.isCurrentMonth && diaryDates.has(formattedDate);
+              const isToday =
+                date.isCurrentMonth &&
+                isCurrentMonthView &&
+                today.getDate() === date.day;
 
               return (
                 <motion.div
@@ -312,22 +287,10 @@ export default function Calendar() {
                   `}
                   style={date.isCurrentMonth ? { color: '#5C5C5C' } : {}}
                 >
-                  <div className={`${date.isCurrentMonth &&
-                    new Date().getDate() === date.day &&
-                    new Date().getMonth() === currentDate.getMonth() &&
-                    new Date().getFullYear() === currentDate.getFullYear()
-                    ? 'text-pink-500 font-bold'
-                    : ''
-                    }`}>
+                  <div className={isToday ? 'text-pink-500 font-bold' : ''}>
                     <div className={`
                       h-full w-full 
-                      ${date.isCurrentMonth &&
-                        new Date().getDate() === date.day &&
-                        new Date().getMonth() === currentDate.getMonth() &&
-                        new Date().getFullYear() === currentDate.getFullYear()
-                        ? 'calendar-day-today'
-                        : ''
-                      }
+                      ${isToday ? 'calendar-day-today' : ''}
                       ${hasDiary ? 'diary-exists' : ''}
                     `}>
                       {date.day}

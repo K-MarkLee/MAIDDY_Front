@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Edit2, Save, X } from 'lucide-react';
-import { API_URL, API_ENDPOINTS } from './constants';
+import { Edit2 } from 'lucide-react';
+import { API_ENDPOINTS } from './constants';
+import apiClient from '@/lib/apiClient';
 
 export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,60 +33,32 @@ export default function ScheduleDetail({ schedule, onUpdate, onExpandedChange })
     if (!isExpanded) return;
 
     try {
-      const token = localStorage.getItem('accessToken');
-      if (!token) return;
-
-      const response = await fetch(`${API_URL}${API_ENDPOINTS.DETAIL}${schedule.id}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch schedule details');
-      }
-
-      const data = await response.json();
+      const { data } = await apiClient.get(`${API_ENDPOINTS.DETAIL}${schedule.id}/`);
       setDetailData(data);
-    } catch (error) {
-      console.error('Failed to load details:', error);
+    } catch {
+      // 상세 로딩 실패 시 무시
     }
   };
 
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem('accessToken');
-      if (!token) return;
-
-      const response = await fetch(`${API_URL}${API_ENDPOINTS.UPDATE}?id=${schedule.id}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const { data: updatedSchedule } = await apiClient.put(
+        `${API_ENDPOINTS.UPDATE}?id=${schedule.id}`,
+        {
           title: editedTitle,
           content: editedContent,
-        }),
-      });
-
-      const updatedSchedule = await response.json();
-
-      if (!response.ok) {
-        throw new Error(updatedSchedule.message || 'Failed to update schedule');
-      }
+        }
+      );
 
       onUpdate(schedule.id, updatedSchedule);
       setIsEditing(false);
       setIsExpanded(false);
       setDetailData(updatedSchedule);
     } catch (error) {
-      console.error('Failed to update schedule:', error);
       if (error instanceof Error) {
         alert(error.message);
       } else {
-        alert('Failed to update schedule');
+        alert('일정 업데이트에 실패했습니다');
       }
     }
   };

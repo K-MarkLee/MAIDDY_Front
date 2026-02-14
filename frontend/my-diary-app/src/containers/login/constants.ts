@@ -1,1 +1,4 @@
-export const API_URL = 'http://43.200.166.176:8000';
+export const API_ENDPOINTS = {
+  LOGIN: '/api/users/login/',
+  TOKEN_REFRESH: '/api/users/token/refresh/',
+};

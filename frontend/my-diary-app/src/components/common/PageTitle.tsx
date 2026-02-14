@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 
 interface PageTitleProps {
   date: string;
@@ -13,16 +12,6 @@ interface PageTitleProps {
 
 export default function PageTitle({ date, rightElement, dateClassName }: PageTitleProps) {
   const router = useRouter();
-  const [isFirstVisit, setIsFirstVisit] = useState(true);
-
-  useEffect(() => {
-    if (isFirstVisit) {
-      const timer = setTimeout(() => {
-        setIsFirstVisit(false);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [isFirstVisit]); // isFirstVisit 의존성 추가
 
   return (
     <motion.div

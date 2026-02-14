@@ -1,6 +1,6 @@
 // lib/apiClient.ts
 import axios from 'axios';
-import { getTokens, refreshAccessToken } from '@/lib/auth';
+import { getTokens, removeTokens, refreshAccessToken } from '@/lib/auth';
 
 let isRefreshing = false;
 let refreshSubscribers: ((token: string) => void)[] = [];
@@ -19,7 +19,7 @@ const subscribeTokenRefresh = (cb: (token: string) => void) => {
 
 // 토큰 갱신 후 대기 중인 요청들을 처리하는 함수
 const onTokenRefreshed = (token: string) => {
-  refreshSubscribers.map((cb) => cb(token));
+  refreshSubscribers.forEach((cb) => cb(token));
   refreshSubscribers = [];
 };
 
@@ -60,9 +60,7 @@ apiClient.interceptors.response.use(
         return axios(originalRequest);
       } catch (refreshError) {
         isRefreshing = false;
-        // 로그인 페이지로 리다이렉트하기 전에 모든 토큰 삭제
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        removeTokens();
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }

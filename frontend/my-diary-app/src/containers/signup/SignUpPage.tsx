@@ -33,8 +33,7 @@ export default function SignUpForm() {
     }
 
     try {
-      const data = await handleSignUp(formData);
-      console.log('회원가입 성공:', data);
+      await handleSignUp(formData);
       router.push('/login');
     } catch (err) {
       if (err instanceof Error) {
@@ -91,13 +90,12 @@ export default function SignUpForm() {
             </motion.div>
 
             <Image
-              className="signup-header flex justify-center"
               src="/Images/create.png"
-              alt="Login Title"
+              alt="Signup Title"
               width={310}
               height={310}
               priority
-              className="object-contain"
+              className="signup-header flex justify-center object-contain"
             />
           </motion.div>
 

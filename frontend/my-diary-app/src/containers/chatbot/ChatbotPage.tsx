@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import SharedLayout from '@/components/layout/SharedLayout';
-import { fetchInitialMessage } from './utils';
-import { API_URL, API_ENDPOINTS } from './constants';
+import { API_ENDPOINTS } from './constants';
 import './styles.css';
 import { Skeleton } from '@/components/ui/skeleton';
+import apiClient from '@/lib/apiClient';
+import { getUserIdFromToken } from '@/lib/auth';
 
 export default function ChatbotPage() {
   const router = useRouter();
@@ -16,46 +17,29 @@ export default function ChatbotPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadInitialMessage = async () => {
+    const loadRecommendations = async () => {
       try {
         setIsLoading(true);
-        const accessToken = localStorage.getItem('accessToken');
-        if (!accessToken) {
-          throw new Error('액세스 토큰이 없습니다.');
+        const userId = getUserIdFromToken();
+        if (!userId) {
+          window.location.href = '/login';
+          return;
         }
 
-        const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]));
-        const userId = tokenPayload.user_id;
-
-        const response = await fetch('http://43.200.166.176:8000/ai/recommend/', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ user_id: userId }),
+        const { data } = await apiClient.post(API_ENDPOINTS.RECOMMEND, {
+          user_id: userId,
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch recommendations');
-        }
-
-        const data = await response.json();
         const recommendationList = data.data.recommendation.split('\n');
         setRecommendations(recommendationList);
-
-        await fetchInitialMessage();
-      } catch (error) {
-        console.error('챗봇 로딩 실패:', error);
-        if (error instanceof Error && error.message.includes('token')) {
-          window.location.href = '/login';
-        }
+      } catch {
+        setRecommendations([]);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadInitialMessage();
+    loadRecommendations();
   }, []);
 
   const LoadingSkeleton = () => (

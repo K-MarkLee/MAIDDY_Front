@@ -1,4 +1,5 @@
-import { API_URL, API_ENDPOINTS } from './constants';
+import apiClient from '@/lib/apiClient';
+import { API_ENDPOINTS } from './constants';
 import { SignUpFormData } from './types';
 
 export const validatePasswords = (password: string, password2: string): string => {
@@ -9,22 +10,18 @@ export const validatePasswords = (password: string, password2: string): string =
 };
 
 export const handleSignUp = async (formData: SignUpFormData) => {
-  const response = await fetch('http://43.200.166.176:8000/api/users/create/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    const errorMessage =
-      typeof errorData === 'object'
-        ? Object.values(errorData).flat().join('\n')
-        : '회원가입에 실패했습니다.';
-    throw new Error(errorMessage);
+  try {
+    const { data } = await apiClient.post(API_ENDPOINTS.SIGNUP, formData);
+    return data;
+  } catch (error: any) {
+    if (error.response?.data) {
+      const errorData = error.response.data;
+      const errorMessage =
+        typeof errorData === 'object'
+          ? Object.values(errorData).flat().join('\n')
+          : '회원가입에 실패했습니다.';
+      throw new Error(errorMessage);
+    }
+    throw error;
   }
-
-  return await response.json();
 };

@@ -16,8 +16,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { API_URL } from './constants';
 import Image from 'next/image';
+import apiClient from '@/lib/apiClient';
+import { getTokens, removeTokens } from '@/lib/auth';
 
 export default function CustomSidebar() {
   const router = useRouter();
@@ -30,26 +31,18 @@ export default function CustomSidebar() {
   if (pathname === '/login' || pathname === '/signup') {
     return null;
   }
+
   const handleLogout = async () => {
     try {
-      const refreshToken = localStorage.getItem('refreshToken');
-      const response = await fetch(`${API_URL}/api/users/logout/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          refresh: refreshToken,
-        }),
+      const { refreshToken } = getTokens();
+      await apiClient.post('/api/users/logout/', {
+        refresh: refreshToken,
       });
-
-      if (response.ok) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        router.push('/login');
-      }
-    } catch (error) {
-      console.error('Logout error:', error);
+      removeTokens();
+      router.push('/login');
+    } catch {
+      removeTokens();
+      router.push('/login');
     }
   };
 
@@ -58,34 +51,16 @@ export default function CustomSidebar() {
       const password = prompt('계정 삭제를 위해 비밀번호를 입력해주세요:');
       if (!password) return;
 
-      const token = localStorage.getItem('accessToken');
-      if (!token) {
-        alert('로그인이 필요합니다.');
-        return;
-      }
-
-      const response = await fetch(`${API_URL}/api/users/delete/`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          password: password.trim(),
-        }),
+      const { data } = await apiClient.delete('/api/users/delete/', {
+        data: { password: password.trim() },
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.clear();
-        alert('회원 탈퇴가 완료되었습니다.');
-        router.push('/signup');
-      } else {
-        alert(data.error || '계정 삭제 실패');
-      }
-    } catch (error) {
-      console.error('Account deletion error:', error);
-      alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      removeTokens();
+      alert('회원 탈퇴가 완료되었습니다.');
+      router.push('/signup');
+    } catch (error: any) {
+      const errorMsg = error.response?.data?.error || '계정 삭제 실패';
+      alert(errorMsg);
     }
   };
 

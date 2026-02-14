@@ -41,7 +41,6 @@ const DiaryPage = ({ date }: { date: string }) => {
 
     try {
       setIsSaving(true);
-      console.log('Saving diary:', diaryData); // Debug log
       await saveDiary(diaryData);
       alert('저장되었습니다.');
     } catch (error) {
@@ -89,7 +88,7 @@ const DiaryPage = ({ date }: { date: string }) => {
               disabled={isSaving}
               className="bg-[#8b7ff9] text-white hover:bg-[#7a6ff8] rounded-xl disabled:opacity-50 pointer-events-auto"
             >
-              {isSaving ? 'Save' : 'Save'}
+              {isSaving ? '저장 중...' : 'Save'}
             </Button>
           }
         />
